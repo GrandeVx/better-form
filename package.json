@@ -1,0 +1,46 @@
+{
+  "name": "better-form-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "description": "JSON-driven wizard form generator for React",
+  "author": "GrandeVx",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "test": "turbo test",
+    "coverage": "turbo coverage",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "lint:types": "turbo lint:types",
+    "lint:package": "turbo lint:package",
+    "format": "biome format --write .",
+    "clean": "turbo clean && rm -rf node_modules .turbo",
+    "typecheck": "tsc --build",
+    "release": "turbo build && bumpp && pnpm -r publish --access public --no-git-checks",
+    "release:canary": "turbo build && bumpp --tag canary && pnpm -r publish --tag canary --no-git-checks"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.0.0",
+    "bumpp": "^10.0.0",
+    "publint": "^0.3.0",
+    "turbo": "^2.3.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0",
+    "@vitest/coverage-v8": "^2.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GrandeVx/better-form.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GrandeVx/better-form/issues"
+  },
+  "homepage": "https://github.com/GrandeVx/better-form#readme"
+}

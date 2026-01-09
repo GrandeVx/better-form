@@ -1,0 +1,127 @@
+{
+  "name": "better-form",
+  "version": "0.1.0",
+  "description": "JSON-driven wizard form generator for React with validation, conditional logic, and theming",
+  "author": "GrandeVx",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": ["**/*.css"],
+  "exports": {
+    ".": {
+      "dev-source": "./src/index.ts",
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "./components": {
+      "dev-source": "./src/components/index.ts",
+      "types": "./dist/components/index.d.mts",
+      "default": "./dist/components/index.mjs"
+    },
+    "./fields": {
+      "dev-source": "./src/fields/index.ts",
+      "types": "./dist/fields/index.d.mts",
+      "default": "./dist/fields/index.mjs"
+    },
+    "./hooks": {
+      "dev-source": "./src/hooks/index.ts",
+      "types": "./dist/hooks/index.d.mts",
+      "default": "./dist/hooks/index.mjs"
+    },
+    "./themes": {
+      "dev-source": "./src/themes/index.ts",
+      "types": "./dist/themes/index.d.mts",
+      "default": "./dist/themes/index.mjs"
+    },
+    "./validation": {
+      "dev-source": "./src/core/validation/index.ts",
+      "types": "./dist/core/validation/index.d.mts",
+      "default": "./dist/core/validation/index.mjs"
+    },
+    "./conditional-logic": {
+      "dev-source": "./src/core/conditional-logic/index.ts",
+      "types": "./dist/core/conditional-logic/index.d.mts",
+      "default": "./dist/core/conditional-logic/index.mjs"
+    },
+    "./types": {
+      "dev-source": "./src/types/index.ts",
+      "types": "./dist/types/index.d.mts",
+      "default": "./dist/types/index.mjs"
+    },
+    "./styles": "./src/styles/better-form.css",
+    "./styles/better-form.css": "./src/styles/better-form.css"
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["./dist/index.d.mts"],
+      "components": ["./dist/components/index.d.mts"],
+      "fields": ["./dist/fields/index.d.mts"],
+      "hooks": ["./dist/hooks/index.d.mts"],
+      "themes": ["./dist/themes/index.d.mts"],
+      "validation": ["./dist/core/validation/index.d.mts"],
+      "conditional-logic": ["./dist/core/conditional-logic/index.d.mts"],
+      "types": ["./dist/types/index.d.mts"]
+    }
+  },
+  "files": ["dist", "src/styles", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "lint:types": "tsc --noEmit",
+    "lint:package": "publint --strict",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "dependencies": {
+    "@radix-ui/react-checkbox": "^1.1.0",
+    "@radix-ui/react-dialog": "^1.1.0",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-popover": "^1.1.0",
+    "@radix-ui/react-radio-group": "^1.2.0",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-switch": "^1.0.0",
+    "@radix-ui/react-tooltip": "^1.1.0",
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.400.0",
+    "tailwind-merge": "^2.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "jsdom": "^26.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsdown": "^0.17.0"
+  },
+  "keywords": [
+    "react",
+    "wizard",
+    "form",
+    "multi-step",
+    "json-driven",
+    "validation",
+    "conditional-logic",
+    "theming",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GrandeVx/better-form.git",
+    "directory": "packages/better-form"
+  },
+  "bugs": {
+    "url": "https://github.com/GrandeVx/better-form/issues"
+  },
+  "homepage": "https://github.com/GrandeVx/better-form#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
