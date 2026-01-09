@@ -1,5 +1,9 @@
 # Better Form
 
+[![CI](https://github.com/GrandeVx/better-form/actions/workflows/ci.yml/badge.svg)](https://github.com/GrandeVx/better-form/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/better-form.svg)](https://www.npmjs.com/package/better-form)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A powerful, schema-driven form wizard library for React. Build complex multi-step forms with JSON configuration, conditional logic, validation, and theming support.
 
 ## Features
