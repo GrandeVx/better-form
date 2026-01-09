@@ -1,13 +1,21 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { WizardContainer, AutoStep } from 'better-form';
 import { demoWizardConfig } from '@/lib/demo-wizard.config';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import { useState } from 'react';
+
+// Dynamic import to avoid SSR issues with the wizard
+const WizardContainer = dynamic(() => import('better-form').then((mod) => mod.WizardContainer), {
+  ssr: false,
+  loading: () => <div className="p-8 text-center">Loading wizard...</div>,
+});
+
+const AutoStep = dynamic(() => import('better-form').then((mod) => mod.AutoStep), { ssr: false });
 
 export default function DemoPage() {
   const [submittedData, setSubmittedData] = useState<Record<string, unknown> | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [_isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (data: Record<string, unknown>) => {
     setIsSubmitting(true);
@@ -32,8 +40,18 @@ export default function DemoPage() {
           <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8">
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <svg
+                  className="w-8 h-8 text-green-600 dark:text-green-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
                 </svg>
               </div>
               <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
@@ -83,13 +101,16 @@ export default function DemoPage() {
             className="inline-flex items-center text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white mb-4"
           >
             <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
             Back to Home
           </Link>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
-            Interactive Demo
-          </h1>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Interactive Demo</h1>
           <p className="text-slate-600 dark:text-slate-300 mt-2">
             Try the better-form wizard with validation, conditional logic, and theming.
           </p>

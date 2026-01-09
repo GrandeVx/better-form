@@ -6,7 +6,7 @@
 'use client';
 
 import { useContext } from 'react';
-import { WizardContext, WizardContextType } from '../components/WizardProvider';
+import { WizardContext, type WizardContextType } from '../components/WizardProvider';
 
 /**
  * Hook to access wizard context

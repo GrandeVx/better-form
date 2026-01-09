@@ -3,7 +3,7 @@
  * Evaluates complex conditional logic to determine field visibility and state
  */
 
-import { ComparisonOperator, ConditionalLogic } from '../../types/wizard-schema';
+import type { ComparisonOperator, ConditionalLogic } from '../../types/wizard-schema';
 
 export class ConditionalLogicEvaluator {
   private formData: Record<string, unknown>;
@@ -97,8 +97,7 @@ export class ConditionalLogicEvaluator {
           fieldValue === undefined ||
           fieldValue === '' ||
           (Array.isArray(fieldValue) && fieldValue.length === 0) ||
-          (typeof fieldValue === 'object' &&
-            Object.keys(fieldValue as object).length === 0)
+          (typeof fieldValue === 'object' && Object.keys(fieldValue as object).length === 0)
         );
 
       case 'isNotEmpty':
@@ -127,11 +126,7 @@ export class ConditionalLogicEvaluator {
     }
 
     const fieldValue = this.getFieldValue(condition.field);
-    return this.evaluateComparison(
-      fieldValue,
-      condition.operator,
-      condition.value
-    );
+    return this.evaluateComparison(fieldValue, condition.operator, condition.value);
   }
 
   /**
@@ -170,10 +165,7 @@ export class ConditionalLogicEvaluator {
   /**
    * Check if a field should be visible
    */
-  public isFieldVisible(
-    showIf?: ConditionalLogic,
-    hideIf?: ConditionalLogic
-  ): boolean {
+  public isFieldVisible(showIf?: ConditionalLogic, hideIf?: ConditionalLogic): boolean {
     // If hideIf condition is true, hide the field
     if (hideIf && this.evaluate(hideIf)) {
       return false;
@@ -191,10 +183,7 @@ export class ConditionalLogicEvaluator {
   /**
    * Check if a field should be disabled
    */
-  public isFieldDisabled(
-    disabled: boolean | undefined,
-    disabledIf?: ConditionalLogic
-  ): boolean {
+  public isFieldDisabled(disabled: boolean | undefined, disabledIf?: ConditionalLogic): boolean {
     // If explicitly disabled
     if (disabled === true) {
       return true;
@@ -226,9 +215,7 @@ export class ConditionalLogicEvaluator {
   /**
    * Evaluate multiple conditions and return results
    */
-  public evaluateMultiple(
-    conditions: Record<string, ConditionalLogic>
-  ): Record<string, boolean> {
+  public evaluateMultiple(conditions: Record<string, ConditionalLogic>): Record<string, boolean> {
     const results: Record<string, boolean> = {};
 
     for (const [key, condition] of Object.entries(conditions)) {
@@ -243,11 +230,7 @@ export class ConditionalLogicEvaluator {
    */
   public explainEvaluation(logic: ConditionalLogic): string {
     const fieldValue = this.getFieldValue(logic.field);
-    const baseResult = this.evaluateComparison(
-      fieldValue,
-      logic.operator,
-      logic.value
-    );
+    const baseResult = this.evaluateComparison(fieldValue, logic.operator, logic.value);
 
     let explanation = `Field "${logic.field}" (value: ${JSON.stringify(fieldValue)}) `;
     explanation += `${logic.operator} ${JSON.stringify(logic.value)}: ${baseResult}`;

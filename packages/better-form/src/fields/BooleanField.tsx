@@ -5,16 +5,10 @@
 
 'use client';
 
-import React from 'react';
+import type React from 'react';
 import type { FieldComponentProps } from '../components/WizardField';
 
-export function BooleanField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function BooleanField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.checked);
   };
@@ -31,9 +25,7 @@ export function BooleanField({
         disabled={disabled}
         aria-invalid={!!error}
       />
-      <span className="better-form-boolean-label">
-        {field.checkboxLabel || field.label}
-      </span>
+      <span className="better-form-boolean-label">{field.checkboxLabel || field.label}</span>
     </label>
   );
 }
@@ -41,13 +33,7 @@ export function BooleanField({
 /**
  * SwitchField - Toggle switch for boolean values
  */
-export function SwitchField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function SwitchField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const handleClick = () => {
     if (!disabled) {
       onChange(!value);
@@ -88,13 +74,7 @@ export function SwitchField({
 /**
  * AcceptTermsField - Special boolean for terms acceptance
  */
-export function AcceptTermsField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function AcceptTermsField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   return (
     <label className={`better-form-accept-terms ${error ? 'error' : ''}`}>
       <input

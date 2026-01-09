@@ -8,13 +8,7 @@
 import React from 'react';
 import type { FieldComponentProps } from '../components/WizardField';
 
-export function TextField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function TextField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
@@ -88,12 +82,7 @@ export function PasswordField(props: FieldComponentProps) {
  * PhoneField - Phone number input
  */
 export function PhoneField(props: FieldComponentProps) {
-  return (
-    <TextField
-      {...props}
-      field={{ ...props.field, inputType: 'tel', autoComplete: 'tel' }}
-    />
-  );
+  return <TextField {...props} field={{ ...props.field, inputType: 'tel', autoComplete: 'tel' }} />;
 }
 
 /**

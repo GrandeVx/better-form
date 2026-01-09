@@ -17,11 +17,7 @@ export default defineConfig({
   clean: true,
   treeshake: true,
   unbundle: true,
-  external: [
-    'react',
-    'react-dom',
-    'react/jsx-runtime',
-  ],
+  external: ['react', 'react-dom', 'react/jsx-runtime'],
   esbuildOptions: {
     banner: {
       js: '"use client";',

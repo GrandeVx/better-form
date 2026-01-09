@@ -5,16 +5,10 @@
 
 'use client';
 
-import React from 'react';
+import type React from 'react';
 import type { FieldComponentProps } from '../components/WizardField';
 
-export function DateField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function DateField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value || null);
   };
@@ -52,13 +46,7 @@ export function DateField({
 /**
  * TimeField - Time input
  */
-export function TimeField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function TimeField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value || null);
   };
@@ -81,13 +69,7 @@ export function TimeField({
 /**
  * DateTimeField - Combined date and time input
  */
-export function DateTimeField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function DateTimeField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value || null);
   };
@@ -123,13 +105,7 @@ export function DateTimeField({
 /**
  * MonthField - Month/year input
  */
-export function MonthField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function MonthField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value || null);
   };
@@ -151,13 +127,7 @@ export function MonthField({
 /**
  * WeekField - Week input
  */
-export function WeekField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function WeekField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value || null);
   };
@@ -179,13 +149,7 @@ export function WeekField({
 /**
  * DateRangeField - Start and end date selection
  */
-export function DateRangeField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function DateRangeField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const rangeValue = (value as { start?: string; end?: string }) || {};
 
   const handleStartChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -199,9 +163,7 @@ export function DateRangeField({
   return (
     <div className={`better-form-daterange ${error ? 'error' : ''}`}>
       <div className="better-form-daterange-field">
-        <label htmlFor={`${field.id}-start`}>
-          {field.startLabel || 'Data inizio'}
-        </label>
+        <label htmlFor={`${field.id}-start`}>{field.startLabel || 'Data inizio'}</label>
         <input
           id={`${field.id}-start`}
           name={`${field.id}-start`}
@@ -215,9 +177,7 @@ export function DateRangeField({
       </div>
       <div className="better-form-daterange-separator">→</div>
       <div className="better-form-daterange-field">
-        <label htmlFor={`${field.id}-end`}>
-          {field.endLabel || 'Data fine'}
-        </label>
+        <label htmlFor={`${field.id}-end`}>{field.endLabel || 'Data fine'}</label>
         <input
           id={`${field.id}-end`}
           name={`${field.id}-end`}

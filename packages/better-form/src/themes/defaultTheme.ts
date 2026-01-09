@@ -3,7 +3,7 @@
  * A clean, neutral theme that works well out of the box
  */
 
-import { BetterFormTheme } from './types';
+import type { BetterFormTheme } from './types';
 
 export const defaultTheme: BetterFormTheme = {
   colors: {

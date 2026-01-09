@@ -8,13 +8,7 @@
 import React from 'react';
 import type { FieldComponentProps } from '../components/WizardField';
 
-export function SelectField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function SelectField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
     // Convert back to original type if needed
@@ -40,11 +34,7 @@ export function SelectField({
 
       {/* Options */}
       {field.options?.map((option) => (
-        <option
-          key={String(option.value)}
-          value={String(option.value)}
-          disabled={option.disabled}
-        >
+        <option key={String(option.value)} value={String(option.value)} disabled={option.disabled}>
           {option.label}
         </option>
       ))}
@@ -55,13 +45,7 @@ export function SelectField({
 /**
  * MultiSelectField - Multiple selection dropdown
  */
-export function MultiSelectField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function MultiSelectField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const selectedValues = Array.isArray(value) ? value : [];
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -89,11 +73,7 @@ export function MultiSelectField({
       aria-invalid={!!error}
     >
       {field.options?.map((option) => (
-        <option
-          key={String(option.value)}
-          value={String(option.value)}
-          disabled={option.disabled}
-        >
+        <option key={String(option.value)} value={String(option.value)} disabled={option.disabled}>
           {option.label}
         </option>
       ))}
@@ -151,9 +131,7 @@ export function SearchableSelectField({
   return (
     <div
       ref={wrapperRef}
-      className={`better-form-searchable-select ${isOpen ? 'open' : ''} ${
-        error ? 'error' : ''
-      }`}
+      className={`better-form-searchable-select ${isOpen ? 'open' : ''} ${error ? 'error' : ''}`}
     >
       <div
         className="better-form-searchable-select-trigger"
@@ -184,13 +162,10 @@ export function SearchableSelectField({
             placeholder="Cerca..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            autoFocus
           />
-          <ul className="better-form-searchable-select-options" role="listbox">
+          <ul className="better-form-searchable-select-options">
             {filteredOptions.length === 0 ? (
-              <li className="better-form-searchable-select-empty">
-                Nessun risultato
-              </li>
+              <li className="better-form-searchable-select-empty">Nessun risultato</li>
             ) : (
               filteredOptions.map((option) => (
                 <li
@@ -199,7 +174,6 @@ export function SearchableSelectField({
                     option.value === value ? 'selected' : ''
                   } ${option.disabled ? 'disabled' : ''}`}
                   onClick={() => !option.disabled && handleSelect(option.value)}
-                  role="option"
                   aria-selected={option.value === value}
                   aria-disabled={option.disabled}
                 >

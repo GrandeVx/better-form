@@ -4,12 +4,7 @@
  */
 
 import type { WizardConfig } from 'better-form';
-import {
-  commonValidations,
-  equals,
-  greaterThan,
-  andConditions,
-} from 'better-form';
+import { andConditions, commonValidations, equals, greaterThan } from 'better-form';
 
 export const demoWizardConfig: WizardConfig = {
   id: 'demo-wizard',
@@ -137,10 +132,7 @@ export const demoWizardConfig: WizardConfig = {
       id: 'additional-info',
       title: 'Additional Information',
       description: 'Almost there!',
-      showIf: andConditions(
-        equals('subscriptionType', 'pro'),
-        greaterThan('features.length', 2)
-      ),
+      showIf: andConditions(equals('subscriptionType', 'pro'), greaterThan('features.length', 2)),
       fieldGroups: [
         {
           id: 'company-group',

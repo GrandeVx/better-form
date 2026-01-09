@@ -8,13 +8,7 @@
 import React from 'react';
 import type { FieldComponentProps } from '../components/WizardField';
 
-export function NumberField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function NumberField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
 
@@ -25,11 +19,10 @@ export function NumberField({
     }
 
     // Parse the number
-    const numValue = field.step && field.step < 1
-      ? parseFloat(rawValue)
-      : parseInt(rawValue, 10);
+    const numValue =
+      field.step && field.step < 1 ? Number.parseFloat(rawValue) : Number.parseInt(rawValue, 10);
 
-    if (!isNaN(numValue)) {
+    if (!Number.isNaN(numValue)) {
       onChange(numValue);
     }
   };
@@ -56,20 +49,14 @@ export function NumberField({
 /**
  * RangeField - Slider/range input
  */
-export function RangeField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function RangeField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const min = field.min ?? 0;
   const max = field.max ?? 100;
   const step = field.step ?? 1;
   const currentValue = (value as number) ?? min;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(parseFloat(e.target.value));
+    onChange(Number.parseFloat(e.target.value));
   };
 
   // Calculate percentage for styling
@@ -107,13 +94,7 @@ export function RangeField({
 /**
  * CurrencyField - Number input with currency formatting
  */
-export function CurrencyField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function CurrencyField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const [displayValue, setDisplayValue] = React.useState('');
   const currency = field.currency || 'EUR';
   const locale = field.locale || 'it-IT';
@@ -140,8 +121,8 @@ export function CurrencyField({
       return;
     }
 
-    const numValue = parseFloat(rawValue);
-    if (!isNaN(numValue)) {
+    const numValue = Number.parseFloat(rawValue);
+    if (!Number.isNaN(numValue)) {
       onChange(numValue);
     }
   };
@@ -181,13 +162,7 @@ export function CurrencyField({
 /**
  * PercentageField - Number input for percentages
  */
-export function PercentageField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function PercentageField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
 
@@ -196,8 +171,8 @@ export function PercentageField({
       return;
     }
 
-    const numValue = parseFloat(rawValue);
-    if (!isNaN(numValue)) {
+    const numValue = Number.parseFloat(rawValue);
+    if (!Number.isNaN(numValue)) {
       // Clamp between 0 and 100
       const clampedValue = Math.min(100, Math.max(0, numValue));
       onChange(clampedValue);

@@ -5,9 +5,9 @@
 
 'use client';
 
-import React from 'react';
-import { WizardProvider, WizardProviderProps } from './WizardProvider';
+import type React from 'react';
 import { useWizard } from '../hooks/useWizard';
+import { WizardProvider, type WizardProviderProps } from './WizardProvider';
 
 export interface WizardContainerProps extends WizardProviderProps {
   /** Custom class name for the container */
@@ -42,8 +42,7 @@ function WizardContainerContent({
   header,
   footer,
 }: Omit<WizardContainerProps, keyof WizardProviderProps>) {
-  const { theme, currentStepIndex, visibleSteps, config, state, blockingDialog } =
-    useWizard();
+  const { theme, currentStepIndex, visibleSteps, config, state, blockingDialog } = useWizard();
 
   const currentStep = visibleSteps[currentStepIndex];
 
@@ -101,9 +100,7 @@ function WizardContainerContent({
       {/* Current Step Title & Description */}
       {currentStep && (
         <div className="better-form-step-header">
-          {currentStep.title && (
-            <h2 className="better-form-step-title">{currentStep.title}</h2>
-          )}
+          {currentStep.title && <h2 className="better-form-step-title">{currentStep.title}</h2>}
           {currentStep.description && (
             <p className="better-form-step-description">{currentStep.description}</p>
           )}
@@ -115,9 +112,7 @@ function WizardContainerContent({
 
       {/* Navigation */}
       {showNavigation && (
-        <div className="better-form-navigation">
-          {navigation || <DefaultNavigation />}
-        </div>
+        <div className="better-form-navigation">{navigation || <DefaultNavigation />}</div>
       )}
 
       {/* Footer */}
@@ -157,9 +152,7 @@ function DefaultStepIndicator() {
             aria-current={isActive ? 'step' : undefined}
           >
             <span className="better-form-step-number">{index + 1}</span>
-            {step.title && (
-              <span className="better-form-step-label">{step.title}</span>
-            )}
+            {step.title && <span className="better-form-step-label">{step.title}</span>}
           </button>
         );
       })}

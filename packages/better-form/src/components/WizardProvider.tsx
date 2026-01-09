@@ -5,22 +5,22 @@
 
 'use client';
 
-import React, {
+import {
+  type ComponentType,
+  type ReactNode,
   createContext,
-  ReactNode,
   useCallback,
   useEffect,
   useMemo,
   useReducer,
   useState,
-  ComponentType,
 } from 'react';
 
 import { ConditionalLogicEvaluator } from '../core/conditional-logic/ConditionalLogicEvaluator';
 import { WizardValidator } from '../core/validation/WizardValidator';
-import { BetterFormTheme } from '../themes/types';
 import { defaultTheme } from '../themes/defaultTheme';
-import {
+import type { BetterFormTheme } from '../themes/types';
+import type {
   BlockingDialogProps,
   FieldComponentProps,
   StorageAdapter,
@@ -112,20 +112,15 @@ function wizardReducer(state: WizardState, action: WizardAction): WizardState {
         currentStepIndex: action.payload,
       };
 
-    case 'NEXT_STEP':
-      const nextIndex = Math.min(
-        state.currentStepIndex + 1,
-        state.config.steps.length - 1
-      );
+    case 'NEXT_STEP': {
+      const nextIndex = Math.min(state.currentStepIndex + 1, state.config.steps.length - 1);
       const currentStepId = state.config.steps[state.currentStepIndex]?.id;
       return {
         ...state,
         currentStepIndex: nextIndex,
-        completedSteps: new Set([
-          ...Array.from(state.completedSteps),
-          currentStepId,
-        ]),
+        completedSteps: new Set([...Array.from(state.completedSteps), currentStepId]),
       } as WizardState;
+    }
 
     case 'PREVIOUS_STEP':
       return {
@@ -142,13 +137,14 @@ function wizardReducer(state: WizardState, action: WizardAction): WizardState {
         },
       };
 
-    case 'CLEAR_ERROR':
+    case 'CLEAR_ERROR': {
       const newErrors = { ...state.errors };
       delete newErrors[action.payload];
       return {
         ...state,
         errors: newErrors,
       };
+    }
 
     case 'SET_TOUCHED':
       return {
@@ -162,10 +158,7 @@ function wizardReducer(state: WizardState, action: WizardAction): WizardState {
     case 'MARK_STEP_COMPLETE':
       return {
         ...state,
-        completedSteps: new Set([
-          ...Array.from(state.completedSteps),
-          action.payload,
-        ]),
+        completedSteps: new Set([...Array.from(state.completedSteps), action.payload]),
       };
 
     case 'SET_LOADING':
@@ -251,10 +244,7 @@ export function WizardProvider({
   const [blockingReason, setBlockingReason] = useState('');
 
   // Create evaluator and validator instances
-  const evaluator = useMemo(
-    () => new ConditionalLogicEvaluator(state.formData),
-    [state.formData]
-  );
+  const evaluator = useMemo(() => new ConditionalLogicEvaluator(state.formData), [state.formData]);
 
   const validator = useMemo(
     () => new WizardValidator(config, state.formData),
@@ -435,8 +425,7 @@ export function WizardProvider({
           dispatch({ type: 'SET_MULTIPLE_VALUES', payload: valuesToSet });
         }
       } catch (error) {
-        const errorMessage =
-          error instanceof Error ? error.message : 'Error saving data';
+        const errorMessage = error instanceof Error ? error.message : 'Error saving data';
         onNotify?.(errorMessage, 'error');
         dispatch({ type: 'SET_LOADING', payload: false });
         return false;
@@ -461,10 +450,7 @@ export function WizardProvider({
     // Check canProceed function
     if (currentStep?.canProceed) {
       const canProceedResult = currentStep.canProceed(state.formData);
-      if (
-        typeof canProceedResult === 'string' &&
-        canProceedResult !== ''
-      ) {
+      if (typeof canProceedResult === 'string' && canProceedResult !== '') {
         // Check for blocking dialog trigger
         if (canProceedResult.startsWith('BLOCK:')) {
           setBlockingReason(canProceedResult.substring(6));
@@ -476,7 +462,8 @@ export function WizardProvider({
           payload: { field: '_step', message: canProceedResult },
         });
         return false;
-      } else if (canProceedResult === false) {
+      }
+      if (canProceedResult === false) {
         return false;
       }
     }
@@ -566,10 +553,7 @@ export function WizardProvider({
           message: error instanceof Error ? error.message : 'Submission error',
         },
       });
-      onNotify?.(
-        error instanceof Error ? error.message : 'Submission error',
-        'error'
-      );
+      onNotify?.(error instanceof Error ? error.message : 'Submission error', 'error');
     } finally {
       dispatch({ type: 'SET_SUBMITTING', payload: false });
     }
@@ -590,10 +574,7 @@ export function WizardProvider({
     (field: string): unknown => {
       return field
         .split('.')
-        .reduce(
-          (obj, key) => (obj as Record<string, unknown>)?.[key],
-          state.formData
-        );
+        .reduce((obj, key) => (obj as Record<string, unknown>)?.[key], state.formData);
     },
     [state.formData]
   );
@@ -646,9 +627,7 @@ export function WizardProvider({
   }, [config.steps, isStepVisible]);
 
   const visibleCurrentStepIndex = useMemo(() => {
-    return visibleSteps.findIndex(
-      (vs) => vs.originalIndex === state.currentStepIndex
-    );
+    return visibleSteps.findIndex((vs) => vs.originalIndex === state.currentStepIndex);
   }, [visibleSteps, state.currentStepIndex]);
 
   const isFirstStep = findPreviousVisibleStepIndex(state.currentStepIndex) === -1;
@@ -715,18 +694,18 @@ export function WizardProvider({
   return (
     <WizardContext.Provider value={contextValue}>
       {children}
-      {showBlockingDialog && renderBlockingDialog && (
+      {showBlockingDialog &&
+        renderBlockingDialog &&
         renderBlockingDialog({
           open: showBlockingDialog,
           onClose: () => setShowBlockingDialog(false),
-          onConfirm: async (data) => {
+          onConfirm: async (_data) => {
             setShowBlockingDialog(false);
             // Handle confirm action
           },
           blockingReason,
           formData: state.formData,
-        })
-      )}
+        })}
     </WizardContext.Provider>
   );
 }

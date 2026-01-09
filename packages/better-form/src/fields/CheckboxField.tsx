@@ -4,17 +4,9 @@
  */
 
 'use client';
-
-import React from 'react';
 import type { FieldComponentProps } from '../components/WizardField';
 
-export function CheckboxField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function CheckboxField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const selectedValues = Array.isArray(value) ? value : [];
 
   const handleChange = (optionValue: unknown, checked: boolean) => {
@@ -29,7 +21,7 @@ export function CheckboxField({
 
   // Check min/max selections
   const minSelections = field.minSelections || 0;
-  const maxSelections = field.maxSelections || Infinity;
+  const maxSelections = field.maxSelections || Number.POSITIVE_INFINITY;
   const canSelectMore = selectedValues.length < maxSelections;
 
   return (
@@ -40,8 +32,7 @@ export function CheckboxField({
     >
       {field.options?.map((option) => {
         const isChecked = selectedValues.includes(option.value);
-        const isDisabled =
-          disabled || option.disabled || (!isChecked && !canSelectMore);
+        const isDisabled = disabled || option.disabled || (!isChecked && !canSelectMore);
 
         return (
           <label
@@ -63,19 +54,17 @@ export function CheckboxField({
             <span className="better-form-checkbox-label">
               {option.label}
               {option.description && (
-                <span className="better-form-checkbox-description">
-                  {option.description}
-                </span>
+                <span className="better-form-checkbox-description">{option.description}</span>
               )}
             </span>
           </label>
         );
       })}
       {/* Selection counter */}
-      {(minSelections > 0 || maxSelections < Infinity) && (
+      {(minSelections > 0 || maxSelections < Number.POSITIVE_INFINITY) && (
         <div className="better-form-checkbox-counter">
           Selezionati: {selectedValues.length}
-          {maxSelections < Infinity && ` / ${maxSelections}`}
+          {maxSelections < Number.POSITIVE_INFINITY && ` / ${maxSelections}`}
           {minSelections > 0 && ` (minimo ${minSelections})`}
         </div>
       )}
@@ -94,7 +83,7 @@ export function CheckboxCardsField({
   disabled,
 }: FieldComponentProps) {
   const selectedValues = Array.isArray(value) ? value : [];
-  const maxSelections = field.maxSelections || Infinity;
+  const maxSelections = field.maxSelections || Number.POSITIVE_INFINITY;
   const canSelectMore = selectedValues.length < maxSelections;
 
   const handleToggle = (optionValue: unknown) => {
@@ -118,8 +107,7 @@ export function CheckboxCardsField({
     >
       {field.options?.map((option) => {
         const isSelected = selectedValues.includes(option.value);
-        const isDisabled =
-          disabled || option.disabled || (!isSelected && !canSelectMore);
+        const isDisabled = disabled || option.disabled || (!isSelected && !canSelectMore);
 
         return (
           <div
@@ -139,20 +127,14 @@ export function CheckboxCardsField({
             aria-disabled={isDisabled}
             tabIndex={isDisabled ? -1 : 0}
           >
-            {option.icon && (
-              <div className="better-form-checkbox-card-icon">{option.icon}</div>
-            )}
+            {option.icon && <div className="better-form-checkbox-card-icon">{option.icon}</div>}
             <div className="better-form-checkbox-card-content">
               <div className="better-form-checkbox-card-label">{option.label}</div>
               {option.description && (
-                <div className="better-form-checkbox-card-description">
-                  {option.description}
-                </div>
+                <div className="better-form-checkbox-card-description">{option.description}</div>
               )}
             </div>
-            <div className="better-form-checkbox-card-check">
-              {isSelected && '✓'}
-            </div>
+            <div className="better-form-checkbox-card-check">{isSelected && '✓'}</div>
           </div>
         );
       })}
@@ -163,15 +145,9 @@ export function CheckboxCardsField({
 /**
  * ChipsField - Multi-select displayed as chips/tags
  */
-export function ChipsField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function ChipsField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const selectedValues = Array.isArray(value) ? value : [];
-  const maxSelections = field.maxSelections || Infinity;
+  const maxSelections = field.maxSelections || Number.POSITIVE_INFINITY;
   const canSelectMore = selectedValues.length < maxSelections;
 
   const handleToggle = (optionValue: unknown) => {
@@ -187,8 +163,7 @@ export function ChipsField({
     <div className={`better-form-chips ${error ? 'error' : ''}`} role="group">
       {field.options?.map((option) => {
         const isSelected = selectedValues.includes(option.value);
-        const isDisabled =
-          disabled || option.disabled || (!isSelected && !canSelectMore);
+        const isDisabled = disabled || option.disabled || (!isSelected && !canSelectMore);
 
         return (
           <button

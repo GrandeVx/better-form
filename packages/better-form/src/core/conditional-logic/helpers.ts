@@ -3,7 +3,7 @@
  * Helper functions to create conditional logic objects
  */
 
-import { ComparisonOperator, ConditionalLogic } from '../../types/wizard-schema';
+import type { ComparisonOperator, ConditionalLogic } from '../../types/wizard-schema';
 
 /**
  * Create a simple condition
@@ -33,9 +33,7 @@ export function createCondition(
  * )
  * ```
  */
-export function andConditions(
-  ...conditions: ConditionalLogic[]
-): ConditionalLogic {
+export function andConditions(...conditions: ConditionalLogic[]): ConditionalLogic {
   if (conditions.length === 0) {
     throw new Error('At least one condition is required');
   }
@@ -58,9 +56,7 @@ export function andConditions(
  * )
  * ```
  */
-export function orConditions(
-  ...conditions: ConditionalLogic[]
-): ConditionalLogic {
+export function orConditions(...conditions: ConditionalLogic[]): ConditionalLogic {
   if (conditions.length === 0) {
     throw new Error('At least one condition is required');
   }
@@ -141,20 +137,14 @@ export function lessThan(field: string, value: number): ConditionalLogic {
 /**
  * Create a "greater than or equals" condition
  */
-export function greaterThanOrEquals(
-  field: string,
-  value: number
-): ConditionalLogic {
+export function greaterThanOrEquals(field: string, value: number): ConditionalLogic {
   return createCondition(field, 'greaterThanOrEquals', value);
 }
 
 /**
  * Create a "less than or equals" condition
  */
-export function lessThanOrEquals(
-  field: string,
-  value: number
-): ConditionalLogic {
+export function lessThanOrEquals(field: string, value: number): ConditionalLogic {
   return createCondition(field, 'lessThanOrEquals', value);
 }
 
@@ -203,15 +193,8 @@ export function isFalsy(field: string): ConditionalLogic {
 /**
  * Create a "between" condition (inclusive)
  */
-export function between(
-  field: string,
-  min: number,
-  max: number
-): ConditionalLogic {
-  return andConditions(
-    greaterThanOrEquals(field, min),
-    lessThanOrEquals(field, max)
-  );
+export function between(field: string, min: number, max: number): ConditionalLogic {
+  return andConditions(greaterThanOrEquals(field, min), lessThanOrEquals(field, max));
 }
 
 /**

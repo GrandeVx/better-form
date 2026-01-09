@@ -5,7 +5,8 @@
 
 'use client';
 
-import React, { useRef, useState, useCallback } from 'react';
+import type React from 'react';
+import { useCallback, useRef, useState } from 'react';
 import type { FieldComponentProps } from '../components/WizardField';
 
 export interface FileInfo {
@@ -17,13 +18,7 @@ export interface FileInfo {
   preview?: string;
 }
 
-export function FileUploadField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function FileUploadField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -174,7 +169,6 @@ export function FileUploadField({
         multiple={multiple}
         onChange={handleInputChange}
         disabled={disabled}
-        aria-hidden="true"
       />
 
       {/* Drop zone */}
@@ -212,9 +206,7 @@ export function FileUploadField({
       </div>
 
       {/* Upload error */}
-      {uploadError && (
-        <div className="better-form-file-error">{uploadError}</div>
-      )}
+      {uploadError && <div className="better-form-file-error">{uploadError}</div>}
 
       {/* File list */}
       {files.length > 0 && (
@@ -230,9 +222,7 @@ export function FileUploadField({
               )}
               <div className="better-form-file-info">
                 <div className="better-form-file-name">{fileInfo.name}</div>
-                <div className="better-form-file-size">
-                  {formatFileSize(fileInfo.size)}
-                </div>
+                <div className="better-form-file-size">{formatFileSize(fileInfo.size)}</div>
               </div>
               <button
                 type="button"
@@ -256,12 +246,7 @@ export function FileUploadField({
  */
 export function ImageUploadField(props: FieldComponentProps) {
   const imageAccept = props.field.accept || 'image/*';
-  return (
-    <FileUploadField
-      {...props}
-      field={{ ...props.field, accept: imageAccept }}
-    />
-  );
+  return <FileUploadField {...props} field={{ ...props.field, accept: imageAccept }} />;
 }
 
 /**
@@ -269,11 +254,8 @@ export function ImageUploadField(props: FieldComponentProps) {
  */
 export function DocumentUploadField(props: FieldComponentProps) {
   const docAccept =
-    props.field.accept ||
-    '.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.rtf,.odt,.ods,.odp';
-  return (
-    <FileUploadField {...props} field={{ ...props.field, accept: docAccept }} />
-  );
+    props.field.accept || '.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.rtf,.odt,.ods,.odp';
+  return <FileUploadField {...props} field={{ ...props.field, accept: docAccept }} />;
 }
 
 /**
@@ -284,7 +266,7 @@ function formatFileSize(bytes: number): string {
   const k = 1024;
   const sizes = ['Bytes', 'KB', 'MB', 'GB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  return `${Number.parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
 }
 
 export default FileUploadField;

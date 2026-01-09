@@ -3,7 +3,7 @@
  * JSON-driven wizard form schema types
  */
 
-import { ComponentType, ReactNode } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 
 // ============================================
 // Conditional Logic Types
@@ -157,18 +157,18 @@ export interface WizardField {
   onChange?: (
     value: unknown,
     formData: Record<string, unknown>
-  ) => void | Record<string, unknown> | Promise<void | Record<string, unknown>>;
+  ) => undefined | Record<string, unknown> | Promise<undefined | Record<string, unknown>>;
 
   // Address field specific
   onAddressSelected?: (
     addressData: AddressData,
     formData: Record<string, unknown>
-  ) => void | Record<string, unknown> | Promise<void | Record<string, unknown>>;
+  ) => undefined | Record<string, unknown> | Promise<undefined | Record<string, unknown>>;
   showDetailFields?: boolean;
   onAddressDetailChange?: (
     addressData: AddressData,
     formData: Record<string, unknown>
-  ) => void | Record<string, unknown> | Promise<void | Record<string, unknown>>;
+  ) => undefined | Record<string, unknown> | Promise<undefined | Record<string, unknown>>;
 
   // Custom field rendering
   customComponent?: ComponentType<FieldComponentProps>;
@@ -211,10 +211,10 @@ export interface WizardStep {
   // Lifecycle hooks
   onEnter?: (
     formData: Record<string, unknown>
-  ) => void | Record<string, unknown> | Promise<void | Record<string, unknown>>;
+  ) => undefined | Record<string, unknown> | Promise<undefined | Record<string, unknown>>;
   onExit?: (
     formData: Record<string, unknown>
-  ) => void | Record<string, unknown> | Promise<void | Record<string, unknown>>;
+  ) => undefined | Record<string, unknown> | Promise<undefined | Record<string, unknown>>;
 
   // Step validation
   canProceed?: (formData: Record<string, unknown>) => boolean | string;

@@ -88,76 +88,70 @@ export function WizardNavigation({
   return (
     <div className={`better-form-navigation ${className || ''}`} style={style}>
       {/* Previous Button */}
-      {!hidePrev && (
-        <>
-          {renderPrev ? (
-            renderPrev({
-              ...buttonProps,
-              onClick: previousStep,
-              disabled: isFirstStep || isSubmitting,
-            })
-          ) : (
-            <button
-              type="button"
-              className="better-form-btn better-form-btn-secondary"
-              onClick={previousStep}
-              disabled={isFirstStep || isSubmitting}
-            >
-              {prevText}
-            </button>
-          )}
-        </>
-      )}
+      {!hidePrev &&
+        (renderPrev ? (
+          renderPrev({
+            ...buttonProps,
+            onClick: previousStep,
+            disabled: isFirstStep || isSubmitting,
+          })
+        ) : (
+          <button
+            type="button"
+            className="better-form-btn better-form-btn-secondary"
+            onClick={previousStep}
+            disabled={isFirstStep || isSubmitting}
+          >
+            {prevText}
+          </button>
+        ))}
 
       {/* Custom content between buttons */}
       {children}
 
       {/* Next/Submit Button */}
-      {!hideNext && (
-        <>
-          {isLastStep ? (
-            // Submit Button
-            <>
-              {renderSubmit ? (
-                renderSubmit({
-                  ...buttonProps,
-                  onClick: submit,
-                  disabled: !canGoNext || isSubmitting,
-                })
-              ) : (
-                <button
-                  type="button"
-                  className="better-form-btn better-form-btn-primary"
-                  onClick={submit}
-                  disabled={!canGoNext || isSubmitting}
-                >
-                  {isSubmitting ? submittingText : submitText}
-                </button>
-              )}
-            </>
-          ) : (
-            // Next Button
-            <>
-              {renderNext ? (
-                renderNext({
-                  ...buttonProps,
-                  onClick: nextStep,
-                  disabled: !canGoNext,
-                })
-              ) : (
-                <button
-                  type="button"
-                  className="better-form-btn better-form-btn-primary"
-                  onClick={nextStep}
-                  disabled={!canGoNext}
-                >
-                  {nextText}
-                </button>
-              )}
-            </>
-          )}
-        </>
-      )}
+      {!hideNext &&
+        (isLastStep ? (
+          // Submit Button
+          <>
+            {renderSubmit ? (
+              renderSubmit({
+                ...buttonProps,
+                onClick: submit,
+                disabled: !canGoNext || isSubmitting,
+              })
+            ) : (
+              <button
+                type="button"
+                className="better-form-btn better-form-btn-primary"
+                onClick={submit}
+                disabled={!canGoNext || isSubmitting}
+              >
+                {isSubmitting ? submittingText : submitText}
+              </button>
+            )}
+          </>
+        ) : (
+          // Next Button
+          <>
+            {renderNext ? (
+              renderNext({
+                ...buttonProps,
+                onClick: nextStep,
+                disabled: !canGoNext,
+              })
+            ) : (
+              <button
+                type="button"
+                className="better-form-btn better-form-btn-primary"
+                onClick={nextStep}
+                disabled={!canGoNext}
+              >
+                {nextText}
+              </button>
+            )}
+          </>
+        ))}
     </div>
   );
 }
@@ -233,9 +227,7 @@ export function StepIndicator({
               aria-current={isActive ? 'step' : undefined}
             >
               {showNumbers && (
-                <span className="better-form-step-number">
-                  {isCompleted ? '✓' : index + 1}
-                </span>
+                <span className="better-form-step-number">{isCompleted ? '✓' : index + 1}</span>
               )}
               {showLabels && step.title && (
                 <span className="better-form-step-label">{step.title}</span>
@@ -275,10 +267,7 @@ export function ProgressBar({
   return (
     <div className={`better-form-progress ${className || ''}`} style={style}>
       <div className="better-form-progress-bar">
-        <div
-          className="better-form-progress-fill"
-          style={{ width: `${progress}%` }}
-        />
+        <div className="better-form-progress-fill" style={{ width: `${progress}%` }} />
       </div>
       <div className="better-form-progress-text">
         {showStepText && (
@@ -326,17 +315,13 @@ export function SaveIndicator({
 
   if (state.isSubmitting) {
     return (
-      <span className={`better-form-save-indicator saving ${className || ''}`}>
-        {savingText}
-      </span>
+      <span className={`better-form-save-indicator saving ${className || ''}`}>{savingText}</span>
     );
   }
 
   if (showSaved) {
     return (
-      <span className={`better-form-save-indicator saved ${className || ''}`}>
-        {savedText}
-      </span>
+      <span className={`better-form-save-indicator saved ${className || ''}`}>{savedText}</span>
     );
   }
 

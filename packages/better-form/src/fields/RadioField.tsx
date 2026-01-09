@@ -4,17 +4,9 @@
  */
 
 'use client';
-
-import React from 'react';
 import type { FieldComponentProps } from '../components/WizardField';
 
-export function RadioField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function RadioField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const handleChange = (optionValue: unknown) => {
     onChange(optionValue);
   };
@@ -47,9 +39,7 @@ export function RadioField({
           <span className="better-form-radio-label">
             {option.label}
             {option.description && (
-              <span className="better-form-radio-description">
-                {option.description}
-              </span>
+              <span className="better-form-radio-description">{option.description}</span>
             )}
           </span>
         </label>
@@ -61,13 +51,7 @@ export function RadioField({
 /**
  * RadioCardsField - Radio buttons displayed as clickable cards
  */
-export function RadioCardsField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function RadioCardsField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const handleSelect = (optionValue: unknown) => {
     if (!disabled) {
       onChange(optionValue);
@@ -106,20 +90,14 @@ export function RadioCardsField({
             aria-disabled={isDisabled}
             tabIndex={isDisabled ? -1 : 0}
           >
-            {option.icon && (
-              <div className="better-form-radio-card-icon">{option.icon}</div>
-            )}
+            {option.icon && <div className="better-form-radio-card-icon">{option.icon}</div>}
             <div className="better-form-radio-card-content">
               <div className="better-form-radio-card-label">{option.label}</div>
               {option.description && (
-                <div className="better-form-radio-card-description">
-                  {option.description}
-                </div>
+                <div className="better-form-radio-card-description">{option.description}</div>
               )}
             </div>
-            <div className="better-form-radio-card-check">
-              {isSelected && '✓'}
-            </div>
+            <div className="better-form-radio-card-check">{isSelected && '✓'}</div>
           </div>
         );
       })}
@@ -130,18 +108,9 @@ export function RadioCardsField({
 /**
  * ButtonGroupField - Radio buttons styled as a button group
  */
-export function ButtonGroupField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function ButtonGroupField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   return (
-    <div
-      className={`better-form-button-group ${error ? 'error' : ''}`}
-      role="radiogroup"
-    >
+    <div className={`better-form-button-group ${error ? 'error' : ''}`} role="radiogroup">
       {field.options?.map((option) => {
         const isSelected = option.value === value;
         const isDisabled = disabled || option.disabled;
@@ -150,9 +119,7 @@ export function ButtonGroupField({
           <button
             key={String(option.value)}
             type="button"
-            className={`better-form-button-group-item ${
-              isSelected ? 'selected' : ''
-            }`}
+            className={`better-form-button-group-item ${isSelected ? 'selected' : ''}`}
             onClick={() => onChange(option.value)}
             disabled={isDisabled}
             aria-pressed={isSelected}

@@ -14,13 +14,7 @@ export interface TextareaFieldConfig {
   autoResize?: boolean;
 }
 
-export function TextareaField({
-  field,
-  value,
-  onChange,
-  error,
-  disabled,
-}: FieldComponentProps) {
+export function TextareaField({ field, value, onChange, error, disabled }: FieldComponentProps) {
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

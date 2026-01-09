@@ -6,21 +6,25 @@
 import type { FieldComponentProps } from '../components/WizardField';
 import type { FieldType } from '../types/wizard-schema';
 
-import { TextField, EmailField, PasswordField, PhoneField, UrlField } from './TextField';
+import { AcceptTermsField, BooleanField, SwitchField } from './BooleanField';
+import { CheckboxCardsField, CheckboxField, ChipsField } from './CheckboxField';
+import {
+  DateField,
+  DateRangeField,
+  DateTimeField,
+  MonthField,
+  TimeField,
+  WeekField,
+} from './DateField';
+import { DocumentUploadField, FileUploadField, ImageUploadField } from './FileUploadField';
+import { DisplayField, HiddenField, ReadOnlyField } from './HiddenField';
+import { CurrencyField, NumberField, PercentageField, RangeField } from './NumberField';
+import { ButtonGroupField, RadioCardsField, RadioField } from './RadioField';
+import { MultiSelectField, SearchableSelectField, SelectField } from './SelectField';
+import { EmailField, PasswordField, PhoneField, TextField, UrlField } from './TextField';
 import { TextareaField } from './TextareaField';
-import { SelectField, MultiSelectField, SearchableSelectField } from './SelectField';
-import { BooleanField, SwitchField, AcceptTermsField } from './BooleanField';
-import { NumberField, RangeField, CurrencyField, PercentageField } from './NumberField';
-import { DateField, TimeField, DateTimeField, MonthField, WeekField, DateRangeField } from './DateField';
-import { RadioField, RadioCardsField, ButtonGroupField } from './RadioField';
-import { CheckboxField, CheckboxCardsField, ChipsField } from './CheckboxField';
-import { FileUploadField, ImageUploadField, DocumentUploadField } from './FileUploadField';
-import { HiddenField, ReadOnlyField, DisplayField } from './HiddenField';
 
-export type FieldComponentsMap = Record<
-  string,
-  React.ComponentType<FieldComponentProps>
->;
+export type FieldComponentsMap = Record<string, React.ComponentType<FieldComponentProps>>;
 
 /**
  * Default field components registry

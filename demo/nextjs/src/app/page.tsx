@@ -6,12 +6,10 @@ export default function Home() {
       <div className="container mx-auto px-4 py-16">
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-slate-900 dark:text-white mb-4">
-            Better Form
-          </h1>
+          <h1 className="text-5xl font-bold text-slate-900 dark:text-white mb-4">Better Form</h1>
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8">
-            A powerful, schema-driven wizard form library for React.
-            Build complex multi-step forms with validation, conditional logic, and theming.
+            A powerful, schema-driven wizard form library for React. Build complex multi-step forms
+            with validation, conditional logic, and theming.
           </p>
           <div className="flex gap-4 justify-center">
             <Link
@@ -67,9 +65,7 @@ export default function Home() {
 
         {/* Quick Start */}
         <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 mb-16">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
-            Quick Start
-          </h2>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Quick Start</h2>
           <pre className="bg-slate-900 text-green-400 p-4 rounded-lg overflow-x-auto">
             <code>{`npm install better-form
 
@@ -123,7 +119,11 @@ export function MyForm() {
   );
 }
 
-function FeatureCard({ title, description, icon }: { title: string; description: string; icon: string }) {
+function FeatureCard({
+  title,
+  description,
+  icon,
+}: { title: string; description: string; icon: string }) {
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
       <div className="text-4xl mb-4">{icon}</div>

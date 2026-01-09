@@ -5,7 +5,8 @@
 
 'use client';
 
-import React, { useCallback, useMemo, useRef, useEffect } from 'react';
+import type React from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useWizard } from '../hooks/useWizard';
 import type { WizardField as WizardFieldType } from '../types/wizard-schema';
 
@@ -44,12 +45,7 @@ export interface FieldComponentProps {
  * WizardField - Renders a field using the appropriate field component
  */
 export function WizardField({ field, className, style, component }: WizardFieldProps) {
-  const {
-    state,
-    setFieldValue,
-    getFieldComponent,
-    onFieldChange,
-  } = useWizard();
+  const { state, setFieldValue, getFieldComponent, onFieldChange } = useWizard();
 
   const value = state.data[field.id];
   const error = state.errors[field.id];
@@ -110,11 +106,7 @@ export function WizardField({ field, className, style, component }: WizardFieldP
 
   if (!FieldComponent) {
     console.warn(`No component found for field type: ${field.type}`);
-    return (
-      <div className="better-form-field-error">
-        Unknown field type: {field.type}
-      </div>
-    );
+    return <div className="better-form-field-error">Unknown field type: {field.type}</div>;
   }
 
   return (
@@ -140,9 +132,7 @@ export function WizardField({ field, className, style, component }: WizardFieldP
       )}
 
       {/* Description */}
-      {field.description && (
-        <p className="better-form-description">{field.description}</p>
-      )}
+      {field.description && <p className="better-form-description">{field.description}</p>}
 
       {/* Field Component */}
       <div className="better-form-input-wrapper">
@@ -153,9 +143,7 @@ export function WizardField({ field, className, style, component }: WizardFieldP
       {error && <p className="better-form-error">{error}</p>}
 
       {/* Helper Text */}
-      {field.helperText && !error && (
-        <p className="better-form-helper">{field.helperText}</p>
-      )}
+      {field.helperText && !error && <p className="better-form-helper">{field.helperText}</p>}
     </div>
   );
 }

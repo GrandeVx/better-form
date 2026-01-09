@@ -8,7 +8,6 @@
 import React from 'react';
 import { useWizard } from '../hooks/useWizard';
 import { WizardField } from './WizardField';
-import type { WizardStep as WizardStepType } from '../types/wizard-schema';
 
 export interface WizardStepProps {
   /** Step ID to render */
@@ -37,9 +36,7 @@ export function WizardStep({
   const { config, currentStepIndex, visibleSteps, getVisibleFields } = useWizard();
 
   // Get the step to render
-  const step = stepId
-    ? config.steps.find((s) => s.id === stepId)
-    : visibleSteps[currentStepIndex];
+  const step = stepId ? config.steps.find((s) => s.id === stepId) : visibleSteps[currentStepIndex];
 
   if (!step) {
     console.warn(`WizardStep: Step "${stepId}" not found`);
@@ -49,11 +46,7 @@ export function WizardStep({
   // If children are provided, render them instead of automatic fields
   if (children) {
     return (
-      <div
-        className={`better-form-step ${className || ''}`}
-        style={style}
-        data-step-id={step.id}
-      >
+      <div className={`better-form-step ${className || ''}`} style={style} data-step-id={step.id}>
         {children}
       </div>
     );
@@ -63,11 +56,7 @@ export function WizardStep({
   const visibleFields = getVisibleFields(step.id);
 
   return (
-    <div
-      className={`better-form-step ${className || ''}`}
-      style={style}
-      data-step-id={step.id}
-    >
+    <div className={`better-form-step ${className || ''}`} style={style} data-step-id={step.id}>
       <div className="better-form-fields">
         {visibleFields.map((field) => {
           const fieldElement = <WizardField key={field.id} field={field} />;
@@ -131,9 +120,7 @@ export function StepGroup({
   if (!currentStep) return null;
 
   // Get visible fields that are in this group
-  const visibleFields = getVisibleFields(currentStep.id).filter((f) =>
-    fields.includes(f.id)
-  );
+  const visibleFields = getVisibleFields(currentStep.id).filter((f) => fields.includes(f.id));
 
   if (visibleFields.length === 0) return null;
 
@@ -165,15 +152,11 @@ export function StepGroup({
             <h3 className="better-form-group-title">
               {title}
               {collapsible && (
-                <span className="better-form-group-toggle">
-                  {isCollapsed ? '▶' : '▼'}
-                </span>
+                <span className="better-form-group-toggle">{isCollapsed ? '▶' : '▼'}</span>
               )}
             </h3>
           )}
-          {description && (
-            <p className="better-form-group-description">{description}</p>
-          )}
+          {description && <p className="better-form-group-description">{description}</p>}
         </div>
       )}
       {!isCollapsed && (

@@ -3,11 +3,7 @@
  * Handles field-level and step-level validation
  */
 
-import {
-  ValidationRule,
-  WizardConfig,
-  WizardField,
-} from '../../types/wizard-schema';
+import type { ValidationRule, WizardConfig, WizardField } from '../../types/wizard-schema';
 import { ConditionalLogicEvaluator } from '../conditional-logic/ConditionalLogicEvaluator';
 
 export interface ValidationResult {
@@ -45,10 +41,7 @@ export class WizardValidator {
   private getFields(stepIndex?: number): WizardField[] {
     const fields: WizardField[] = [];
 
-    const steps =
-      stepIndex !== undefined
-        ? [this.config.steps[stepIndex]]
-        : this.config.steps;
+    const steps = stepIndex !== undefined ? [this.config.steps[stepIndex]] : this.config.steps;
 
     for (const step of steps) {
       if (!step) continue;
@@ -72,10 +65,7 @@ export class WizardValidator {
   /**
    * Validate a single field value
    */
-  public validateField(
-    field: WizardField,
-    value: unknown
-  ): FieldValidationResult {
+  public validateField(field: WizardField, value: unknown): FieldValidationResult {
     // Skip validation if field is not visible
     if (!this.evaluator.isFieldVisible(field.showIf, field.hideIf)) {
       return { isValid: true };
@@ -101,11 +91,7 @@ export class WizardValidator {
   /**
    * Validate a single rule
    */
-  private validateRule(
-    rule: ValidationRule,
-    value: unknown,
-    field: WizardField
-  ): string | null {
+  private validateRule(rule: ValidationRule, value: unknown, field: WizardField): string | null {
     switch (rule.type) {
       case 'required':
         if (this.isEmpty(value)) {
@@ -115,68 +101,47 @@ export class WizardValidator {
 
       case 'minLength':
         if (value && String(value).length < (rule.value as number)) {
-          return (
-            rule.message ||
-            `${field.label} must be at least ${rule.value} characters`
-          );
+          return rule.message || `${field.label} must be at least ${rule.value} characters`;
         }
         break;
 
       case 'maxLength':
         if (value && String(value).length > (rule.value as number)) {
-          return (
-            rule.message ||
-            `${field.label} must be at most ${rule.value} characters`
-          );
+          return rule.message || `${field.label} must be at most ${rule.value} characters`;
         }
         break;
 
-      case 'pattern':
+      case 'pattern': {
         const pattern =
-          rule.value instanceof RegExp
-            ? rule.value
-            : new RegExp(rule.value as string);
+          rule.value instanceof RegExp ? rule.value : new RegExp(rule.value as string);
         if (value && !pattern.test(String(value))) {
           return rule.message || `${field.label} format is invalid`;
         }
         break;
+      }
 
       case 'min':
-        if (
-          value !== null &&
-          value !== undefined &&
-          Number(value) < (rule.value as number)
-        ) {
-          return (
-            rule.message || `${field.label} must be at least ${rule.value}`
-          );
+        if (value !== null && value !== undefined && Number(value) < (rule.value as number)) {
+          return rule.message || `${field.label} must be at least ${rule.value}`;
         }
         break;
 
       case 'max':
-        if (
-          value !== null &&
-          value !== undefined &&
-          Number(value) > (rule.value as number)
-        ) {
-          return (
-            rule.message || `${field.label} must be at most ${rule.value}`
-          );
+        if (value !== null && value !== undefined && Number(value) > (rule.value as number)) {
+          return rule.message || `${field.label} must be at most ${rule.value}`;
         }
         break;
 
-      case 'email':
+      case 'email': {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (value && !emailPattern.test(String(value))) {
           return rule.message || `${field.label} must be a valid email address`;
         }
         break;
+      }
 
       case 'custom':
-        if (
-          rule.customValidator &&
-          !rule.customValidator(value, this.formData)
-        ) {
+        if (rule.customValidator && !rule.customValidator(value, this.formData)) {
           return rule.message || `${field.label} is invalid`;
         }
         break;
@@ -245,9 +210,9 @@ export class WizardValidator {
     if (step.canProceed) {
       const canProceed = step.canProceed(this.formData);
       if (typeof canProceed === 'string') {
-        errors['_step'] = canProceed;
+        errors._step = canProceed;
       } else if (canProceed === false) {
-        errors['_step'] = 'Cannot proceed. Please verify your data.';
+        errors._step = 'Cannot proceed. Please verify your data.';
       }
     }
 

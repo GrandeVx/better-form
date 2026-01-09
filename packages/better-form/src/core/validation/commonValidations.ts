@@ -3,7 +3,7 @@
  * Pre-built validation rules for common use cases
  */
 
-import { ValidationRule } from '../../types/wizard-schema';
+import type { ValidationRule } from '../../types/wizard-schema';
 
 /**
  * Common validation rule builders
@@ -89,7 +89,7 @@ export const commonValidations = {
     type: 'custom',
     customValidator: (value) => {
       const num = Number(value);
-      return !isNaN(num) && num >= min && num <= max;
+      return !Number.isNaN(num) && num >= min && num <= max;
     },
     message: message || `Value must be between ${min} and ${max}`,
   }),
@@ -135,9 +135,7 @@ export const commonValidations = {
    */
   decimal: (decimalPlaces?: number, message?: string): ValidationRule => ({
     type: 'pattern',
-    value: decimalPlaces
-      ? new RegExp(`^\\d+(\\.\\d{1,${decimalPlaces}})?$`)
-      : /^\d+(\.\d+)?$/,
+    value: decimalPlaces ? new RegExp(`^\\d+(\\.\\d{1,${decimalPlaces}})?$`) : /^\d+(\.\d+)?$/,
     message:
       message ||
       (decimalPlaces
@@ -174,9 +172,7 @@ export const commonValidations = {
       }
       return true;
     },
-    message:
-      message ||
-      `File size must be less than ${(maxBytes / (1024 * 1024)).toFixed(1)} MB`,
+    message: message || `File size must be less than ${(maxBytes / (1024 * 1024)).toFixed(1)} MB`,
   }),
 
   /**
@@ -192,8 +188,7 @@ export const commonValidations = {
       return true;
     },
     message:
-      message ||
-      `Allowed file types: ${allowedTypes.map((t) => t.toUpperCase()).join(', ')}`,
+      message || `Allowed file types: ${allowedTypes.map((t) => t.toUpperCase()).join(', ')}`,
   }),
 
   /**
