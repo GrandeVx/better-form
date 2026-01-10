@@ -8,7 +8,10 @@ import type { BetterFormTheme, ThemeOverride } from './types';
 /**
  * Deep merge two objects
  */
-function deepMerge<T extends Record<string, unknown>>(target: T, source: Partial<T>): T {
+function deepMerge(
+  target: Record<string, unknown>,
+  source: Record<string, unknown>
+): Record<string, unknown> {
   const result = { ...target };
 
   for (const key in source) {
@@ -23,9 +26,9 @@ function deepMerge<T extends Record<string, unknown>>(target: T, source: Partial
         result[key] = deepMerge(
           target[key] as Record<string, unknown>,
           source[key] as Record<string, unknown>
-        ) as T[Extract<keyof T, string>];
+        );
       } else {
-        result[key] = source[key] as T[Extract<keyof T, string>];
+        result[key] = source[key];
       }
     }
   }
@@ -47,7 +50,10 @@ function deepMerge<T extends Record<string, unknown>>(target: T, source: Partial
  * ```
  */
 export function createTheme(overrides: ThemeOverride): BetterFormTheme {
-  return deepMerge(defaultTheme, overrides as Partial<BetterFormTheme>);
+  return deepMerge(
+    defaultTheme as unknown as Record<string, unknown>,
+    overrides as Record<string, unknown>
+  ) as unknown as BetterFormTheme;
 }
 
 /**

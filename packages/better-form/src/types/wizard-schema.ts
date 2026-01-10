@@ -89,6 +89,7 @@ export interface SelectOption {
   value: string | number | boolean;
   disabled?: boolean;
   description?: string;
+  icon?: React.ReactNode;
 }
 
 export interface AddressData {
@@ -133,10 +134,14 @@ export interface WizardField {
   rows?: number;
   maxLength?: number;
   minLength?: number;
-  minDate?: string;
-  maxDate?: string;
+  minDate?: string | Date;
+  maxDate?: string | Date;
+  startLabel?: string;
+  endLabel?: string;
   accept?: string;
   maxFileSize?: number;
+  maxSize?: number;
+  maxFiles?: number;
 
   // Text transformations
   transform?: TextTransform;
@@ -148,6 +153,23 @@ export interface WizardField {
   // Input attributes
   autoComplete?: string;
   inputMode?: 'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url';
+  inputType?: 'text' | 'email' | 'password' | 'tel' | 'url' | 'number' | 'search';
+  pattern?: string;
+  required?: boolean;
+
+  // Layout options for radio/checkbox groups
+  layout?: 'horizontal' | 'vertical' | 'grid';
+  columns?: number;
+
+  // Textarea specific
+  autoResize?: boolean;
+
+  // Number field specific
+  step?: number | 'any';
+  min?: number;
+  max?: number;
+  currency?: string;
+  locale?: string;
 
   // Dynamic options loading
   loadOptions?: () => Promise<SelectOption[]>;

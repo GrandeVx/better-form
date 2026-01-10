@@ -20,7 +20,9 @@ export function NumberField({ field, value, onChange, error, disabled }: FieldCo
 
     // Parse the number
     const numValue =
-      field.step && field.step < 1 ? Number.parseFloat(rawValue) : Number.parseInt(rawValue, 10);
+      field.step && typeof field.step === 'number' && field.step < 1
+        ? Number.parseFloat(rawValue)
+        : Number.parseInt(rawValue, 10);
 
     if (!Number.isNaN(numValue)) {
       onChange(numValue);

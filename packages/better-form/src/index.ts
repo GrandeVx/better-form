@@ -11,7 +11,7 @@
 export type {
   WizardConfig,
   WizardStep,
-  WizardField,
+  WizardField as WizardFieldConfig,
   FieldType,
   SelectOption,
   ValidationRule,
@@ -27,7 +27,7 @@ export type {
   WizardAction,
   FieldComponentProps,
   StepComponentProps,
-  WizardNavigationProps,
+  WizardNavigationProps as NavigationProps,
   WizardStepIndicatorProps,
   UseWizardReturn,
   WizardProviderProps,

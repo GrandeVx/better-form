@@ -21,7 +21,7 @@
     "lint:package": "turbo lint:package",
     "format": "biome format --write .",
     "clean": "turbo clean && rm -rf node_modules .turbo",
-    "typecheck": "tsc --build",
+    "typecheck": "turbo typecheck",
     "release": "turbo build && bumpp && pnpm -r publish --access public --no-git-checks",
     "release:canary": "turbo build && bumpp --tag canary && pnpm -r publish --tag canary --no-git-checks"
   },

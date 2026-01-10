@@ -20,7 +20,7 @@ export function HiddenField({ field, value }: FieldComponentProps) {
 /**
  * ReadOnlyField - Display-only field (cannot be edited)
  */
-export function ReadOnlyField({ field, value, error }: FieldComponentProps) {
+export function ReadOnlyField({ field: _field, value, error }: FieldComponentProps) {
   const displayValue = (() => {
     if (value === null || value === undefined) return '-';
     if (typeof value === 'boolean') return value ? 'Sì' : 'No';

@@ -66,6 +66,7 @@
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit",
     "lint:types": "tsc --noEmit",
     "lint:package": "publint --strict",
     "test": "vitest run",
