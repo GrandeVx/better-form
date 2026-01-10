@@ -7,8 +7,8 @@
 import type { BetterFormPlugin } from 'better-form';
 import { AddressField } from './components/AddressField';
 import { setPluginConfig } from './config';
-import { loadGoogleMapsScript } from './utils/script-loader';
 import type { GooglePlacesPluginConfig } from './types';
+import { loadGoogleMapsScript } from './utils/script-loader';
 
 /**
  * Create a Google Places plugin instance

@@ -12,19 +12,19 @@
 
 'use client';
 
-import React, { useCallback, useState } from 'react';
 import type { FieldComponentProps } from 'better-form';
-import { AddressAutocomplete } from './AddressAutocomplete';
-import { AddressDetailFields } from './AddressDetailFields';
-import { GoogleMapPicker } from './GoogleMapPicker';
-import { createEmptyAddress, formatAddressLine, isAddressEmpty } from '../utils/address-parser';
+import { useCallback, useState } from 'react';
 import {
+  getDefaultCountryRestrictions,
   getDefaultMapHeight,
   getDefaultShowDetailFields,
   getDefaultShowMapPicker,
-  getDefaultCountryRestrictions,
 } from '../config';
 import type { AddressData, AddressFieldOptions } from '../types';
+import { createEmptyAddress, formatAddressLine, isAddressEmpty } from '../utils/address-parser';
+import { AddressAutocomplete } from './AddressAutocomplete';
+import { AddressDetailFields } from './AddressDetailFields';
+import { GoogleMapPicker } from './GoogleMapPicker';
 
 /**
  * AddressField - Integrates with better-form as a custom field component
@@ -86,7 +86,7 @@ export function AddressField({
 
   // Handle detail fields change
   const handleDetailChange = useCallback(
-    async (address: AddressData, clearedCoordinates: boolean) => {
+    async (address: AddressData, _clearedCoordinates: boolean) => {
       setAddressData(address);
 
       // Update the formatted address based on detail fields

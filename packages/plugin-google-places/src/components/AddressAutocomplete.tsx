@@ -12,7 +12,7 @@
 
 'use client';
 
-import React, { useCallback, useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { type KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useGoogleMaps } from '../hooks/useGoogleMaps';
 import type { AddressData, PlacePrediction } from '../types';
 
@@ -242,16 +242,10 @@ export function AddressAutocomplete({
       </div>
 
       {isOpen && predictions.length > 0 && (
-        <ul
-          ref={listRef}
-          className="bfp-autocomplete-list"
-          role="listbox"
-          aria-label="Address suggestions"
-        >
+        <ul ref={listRef} className="bfp-autocomplete-list" aria-label="Address suggestions">
           {predictions.map((prediction, index) => (
             <li
               key={prediction.placeId}
-              role="option"
               aria-selected={index === highlightedIndex}
               className={`bfp-autocomplete-item ${index === highlightedIndex ? 'highlighted' : ''}`}
               onClick={() => handleSelect(prediction)}

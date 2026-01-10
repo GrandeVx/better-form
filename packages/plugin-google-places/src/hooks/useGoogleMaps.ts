@@ -6,16 +6,16 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { isPluginConfigured } from '../config';
+import type { AddressData, PlacePrediction } from '../types';
+import { parseGeocoderResult, parseGooglePlaceResult } from '../utils/address-parser';
 import {
   createAutocompleteService,
   createGeocoder,
   createPlacesService,
+  getPlacesLibrary,
   isGoogleMapsLoaded,
   loadGoogleMapsScript,
-  getPlacesLibrary,
 } from '../utils/script-loader';
-import { parseGeocoderResult, parseGooglePlaceResult } from '../utils/address-parser';
-import type { AddressData, PlacePrediction } from '../types';
 
 interface UseGoogleMapsReturn {
   /** Is the Google Maps API loaded and ready */
@@ -171,7 +171,7 @@ export function useGoogleMaps(): UseGoogleMapsReturn {
       const PlacesService = getPlacesLibrary();
 
       const result = await new Promise<google.maps.places.PlaceResult | null>((resolve, reject) => {
-        placesServiceRef.current!.getDetails(
+        placesServiceRef.current?.getDetails(
           {
             placeId,
             fields: ['address_components', 'formatted_address', 'geometry', 'place_id', 'name'],

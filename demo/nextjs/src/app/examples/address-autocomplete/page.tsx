@@ -6,9 +6,9 @@ import {
   addressAutocompleteCode,
   addressAutocompleteConfig,
 } from '@/examples/address-autocomplete';
+import { type FieldComponentsMap, defaultFieldComponents } from 'better-form';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { defaultFieldComponents, type FieldComponentsMap } from 'better-form';
+import { useEffect, useState } from 'react';
 
 // Import plugin styles
 import '@better-form/plugin-google-places/styles';

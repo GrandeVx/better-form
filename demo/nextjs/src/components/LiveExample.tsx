@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import { AutoStep, WizardContainer, createTheme } from 'better-form';
-import type { WizardConfig, FieldComponentsMap } from 'better-form';
+import type { FieldComponentsMap, WizardConfig } from 'better-form';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { CodeBlock } from './CodeBlock';

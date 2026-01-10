@@ -45,7 +45,7 @@ const provinceToRegion: Record<string, string> = {
 };
 
 // Category to subcategory mapping
-const categoryToSubcategories: Record<string, Array<{ label: string; value: string }>> = {
+const _categoryToSubcategories: Record<string, Array<{ label: string; value: string }>> = {
   electronics: [
     { label: 'Smartphones', value: 'smartphones' },
     { label: 'Laptops', value: 'laptops' },

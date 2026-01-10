@@ -16,7 +16,7 @@
 
 'use client';
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { AddressData } from '../types';
 
 export interface AddressDetailFieldsProps {

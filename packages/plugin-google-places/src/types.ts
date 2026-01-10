@@ -74,13 +74,13 @@ export interface AddressFieldOptions {
   onAddressSelected?: (
     address: AddressData,
     formData: Record<string, unknown>
-  ) => void | Record<string, unknown> | Promise<void | Record<string, unknown>>;
+  ) => undefined | Record<string, unknown> | Promise<undefined | Record<string, unknown>>;
 
   /** Callback when detail fields are edited manually */
   onAddressDetailChange?: (
     address: AddressData,
     formData: Record<string, unknown>
-  ) => void | Record<string, unknown> | Promise<void | Record<string, unknown>>;
+  ) => undefined | Record<string, unknown> | Promise<undefined | Record<string, unknown>>;
 }
 
 /**

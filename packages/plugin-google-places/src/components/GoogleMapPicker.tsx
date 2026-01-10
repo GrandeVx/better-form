@@ -12,11 +12,11 @@
 
 'use client';
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useGoogleMaps } from '../hooks/useGoogleMaps';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { getDefaultMapCenter, getDefaultMapZoom } from '../config';
-import { createMap, createMarker } from '../utils/script-loader';
+import { useGoogleMaps } from '../hooks/useGoogleMaps';
 import type { AddressData } from '../types';
+import { createMap, createMarker } from '../utils/script-loader';
 
 export interface GoogleMapPickerProps {
   /** Current latitude */

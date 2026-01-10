@@ -133,7 +133,7 @@ export function mergePlugins(
  * ```
  */
 export async function initializePlugins(...plugins: BetterFormPlugin[]): Promise<void> {
-  await Promise.all(plugins.filter((plugin) => plugin.init).map((plugin) => plugin.init!()));
+  await Promise.all(plugins.filter((plugin) => plugin.init).map((plugin) => plugin.init?.()));
 }
 
 /**
