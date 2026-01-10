@@ -2,7 +2,7 @@
  * @better-form/plugin-google-places - Types
  */
 
-import type { WizardField } from 'better-form';
+import type { WizardFieldConfig } from 'better-form';
 
 /**
  * Structured address data from Google Places
@@ -72,21 +72,27 @@ export interface AddressFieldOptions {
 
   /** Callback when address is selected from autocomplete */
   onAddressSelected?: (
-    address: AddressData,
+    addressData: AddressData,
     formData: Record<string, unknown>
   ) => undefined | Record<string, unknown> | Promise<undefined | Record<string, unknown>>;
 
   /** Callback when detail fields are edited manually */
   onAddressDetailChange?: (
-    address: AddressData,
+    addressData: AddressData,
     formData: Record<string, unknown>
   ) => undefined | Record<string, unknown> | Promise<undefined | Record<string, unknown>>;
 }
 
 /**
  * Extended WizardField for address type
+ *
+ * Note: Omits type, onAddressSelected, and onAddressDetailChange from WizardFieldConfig
+ * because our AddressData type has different optional/required fields than the core type,
+ * and our type values are plugin-specific.
  */
-export interface AddressWizardField extends WizardField, AddressFieldOptions {
+export interface AddressWizardField
+  extends Omit<WizardFieldConfig, 'type' | 'onAddressSelected' | 'onAddressDetailChange'>,
+    AddressFieldOptions {
   type: 'address' | 'google-address' | 'address-autocomplete';
 }
 
