@@ -55,9 +55,7 @@ export interface BetterFormPlugin {
  * });
  * ```
  */
-export type PluginFactory<TConfig = unknown> = (
-  config: TConfig
-) => BetterFormPlugin;
+export type PluginFactory<TConfig = unknown> = (config: TConfig) => BetterFormPlugin;
 
 /**
  * Create a simple plugin from field components
@@ -134,14 +132,8 @@ export function mergePlugins(
  * await initializePlugins(googlePlacesPlugin({ apiKey: '...' }));
  * ```
  */
-export async function initializePlugins(
-  ...plugins: BetterFormPlugin[]
-): Promise<void> {
-  await Promise.all(
-    plugins
-      .filter((plugin) => plugin.init)
-      .map((plugin) => plugin.init!())
-  );
+export async function initializePlugins(...plugins: BetterFormPlugin[]): Promise<void> {
+  await Promise.all(plugins.filter((plugin) => plugin.init).map((plugin) => plugin.init!()));
 }
 
 /**
@@ -150,10 +142,6 @@ export async function initializePlugins(
  * @param plugins - Array of plugins
  * @returns Array of all field type names
  */
-export function getPluginFieldTypes(
-  ...plugins: BetterFormPlugin[]
-): string[] {
-  return plugins.flatMap(
-    (plugin) => plugin.fieldTypes || Object.keys(plugin.fieldComponents)
-  );
+export function getPluginFieldTypes(...plugins: BetterFormPlugin[]): string[] {
+  return plugins.flatMap((plugin) => plugin.fieldTypes || Object.keys(plugin.fieldComponents));
 }

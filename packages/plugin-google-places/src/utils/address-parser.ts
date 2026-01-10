@@ -43,9 +43,7 @@ function getComponent(
 /**
  * Parse a Google Place result into AddressData
  */
-export function parseGooglePlaceResult(
-  place: google.maps.places.PlaceResult
-): AddressData {
+export function parseGooglePlaceResult(place: google.maps.places.PlaceResult): AddressData {
   const components = place.address_components;
   const geometry = place.geometry;
 
@@ -75,10 +73,7 @@ export function parseGooglePlaceResult(
   );
 
   // Get region (administrative_area_level_1)
-  const region = getComponent(
-    components,
-    COMPONENT_TYPES.ADMINISTRATIVE_AREA_1
-  );
+  const region = getComponent(components, COMPONENT_TYPES.ADMINISTRATIVE_AREA_1);
 
   // Get postal code
   const postalCode = getComponent(components, COMPONENT_TYPES.POSTAL_CODE);
@@ -110,9 +105,7 @@ export function parseGooglePlaceResult(
 /**
  * Parse geocoding result into AddressData
  */
-export function parseGeocoderResult(
-  result: google.maps.GeocoderResult
-): AddressData {
+export function parseGeocoderResult(result: google.maps.GeocoderResult): AddressData {
   const components = result.address_components;
   const geometry = result.geometry;
 
@@ -128,16 +121,9 @@ export function parseGeocoderResult(
     getComponent(components, COMPONENT_TYPES.SUBLOCALITY) ||
     '';
 
-  const province = getComponent(
-    components,
-    COMPONENT_TYPES.ADMINISTRATIVE_AREA_2,
-    true
-  );
+  const province = getComponent(components, COMPONENT_TYPES.ADMINISTRATIVE_AREA_2, true);
 
-  const region = getComponent(
-    components,
-    COMPONENT_TYPES.ADMINISTRATIVE_AREA_1
-  );
+  const region = getComponent(components, COMPONENT_TYPES.ADMINISTRATIVE_AREA_1);
 
   const postalCode = getComponent(components, COMPONENT_TYPES.POSTAL_CODE);
 
@@ -189,12 +175,7 @@ export function createEmptyAddress(): AddressData {
 export function isAddressEmpty(address: AddressData | null): boolean {
   if (!address) return true;
 
-  return (
-    !address.street &&
-    !address.city &&
-    !address.postalCode &&
-    !address.formattedAddress
-  );
+  return !address.street && !address.city && !address.postalCode && !address.formattedAddress;
 }
 
 /**

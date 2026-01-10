@@ -25,10 +25,7 @@ interface UseGoogleMapsReturn {
   error: Error | null;
 
   /** Search for address predictions */
-  searchPredictions: (
-    input: string,
-    countryRestrictions?: string[]
-  ) => Promise<PlacePrediction[]>;
+  searchPredictions: (input: string, countryRestrictions?: string[]) => Promise<PlacePrediction[]>;
 
   /** Get place details by place ID */
   getPlaceDetails: (placeId: string) => Promise<AddressData | null>;
@@ -61,9 +58,7 @@ export function useGoogleMaps(): UseGoogleMapsReturn {
       if (!isPluginConfigured()) {
         if (mounted) {
           setError(
-            new Error(
-              'Google Places plugin not configured. Call googlePlacesPlugin() first.'
-            )
+            new Error('Google Places plugin not configured. Call googlePlacesPlugin() first.')
           );
         }
         return;
@@ -166,50 +161,39 @@ export function useGoogleMaps(): UseGoogleMapsReturn {
   );
 
   // Get place details
-  const getPlaceDetails = useCallback(
-    async (placeId: string): Promise<AddressData | null> => {
-      if (!placesServiceRef.current) {
-        console.warn('[@better-form/plugin-google-places] PlacesService not ready');
-        return null;
-      }
+  const getPlaceDetails = useCallback(async (placeId: string): Promise<AddressData | null> => {
+    if (!placesServiceRef.current) {
+      console.warn('[@better-form/plugin-google-places] PlacesService not ready');
+      return null;
+    }
 
-      try {
-        const PlacesService = getPlacesLibrary();
+    try {
+      const PlacesService = getPlacesLibrary();
 
-        const result = await new Promise<google.maps.places.PlaceResult | null>(
-          (resolve, reject) => {
-            placesServiceRef.current!.getDetails(
-              {
-                placeId,
-                fields: [
-                  'address_components',
-                  'formatted_address',
-                  'geometry',
-                  'place_id',
-                  'name',
-                ],
-              },
-              (result, status) => {
-                if (status === PlacesService.PlacesServiceStatus.OK && result) {
-                  resolve(result);
-                } else {
-                  reject(new Error(`PlacesService error: ${status}`));
-                }
-              }
-            );
+      const result = await new Promise<google.maps.places.PlaceResult | null>((resolve, reject) => {
+        placesServiceRef.current!.getDetails(
+          {
+            placeId,
+            fields: ['address_components', 'formatted_address', 'geometry', 'place_id', 'name'],
+          },
+          (result, status) => {
+            if (status === PlacesService.PlacesServiceStatus.OK && result) {
+              resolve(result);
+            } else {
+              reject(new Error(`PlacesService error: ${status}`));
+            }
           }
         );
+      });
 
-        if (!result) return null;
+      if (!result) return null;
 
-        return parseGooglePlaceResult(result);
-      } catch (err) {
-        console.error('[@better-form/plugin-google-places] Place details error:', err);
-        return null;
-      }
-    },
-    []
-  );
+      return parseGooglePlaceResult(result);
+    } catch (err) {
+      console.error('[@better-form/plugin-google-places] Place details error:', err);
+      return null;
+    }
+  }, []);
 
   // Reverse geocode
   const reverseGeocode = useCallback(

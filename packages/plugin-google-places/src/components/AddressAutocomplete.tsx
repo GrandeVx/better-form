@@ -12,13 +12,7 @@
 
 'use client';
 
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type KeyboardEvent,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { useGoogleMaps } from '../hooks/useGoogleMaps';
 import type { AddressData, PlacePrediction } from '../types';
 
@@ -143,16 +137,12 @@ export function AddressAutocomplete({
       switch (e.key) {
         case 'ArrowDown':
           e.preventDefault();
-          setHighlightedIndex((prev) =>
-            prev < predictions.length - 1 ? prev + 1 : 0
-          );
+          setHighlightedIndex((prev) => (prev < predictions.length - 1 ? prev + 1 : 0));
           break;
 
         case 'ArrowUp':
           e.preventDefault();
-          setHighlightedIndex((prev) =>
-            prev > 0 ? prev - 1 : predictions.length - 1
-          );
+          setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : predictions.length - 1));
           break;
 
         case 'Enter':
@@ -263,28 +253,18 @@ export function AddressAutocomplete({
               key={prediction.placeId}
               role="option"
               aria-selected={index === highlightedIndex}
-              className={`bfp-autocomplete-item ${
-                index === highlightedIndex ? 'highlighted' : ''
-              }`}
+              className={`bfp-autocomplete-item ${index === highlightedIndex ? 'highlighted' : ''}`}
               onClick={() => handleSelect(prediction)}
               onMouseEnter={() => setHighlightedIndex(index)}
             >
-              <span className="bfp-autocomplete-main">
-                {prediction.mainText}
-              </span>
-              <span className="bfp-autocomplete-secondary">
-                {prediction.secondaryText}
-              </span>
+              <span className="bfp-autocomplete-main">{prediction.mainText}</span>
+              <span className="bfp-autocomplete-secondary">{prediction.secondaryText}</span>
             </li>
           ))}
         </ul>
       )}
 
-      {!isLoaded && (
-        <div className="bfp-autocomplete-loading-text">
-          Loading Google Maps...
-        </div>
-      )}
+      {!isLoaded && <div className="bfp-autocomplete-loading-text">Loading Google Maps...</div>}
     </div>
   );
 }

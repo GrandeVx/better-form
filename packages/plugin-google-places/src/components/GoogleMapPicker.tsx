@@ -219,10 +219,7 @@ export function GoogleMapPicker({
 
   if (!isLoaded) {
     return (
-      <div
-        className={`bfp-map-picker-loading ${className || ''}`}
-        style={{ height }}
-      >
+      <div className={`bfp-map-picker-loading ${className || ''}`} style={{ height }}>
         <div className="bfp-map-loading-text">Loading map...</div>
       </div>
     );
@@ -230,11 +227,7 @@ export function GoogleMapPicker({
 
   return (
     <div className={`bfp-map-picker ${className || ''}`}>
-      <div
-        ref={mapContainerRef}
-        className="bfp-map-container"
-        style={{ height }}
-      />
+      <div ref={mapContainerRef} className="bfp-map-container" style={{ height }} />
 
       {isGeocoding && (
         <div className="bfp-map-geocoding-overlay">

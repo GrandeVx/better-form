@@ -146,7 +146,12 @@ export function LiveExample({
                   <span className="text-xs font-medium text-muted-foreground">PREVIEW</span>
                 </div>
                 <div className="max-h-[450px] overflow-auto p-6">
-                  <WizardContainer key={key} config={config} theme={demoTheme} fieldComponents={fieldComponents}>
+                  <WizardContainer
+                    key={key}
+                    config={config}
+                    theme={demoTheme}
+                    fieldComponents={fieldComponents}
+                  >
                     <AutoStep />
                   </WizardContainer>
                 </div>
@@ -181,7 +186,12 @@ export function LiveExample({
               exit={{ opacity: 0 }}
               className="p-6"
             >
-              <WizardContainer key={key} config={config} theme={demoTheme} fieldComponents={fieldComponents}>
+              <WizardContainer
+                key={key}
+                config={config}
+                theme={demoTheme}
+                fieldComponents={fieldComponents}
+              >
                 <AutoStep />
               </WizardContainer>
             </motion.div>

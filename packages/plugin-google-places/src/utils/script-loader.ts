@@ -134,9 +134,7 @@ export function createAutocompleteService(): google.maps.places.AutocompleteServ
  * Create PlacesService instance
  * Requires a HTMLDivElement to attach to
  */
-export function createPlacesService(
-  container: HTMLDivElement
-): google.maps.places.PlacesService {
+export function createPlacesService(container: HTMLDivElement): google.maps.places.PlacesService {
   const places = getPlacesLibrary();
   return new places.PlacesService(container);
 }
@@ -163,14 +161,10 @@ export function createMap(
 /**
  * Create a Marker instance
  */
-export function createMarker(
-  options: google.maps.MarkerOptions
-): google.maps.Marker {
+export function createMarker(options: google.maps.MarkerOptions): google.maps.Marker {
   // Marker is still on google.maps namespace
   if (typeof google === 'undefined' || !google.maps?.Marker) {
-    throw new Error(
-      '[@better-form/plugin-google-places] Google Maps Marker not available.'
-    );
+    throw new Error('[@better-form/plugin-google-places] Google Maps Marker not available.');
   }
   return new google.maps.Marker(options);
 }
@@ -178,9 +172,7 @@ export function createMarker(
 // Legacy export for backwards compatibility
 export function getGoogleMaps(): typeof google.maps {
   if (typeof google === 'undefined' || !google.maps) {
-    throw new Error(
-      '[@better-form/plugin-google-places] Google Maps API not loaded.'
-    );
+    throw new Error('[@better-form/plugin-google-places] Google Maps API not loaded.');
   }
   return google.maps;
 }

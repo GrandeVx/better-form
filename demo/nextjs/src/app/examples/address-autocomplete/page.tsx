@@ -78,7 +78,9 @@ export default function AddressAutocompletePage() {
             <p className="max-w-3xl text-lg text-muted-foreground">
               Search for addresses using Google Places API and auto-populate all related fields
               including street, city, postal code, and GPS coordinates. Uses the{' '}
-              <code className="rounded bg-muted px-1.5 py-0.5 text-sm">@better-form/plugin-google-places</code>{' '}
+              <code className="rounded bg-muted px-1.5 py-0.5 text-sm">
+                @better-form/plugin-google-places
+              </code>{' '}
               plugin.
             </p>
           </div>

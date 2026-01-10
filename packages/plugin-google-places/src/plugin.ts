@@ -37,9 +37,7 @@ import type { GooglePlacesPluginConfig } from './types';
  * </WizardProvider>
  * ```
  */
-export function googlePlacesPlugin(
-  config: GooglePlacesPluginConfig
-): BetterFormPlugin {
+export function googlePlacesPlugin(config: GooglePlacesPluginConfig): BetterFormPlugin {
   // Validate config
   if (!config.apiKey) {
     throw new Error(
