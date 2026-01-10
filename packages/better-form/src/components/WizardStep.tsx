@@ -36,7 +36,7 @@ export function WizardStep({
   const { config, visibleCurrentStepIndex, visibleSteps, getVisibleFields } = useWizard();
 
   // Get the step and its index to render
-  let step: typeof config.steps[number] | undefined;
+  let step: (typeof config.steps)[number] | undefined;
   let stepIndex: number;
 
   if (stepId) {

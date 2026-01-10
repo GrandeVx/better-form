@@ -31,7 +31,10 @@ export interface WizardContainerProps extends WizardProviderProps {
 /**
  * Props for WizardContainerContent (excludes provider props but keeps children)
  */
-type WizardContainerContentProps = Omit<WizardContainerProps, keyof Omit<WizardProviderProps, 'children'>>;
+type WizardContainerContentProps = Omit<
+  WizardContainerProps,
+  keyof Omit<WizardProviderProps, 'children'>
+>;
 
 /**
  * Internal container content that uses the wizard context
