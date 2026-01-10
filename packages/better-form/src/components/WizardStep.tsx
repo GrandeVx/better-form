@@ -33,10 +33,20 @@ export function WizardStep({
   fieldWrapper: FieldWrapper,
   children,
 }: WizardStepProps) {
-  const { config, currentStepIndex, visibleSteps, getVisibleFields } = useWizard();
+  const { config, visibleCurrentStepIndex, visibleSteps, getVisibleFields } = useWizard();
 
-  // Get the step to render
-  const step = stepId ? config.steps.find((s) => s.id === stepId) : visibleSteps[currentStepIndex];
+  // Get the step and its index to render
+  let step: typeof config.steps[number] | undefined;
+  let stepIndex: number;
+
+  if (stepId) {
+    stepIndex = config.steps.findIndex((s) => s.id === stepId);
+    step = stepIndex >= 0 ? config.steps[stepIndex] : undefined;
+  } else {
+    const currentVisibleStep = visibleSteps[visibleCurrentStepIndex];
+    step = currentVisibleStep?.step;
+    stepIndex = currentVisibleStep?.originalIndex ?? 0;
+  }
 
   if (!step) {
     console.warn(`WizardStep: Step "${stepId}" not found`);
@@ -53,7 +63,7 @@ export function WizardStep({
   }
 
   // Get visible fields for this step
-  const visibleFields = getVisibleFields(step.id);
+  const visibleFields = getVisibleFields(stepIndex);
 
   return (
     <div className={`better-form-step ${className || ''}`} style={style} data-step-id={step.id}>
@@ -113,14 +123,16 @@ export function StepGroup({
   collapsible = false,
   defaultCollapsed = false,
 }: StepGroupProps) {
-  const { config, getVisibleFields, currentStepIndex, visibleSteps } = useWizard();
+  const { getVisibleFields, visibleCurrentStepIndex, visibleSteps } = useWizard();
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
 
-  const currentStep = visibleSteps[currentStepIndex];
-  if (!currentStep) return null;
+  const currentVisibleStep = visibleSteps[visibleCurrentStepIndex];
+  if (!currentVisibleStep) return null;
 
   // Get visible fields that are in this group
-  const visibleFields = getVisibleFields(currentStep.id).filter((f) => fields.includes(f.id));
+  const visibleFields = getVisibleFields(currentVisibleStep.originalIndex).filter((f) =>
+    fields.includes(f.id)
+  );
 
   if (visibleFields.length === 0) return null;
 

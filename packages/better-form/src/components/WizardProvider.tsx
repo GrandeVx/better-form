@@ -65,10 +65,12 @@ export const WizardContext = createContext<WizardContextType | null>(null);
 // ============================================
 
 function createInitialState(config: WizardConfig): WizardState {
+  const initialData = config.initialData || {};
   return {
     config,
     currentStepIndex: 0,
-    formData: config.initialData || {},
+    formData: initialData,
+    data: initialData,
     errors: {},
     touched: {},
     completedSteps: new Set<string>(),
@@ -81,13 +83,15 @@ function createInitialState(config: WizardConfig): WizardState {
 
 function wizardReducer(state: WizardState, action: WizardAction): WizardState {
   switch (action.type) {
-    case 'SET_FIELD_VALUE':
+    case 'SET_FIELD_VALUE': {
+      const newFormData = {
+        ...state.formData,
+        [action.payload.field]: action.payload.value,
+      };
       return {
         ...state,
-        formData: {
-          ...state.formData,
-          [action.payload.field]: action.payload.value,
-        },
+        formData: newFormData,
+        data: newFormData,
         isDirty: true,
         errors: {
           ...state.errors,
@@ -95,16 +99,20 @@ function wizardReducer(state: WizardState, action: WizardAction): WizardState {
           _step: '',
         },
       };
+    }
 
-    case 'SET_MULTIPLE_VALUES':
+    case 'SET_MULTIPLE_VALUES': {
+      const newFormData = {
+        ...state.formData,
+        ...action.payload,
+      };
       return {
         ...state,
-        formData: {
-          ...state.formData,
-          ...action.payload,
-        },
+        formData: newFormData,
+        data: newFormData,
         isDirty: true,
       };
+    }
 
     case 'SET_STEP':
       return {
@@ -574,7 +582,7 @@ export function WizardProvider({
     (field: string): unknown => {
       return field
         .split('.')
-        .reduce((obj, key) => (obj as Record<string, unknown>)?.[key], state.formData);
+        .reduce<unknown>((obj, key) => (obj as Record<string, unknown>)?.[key], state.formData);
     },
     [state.formData]
   );

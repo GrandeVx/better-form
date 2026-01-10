@@ -114,10 +114,21 @@ export interface WizardField {
   // Display
   placeholder?: string;
   helpText?: string;
+  helperText?: string;
+  description?: string;
   tooltip?: string;
   defaultValue?: unknown;
   suffix?: string;
   prefix?: string;
+
+  // Boolean/Checkbox specific
+  checkboxLabel?: string;
+  termsText?: string;
+  termsUrl?: string;
+
+  // Checkbox group specific
+  minSelections?: number;
+  maxSelections?: number;
 
   // Validation
   validations?: ValidationRule[];
@@ -283,6 +294,8 @@ export interface WizardState {
   config: WizardConfig;
   currentStepIndex: number;
   formData: Record<string, unknown>;
+  /** Alias for formData - used by some components */
+  data: Record<string, unknown>;
   errors: Record<string, string>;
   touched: Record<string, boolean>;
   completedSteps: Set<string>;
@@ -290,6 +303,8 @@ export interface WizardState {
   isSubmitting: boolean;
   isDirty: boolean;
   submitError?: string;
+  /** Whether blocking dialog is open */
+  blockingDialogOpen?: boolean;
 }
 
 // ============================================

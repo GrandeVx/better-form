@@ -29,6 +29,11 @@ export interface WizardContainerProps extends WizardProviderProps {
 }
 
 /**
+ * Props for WizardContainerContent (excludes provider props but keeps children)
+ */
+type WizardContainerContentProps = Omit<WizardContainerProps, keyof Omit<WizardProviderProps, 'children'>>;
+
+/**
  * Internal container content that uses the wizard context
  */
 function WizardContainerContent({
@@ -41,10 +46,11 @@ function WizardContainerContent({
   navigation,
   header,
   footer,
-}: Omit<WizardContainerProps, keyof WizardProviderProps>) {
-  const { theme, currentStepIndex, visibleSteps, config, state, blockingDialog } = useWizard();
+}: WizardContainerContentProps) {
+  const { theme, visibleCurrentStepIndex, visibleSteps, showBlockingDialog } = useWizard();
 
-  const currentStep = visibleSteps[currentStepIndex];
+  const currentVisibleStep = visibleSteps[visibleCurrentStepIndex];
+  const currentStep = currentVisibleStep?.step;
 
   // Generate CSS variables from theme
   const themeStyles: React.CSSProperties = {
@@ -68,10 +74,10 @@ function WizardContainerContent({
     '--bf-spacing-lg': theme.spacing.lg,
     '--bf-spacing-xl': theme.spacing.xl,
     '--bf-font-family': theme.typography.fontFamily,
-    '--bf-font-size-sm': theme.typography.fontSize.sm,
-    '--bf-font-size-base': theme.typography.fontSize.base,
-    '--bf-font-size-lg': theme.typography.fontSize.lg,
-    '--bf-font-size-xl': theme.typography.fontSize.xl,
+    '--bf-font-size-sm': theme.typography.textSm,
+    '--bf-font-size-base': theme.typography.textBase,
+    '--bf-font-size-lg': theme.typography.textLg,
+    '--bf-font-size-xl': theme.typography.textXl,
     '--bf-shadow-sm': theme.shadows.sm,
     '--bf-shadow-md': theme.shadows.md,
     '--bf-shadow-lg': theme.shadows.lg,
@@ -85,7 +91,7 @@ function WizardContainerContent({
       className={`better-form-container ${className || ''}`}
       style={themeStyles}
       data-step={currentStep?.id}
-      data-step-index={currentStepIndex}
+      data-step-index={visibleCurrentStepIndex}
     >
       {/* Header */}
       {header && <div className="better-form-header">{header}</div>}
@@ -119,8 +125,8 @@ function WizardContainerContent({
       {footer && <div className="better-form-footer">{footer}</div>}
 
       {/* Blocking Dialog */}
-      {state.blockingDialogOpen && blockingDialog && (
-        <div className="better-form-blocking-dialog">{blockingDialog}</div>
+      {showBlockingDialog && (
+        <div className="better-form-blocking-dialog">{/* Blocking dialog content */}</div>
       )}
     </div>
   );
@@ -130,14 +136,15 @@ function WizardContainerContent({
  * Default step indicator component
  */
 function DefaultStepIndicator() {
-  const { visibleSteps, currentStepIndex, goToStep, isStepComplete } = useWizard();
+  const { visibleSteps, visibleCurrentStepIndex, goToStep, state } = useWizard();
 
   return (
     <div className="better-form-steps">
-      {visibleSteps.map((step, index) => {
-        const isActive = index === currentStepIndex;
-        const isCompleted = isStepComplete(step.id);
-        const isClickable = index < currentStepIndex || isCompleted;
+      {visibleSteps.map((visibleStep, index) => {
+        const step = visibleStep.step;
+        const isActive = index === visibleCurrentStepIndex;
+        const isCompleted = state.completedSteps.has(step.id);
+        const isClickable = index < visibleCurrentStepIndex || isCompleted;
 
         return (
           <button
@@ -146,7 +153,7 @@ function DefaultStepIndicator() {
             className={`better-form-step-dot ${isActive ? 'active' : ''} ${
               isCompleted ? 'completed' : ''
             }`}
-            onClick={() => isClickable && goToStep(index)}
+            onClick={() => isClickable && goToStep(visibleStep.originalIndex)}
             disabled={!isClickable}
             aria-label={`Step ${index + 1}: ${step.title || step.id}`}
             aria-current={isActive ? 'step' : undefined}
@@ -165,17 +172,17 @@ function DefaultStepIndicator() {
  */
 function DefaultNavigation() {
   const {
-    currentStepIndex,
+    visibleCurrentStepIndex,
     visibleSteps,
     previousStep,
     nextStep,
     submit,
-    canGoNext,
+    canProceed,
     isSubmitting,
   } = useWizard();
 
-  const isFirstStep = currentStepIndex === 0;
-  const isLastStep = currentStepIndex === visibleSteps.length - 1;
+  const isFirstStep = visibleCurrentStepIndex === 0;
+  const isLastStep = visibleCurrentStepIndex === visibleSteps.length - 1;
 
   return (
     <div className="better-form-nav-buttons">
@@ -193,7 +200,7 @@ function DefaultNavigation() {
           type="button"
           className="better-form-btn better-form-btn-primary"
           onClick={submit}
-          disabled={!canGoNext || isSubmitting}
+          disabled={!canProceed || isSubmitting}
         >
           {isSubmitting ? 'Invio in corso...' : 'Invia'}
         </button>
@@ -202,7 +209,7 @@ function DefaultNavigation() {
           type="button"
           className="better-form-btn better-form-btn-primary"
           onClick={nextStep}
-          disabled={!canGoNext}
+          disabled={!canProceed}
         >
           Avanti
         </button>
@@ -216,34 +223,28 @@ function DefaultNavigation() {
  */
 export function WizardContainer({
   config,
-  initialData,
-  storage,
   theme,
   fieldComponents,
   onSubmit,
   onStepChange,
-  onFieldChange,
-  onValidationError,
   onNavigate,
   onNotify,
-  blockingDialog,
+  storageAdapter,
+  renderBlockingDialog,
   children,
   ...containerProps
 }: WizardContainerProps) {
   return (
     <WizardProvider
       config={config}
-      initialData={initialData}
-      storage={storage}
       theme={theme}
       fieldComponents={fieldComponents}
       onSubmit={onSubmit}
       onStepChange={onStepChange}
-      onFieldChange={onFieldChange}
-      onValidationError={onValidationError}
       onNavigate={onNavigate}
       onNotify={onNotify}
-      blockingDialog={blockingDialog}
+      storageAdapter={storageAdapter}
+      renderBlockingDialog={renderBlockingDialog}
     >
       <WizardContainerContent {...containerProps}>{children}</WizardContainerContent>
     </WizardProvider>

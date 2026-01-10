@@ -63,17 +63,17 @@ export function WizardNavigation({
   children,
 }: WizardNavigationProps) {
   const {
-    currentStepIndex,
+    visibleCurrentStepIndex,
     visibleSteps,
     previousStep,
     nextStep,
     submit,
-    canGoNext,
+    canProceed,
     isSubmitting,
   } = useWizard();
 
-  const isFirstStep = currentStepIndex === 0;
-  const isLastStep = currentStepIndex === visibleSteps.length - 1;
+  const isFirstStep = visibleCurrentStepIndex === 0;
+  const isLastStep = visibleCurrentStepIndex === visibleSteps.length - 1;
 
   const buttonProps: NavigationButtonProps = {
     onClick: () => {},
@@ -81,7 +81,7 @@ export function WizardNavigation({
     isSubmitting,
     isFirstStep,
     isLastStep,
-    currentStepIndex,
+    currentStepIndex: visibleCurrentStepIndex,
     totalSteps: visibleSteps.length,
   };
 
@@ -118,14 +118,14 @@ export function WizardNavigation({
               renderSubmit({
                 ...buttonProps,
                 onClick: submit,
-                disabled: !canGoNext || isSubmitting,
+                disabled: !canProceed || isSubmitting,
               })
             ) : (
               <button
                 type="button"
                 className="better-form-btn better-form-btn-primary"
                 onClick={submit}
-                disabled={!canGoNext || isSubmitting}
+                disabled={!canProceed || isSubmitting}
               >
                 {isSubmitting ? submittingText : submitText}
               </button>
@@ -138,14 +138,14 @@ export function WizardNavigation({
               renderNext({
                 ...buttonProps,
                 onClick: nextStep,
-                disabled: !canGoNext,
+                disabled: !canProceed,
               })
             ) : (
               <button
                 type="button"
                 className="better-form-btn better-form-btn-primary"
                 onClick={nextStep}
-                disabled={!canGoNext}
+                disabled={!canProceed}
               >
                 {nextText}
               </button>
@@ -191,23 +191,24 @@ export function StepIndicator({
   clickable = true,
   renderStep,
 }: StepIndicatorProps) {
-  const { visibleSteps, currentStepIndex, goToStep, isStepComplete } = useWizard();
+  const { visibleSteps, visibleCurrentStepIndex, goToStep, state } = useWizard();
 
   return (
     <div className={`better-form-step-indicator ${className || ''}`} style={style}>
       <div className="better-form-steps">
-        {visibleSteps.map((step, index) => {
-          const isActive = index === currentStepIndex;
-          const isCompleted = isStepComplete(step.id);
-          const isClickable = clickable && (index < currentStepIndex || isCompleted);
+        {visibleSteps.map((visibleStep, index) => {
+          const step = visibleStep.step;
+          const isActive = index === visibleCurrentStepIndex;
+          const isCompleted = state.completedSteps.has(step.id);
+          const isClickable = clickable && (index < visibleCurrentStepIndex || isCompleted);
 
           const itemProps: StepIndicatorItemProps = {
-            step,
+            step: { id: step.id, title: step.title },
             index,
             isActive,
             isCompleted,
             isClickable,
-            onClick: () => isClickable && goToStep(index),
+            onClick: () => isClickable && goToStep(visibleStep.originalIndex),
           };
 
           if (renderStep) {
@@ -299,7 +300,7 @@ export function SaveIndicator({
   className,
   savingText = 'Salvataggio...',
   savedText = 'Salvato',
-  errorText = 'Errore di salvataggio',
+  errorText: _errorText = 'Errore di salvataggio',
 }: SaveIndicatorProps) {
   const { state } = useWizard();
   const [showSaved, setShowSaved] = React.useState(false);
@@ -311,7 +312,7 @@ export function SaveIndicator({
       const timer = setTimeout(() => setShowSaved(false), 2000);
       return () => clearTimeout(timer);
     }
-  }, [state.data, state.isSubmitting]);
+  }, [state.formData, state.isSubmitting]);
 
   if (state.isSubmitting) {
     return (

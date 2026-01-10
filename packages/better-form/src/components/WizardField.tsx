@@ -45,9 +45,9 @@ export interface FieldComponentProps {
  * WizardField - Renders a field using the appropriate field component
  */
 export function WizardField({ field, className, style, component }: WizardFieldProps) {
-  const { state, setFieldValue, getFieldComponent, onFieldChange } = useWizard();
+  const { state, formData, setFieldValue, fieldComponents } = useWizard();
 
-  const value = state.data[field.id];
+  const value = formData[field.id];
   const error = state.errors[field.id];
   const isDisabled = field.disabled || state.isSubmitting;
 
@@ -55,7 +55,8 @@ export function WizardField({ field, className, style, component }: WizardFieldP
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Get the field component to use
-  const FieldComponent = component || getFieldComponent(field.type);
+  const FieldComponent =
+    component || fieldComponents[field.type] || fieldComponents[field.type.toLowerCase()];
 
   // Handle value change with debounced callback
   const handleChange = useCallback(
@@ -63,22 +64,19 @@ export function WizardField({ field, className, style, component }: WizardFieldP
       setFieldValue(field.id, newValue);
 
       // Call onChange callback if provided (debounced)
-      if (onFieldChange || field.onChange) {
+      if (field.onChange) {
         if (debounceTimerRef.current) {
           clearTimeout(debounceTimerRef.current);
         }
 
         debounceTimerRef.current = setTimeout(() => {
-          if (onFieldChange) {
-            onFieldChange(field.id, newValue, state.data);
-          }
           if (field.onChange) {
-            field.onChange(newValue, state.data);
+            field.onChange(newValue, formData);
           }
         }, 300);
       }
     },
-    [field.id, field.onChange, setFieldValue, onFieldChange, state.data]
+    [field.id, field.onChange, setFieldValue, formData]
   );
 
   // Cleanup debounce timer
@@ -99,9 +97,9 @@ export function WizardField({ field, className, style, component }: WizardFieldP
       error,
       disabled: isDisabled,
       required: field.required,
-      formData: state.data,
+      formData,
     }),
-    [field, value, handleChange, error, isDisabled, state.data]
+    [field, value, handleChange, error, isDisabled, formData]
   );
 
   if (!FieldComponent) {
@@ -175,8 +173,8 @@ export interface FieldValueProps {
 }
 
 export function FieldValue({ fieldId, format, className }: FieldValueProps) {
-  const { state } = useWizard();
-  const value = state.data[fieldId];
+  const { formData } = useWizard();
+  const value = formData[fieldId];
 
   const displayValue = format ? format(value) : String(value ?? '');
 
@@ -196,12 +194,12 @@ export interface ConditionalFieldProps {
 }
 
 export function ConditionalField({ fieldId, children, invert = false }: ConditionalFieldProps) {
-  const { getVisibleFields, currentStepIndex, visibleSteps } = useWizard();
+  const { getVisibleFields, visibleCurrentStepIndex, visibleSteps } = useWizard();
 
-  const currentStep = visibleSteps[currentStepIndex];
-  if (!currentStep) return null;
+  const currentVisibleStep = visibleSteps[visibleCurrentStepIndex];
+  if (!currentVisibleStep) return null;
 
-  const visibleFields = getVisibleFields(currentStep.id);
+  const visibleFields = getVisibleFields(currentVisibleStep.originalIndex);
   const isVisible = visibleFields.some((f) => f.id === fieldId);
   const shouldShow = invert ? !isVisible : isVisible;
 
