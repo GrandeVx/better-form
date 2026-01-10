@@ -1,0 +1,74 @@
+{
+  "name": "@better-form/plugin-google-places",
+  "version": "0.1.0",
+  "description": "Google Places address autocomplete plugin for better-form",
+  "author": "GrandeVx",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "dev-source": "./src/index.ts",
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "./styles": "./src/styles/plugin.css",
+    "./styles/plugin.css": "./src/styles/plugin.css"
+  },
+  "sideEffects": ["**/*.css"],
+  "typesVersions": {
+    "*": {
+      "*": ["./dist/index.d.mts"]
+    }
+  },
+  "files": ["dist", "src/styles", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit",
+    "lint:types": "tsc --noEmit",
+    "lint:package": "publint --strict",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "better-form": "workspace:*"
+  },
+  "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.8"
+  },
+  "devDependencies": {
+    "@types/google.maps": "^3.58.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "better-form": "workspace:*",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsdown": "^0.17.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "better-form",
+    "plugin",
+    "google-places",
+    "address",
+    "autocomplete",
+    "maps",
+    "react"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GrandeVx/better-form.git",
+    "directory": "packages/plugin-google-places"
+  },
+  "bugs": {
+    "url": "https://github.com/GrandeVx/better-form/issues"
+  },
+  "homepage": "https://github.com/GrandeVx/better-form#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

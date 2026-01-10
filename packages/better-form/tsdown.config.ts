@@ -10,6 +10,7 @@ export default defineConfig({
     './src/core/validation/index.ts',
     './src/core/conditional-logic/index.ts',
     './src/types/index.ts',
+    './src/plugins/index.ts',
   ],
   format: 'esm',
   dts: true,

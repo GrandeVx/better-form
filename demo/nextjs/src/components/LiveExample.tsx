@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import { AutoStep, WizardContainer, createTheme } from 'better-form';
-import type { WizardConfig } from 'better-form';
+import type { WizardConfig, FieldComponentsMap } from 'better-form';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { CodeBlock } from './CodeBlock';
@@ -51,6 +51,8 @@ interface LiveExampleProps {
   configCode: string;
   highlightLines?: number[];
   className?: string;
+  /** Custom field components to merge with defaults */
+  fieldComponents?: FieldComponentsMap;
 }
 
 export function LiveExample({
@@ -60,6 +62,7 @@ export function LiveExample({
   configCode,
   highlightLines = [],
   className,
+  fieldComponents,
 }: LiveExampleProps) {
   const [activeView, setActiveView] = useState<'split' | 'code' | 'preview'>('split');
   const [key, setKey] = useState(0);
@@ -143,7 +146,7 @@ export function LiveExample({
                   <span className="text-xs font-medium text-muted-foreground">PREVIEW</span>
                 </div>
                 <div className="max-h-[450px] overflow-auto p-6">
-                  <WizardContainer key={key} config={config} theme={demoTheme}>
+                  <WizardContainer key={key} config={config} theme={demoTheme} fieldComponents={fieldComponents}>
                     <AutoStep />
                   </WizardContainer>
                 </div>
@@ -178,7 +181,7 @@ export function LiveExample({
               exit={{ opacity: 0 }}
               className="p-6"
             >
-              <WizardContainer key={key} config={config} theme={demoTheme}>
+              <WizardContainer key={key} config={config} theme={demoTheme} fieldComponents={fieldComponents}>
                 <AutoStep />
               </WizardContainer>
             </motion.div>

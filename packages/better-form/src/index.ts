@@ -193,3 +193,14 @@ export {
   themePresets,
   themeToCSS,
 } from './themes/createTheme';
+
+// ============================================
+// Plugins
+// ============================================
+export type { BetterFormPlugin, PluginFactory } from './plugins/types';
+export {
+  createPlugin,
+  mergePlugins,
+  initializePlugins,
+  getPluginFieldTypes,
+} from './plugins/types';

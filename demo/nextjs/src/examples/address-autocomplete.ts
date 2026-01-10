@@ -1,64 +1,17 @@
 import type { WizardConfig } from 'better-form';
+import type { AddressData } from '@better-form/plugin-google-places';
 
-// Simulated address database for demo purposes
-// In production, this would come from Google Places API or similar
-const mockAddresses = [
-  {
-    formatted: 'Via Roma, 1, 20121 Milano MI, Italy',
-    street: 'Via Roma, 1',
-    city: 'Milano',
-    province: 'MI',
-    region: 'Lombardia',
-    postalCode: '20121',
-    country: 'Italy',
-    lat: 45.4642,
-    lng: 9.19,
-  },
-  {
-    formatted: 'Piazza del Duomo, 20122 Milano MI, Italy',
-    street: 'Piazza del Duomo',
-    city: 'Milano',
-    province: 'MI',
-    region: 'Lombardia',
-    postalCode: '20122',
-    country: 'Italy',
-    lat: 45.4641,
-    lng: 9.1919,
-  },
-  {
-    formatted: 'Via dei Fori Imperiali, 00186 Roma RM, Italy',
-    street: 'Via dei Fori Imperiali',
-    city: 'Roma',
-    province: 'RM',
-    region: 'Lazio',
-    postalCode: '00186',
-    country: 'Italy',
-    lat: 41.8925,
-    lng: 12.4853,
-  },
-  {
-    formatted: 'Piazza Navona, 00186 Roma RM, Italy',
-    street: 'Piazza Navona',
-    city: 'Roma',
-    province: 'RM',
-    region: 'Lazio',
-    postalCode: '00186',
-    country: 'Italy',
-    lat: 41.8992,
-    lng: 12.4731,
-  },
-  {
-    formatted: 'Via Toledo, 80134 Napoli NA, Italy',
-    street: 'Via Toledo',
-    city: 'Napoli',
-    province: 'NA',
-    region: 'Campania',
-    postalCode: '80134',
-    country: 'Italy',
-    lat: 40.8388,
-    lng: 14.2488,
-  },
-];
+/**
+ * Address Autocomplete with Google Places Plugin
+ *
+ * This example demonstrates how to use the @better-form/plugin-google-places
+ * to add address autocomplete functionality.
+ *
+ * To use this example with real Google Places API:
+ * 1. Get a Google Maps API key from Google Cloud Console
+ * 2. Enable "Places API" and "Maps JavaScript API"
+ * 3. Set NEXT_PUBLIC_GOOGLE_MAPS_API_KEY in .env.local
+ */
 
 export const addressAutocompleteConfig: WizardConfig = {
   id: 'address-autocomplete-demo',
@@ -71,121 +24,81 @@ export const addressAutocompleteConfig: WizardConfig = {
         {
           id: 'search',
           title: 'Address Search',
-          description: 'Start typing to search for an address',
+          description: 'Start typing to search for an address using Google Places',
           fields: [
             {
-              id: 'addressSearch',
-              name: 'addressSearch',
-              label: 'Search Address',
-              type: 'select',
-              placeholder: 'Type to search (e.g., "Via Roma Milano")',
-              options: mockAddresses.map((addr) => ({
-                label: addr.formatted,
-                value: addr.formatted,
-              })),
-              // When an address is selected, auto-fill all detail fields
-              // Return an object with field names and values to update
-              onChange: (value) => {
-                const selectedAddress = mockAddresses.find((addr) => addr.formatted === value);
-                if (selectedAddress) {
-                  return {
-                    street: selectedAddress.street,
-                    city: selectedAddress.city,
-                    province: selectedAddress.province,
-                    region: selectedAddress.region,
-                    postalCode: selectedAddress.postalCode,
-                    country: selectedAddress.country,
-                    latitude: selectedAddress.lat.toString(),
-                    longitude: selectedAddress.lng.toString(),
-                  };
-                }
-                return undefined;
+              id: 'deliveryAddress',
+              name: 'deliveryAddress',
+              label: 'Delivery Address',
+              type: 'address', // Uses the plugin component
+              required: true,
+              placeholder: 'Start typing an address...',
+
+              // Plugin-specific options (typed via AddressFieldOptions)
+              showDetailFields: true,
+              showMapPicker: true,
+              countryRestrictions: ['IT'], // Restrict to Italy
+
+              // Callback when address is selected from autocomplete
+              // Can return additional field values to update
+              onAddressSelected: (address: AddressData, _formData: Record<string, unknown>) => {
+                console.log('Address selected:', address);
+                // Return values to update other fields if needed
+                return {
+                  deliveryCity: address.city,
+                  deliveryProvince: address.province,
+                  deliveryPostalCode: address.postalCode,
+                  deliveryLatitude: address.latitude?.toString() ?? '',
+                  deliveryLongitude: address.longitude?.toString() ?? '',
+                };
               },
-            },
+            } as unknown as WizardConfig['steps'][0]['fieldGroups'][0]['fields'][0],
           ],
         },
         {
-          id: 'address-details',
-          title: 'Address Details',
-          description: 'Auto-filled from address selection (editable)',
+          id: 'address-summary',
+          title: 'Extracted Address Data',
+          description: 'These fields are auto-filled when you select an address',
           fields: [
             {
-              id: 'street',
-              name: 'street',
-              label: 'Street Address',
-              type: 'text',
-              required: true,
-              placeholder: 'Street name and number',
-            },
-            {
-              id: 'city',
-              name: 'city',
+              id: 'deliveryCity',
+              name: 'deliveryCity',
               label: 'City',
               type: 'text',
-              required: true,
-              placeholder: 'City name',
+              disabled: true,
+              placeholder: 'Auto-filled from address',
             },
             {
-              id: 'province',
-              name: 'province',
+              id: 'deliveryProvince',
+              name: 'deliveryProvince',
               label: 'Province',
               type: 'text',
-              required: true,
-              placeholder: 'Province code',
+              disabled: true,
+              placeholder: 'Auto-filled from address',
             },
             {
-              id: 'region',
-              name: 'region',
-              label: 'Region',
-              type: 'text',
-              required: true,
-              placeholder: 'Region name',
-            },
-            {
-              id: 'postalCode',
-              name: 'postalCode',
+              id: 'deliveryPostalCode',
+              name: 'deliveryPostalCode',
               label: 'Postal Code',
               type: 'text',
-              required: true,
-              placeholder: '00000',
-              validations: [
-                {
-                  type: 'pattern',
-                  value: '^\\d{5}$',
-                  message: 'Enter a valid 5-digit postal code',
-                },
-              ],
+              disabled: true,
+              placeholder: 'Auto-filled from address',
             },
             {
-              id: 'country',
-              name: 'country',
-              label: 'Country',
-              type: 'text',
-              required: true,
-              placeholder: 'Country',
-            },
-          ],
-        },
-        {
-          id: 'coordinates',
-          title: 'GPS Coordinates',
-          description: 'Auto-filled from address (useful for delivery services)',
-          fields: [
-            {
-              id: 'latitude',
-              name: 'latitude',
+              id: 'deliveryLatitude',
+              name: 'deliveryLatitude',
               label: 'Latitude',
               type: 'text',
               disabled: true,
-              placeholder: 'Auto-filled',
+              placeholder: 'GPS coordinate',
             },
             {
-              id: 'longitude',
-              name: 'longitude',
+              id: 'deliveryLongitude',
+              name: 'deliveryLongitude',
               label: 'Longitude',
               type: 'text',
               disabled: true,
-              placeholder: 'Auto-filled',
+              placeholder: 'GPS coordinate',
             },
           ],
         },
@@ -245,45 +158,62 @@ export const addressAutocompleteConfig: WizardConfig = {
   ],
 };
 
-export const addressAutocompleteCode = `const config: WizardConfig = {
-  id: 'delivery-address',
+export const addressAutocompleteCode = `import { WizardProvider, defaultFieldComponents } from 'better-form';
+import { googlePlacesPlugin } from '@better-form/plugin-google-places';
+import '@better-form/plugin-google-places/styles';
+
+// Create the plugin instance with your API key
+const googlePlaces = googlePlacesPlugin({
+  apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
+  defaultCountryRestrictions: ['IT'],
+  defaultLanguage: 'it',
+});
+
+// Merge plugin components with default components
+const fieldComponents = {
+  ...defaultFieldComponents,
+  ...googlePlaces.fieldComponents,
+};
+
+// Configure your wizard with address field
+const config: WizardConfig = {
+  id: 'delivery-form',
   steps: [{
-    id: 'address-lookup',
-    title: 'Find Address',
+    id: 'address-step',
     fieldGroups: [{
-      id: 'search',
+      id: 'address-group',
       fields: [{
-        id: 'addressSearch',
-        name: 'addressSearch',
-        label: 'Search Address',
-        type: 'select',
-        placeholder: 'Start typing...',
-        options: addressOptions, // From API
-        // Auto-fill all detail fields on selection
-        // Return an object with field values to update
-        onChange: (value) => {
-          const address = findAddress(value);
-          if (address) {
-            return {
-              street: address.street,
-              city: address.city,
-              province: address.province,
-              postalCode: address.postalCode,
-              latitude: address.lat,
-              longitude: address.lng,
-            };
-          }
-          return undefined;
+        id: 'deliveryAddress',
+        name: 'deliveryAddress',
+        type: 'address', // Uses plugin component
+        label: 'Delivery Address',
+        required: true,
+
+        // Plugin-specific options
+        showDetailFields: true,
+        showMapPicker: true,
+        countryRestrictions: ['IT'],
+
+        // Callback when address is selected
+        onAddressSelected: (address, formData) => {
+          console.log('Selected:', address);
+          // Return field values to auto-fill
+          return {
+            city: address.city,
+            postalCode: address.postalCode,
+            latitude: address.latitude,
+            longitude: address.longitude,
+          };
         },
       }],
-    }, {
-      id: 'details',
-      title: 'Address Details',
-      fields: [
-        { id: 'street', name: 'street', label: 'Street', type: 'text' },
-        { id: 'city', name: 'city', label: 'City', type: 'text' },
-        // ... more auto-filled fields
-      ],
     }],
   }],
-};`;
+};
+
+// Use in your component
+<WizardProvider
+  config={config}
+  fieldComponents={fieldComponents}
+>
+  {/* ... */}
+</WizardProvider>`;

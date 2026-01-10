@@ -41,6 +41,68 @@ export default function ContactPage() {
   );
 }`;
 
+const pluginCode = `import { WizardProvider, defaultFieldComponents } from 'better-form';
+import { googlePlacesPlugin } from '@better-form/plugin-google-places';
+
+// Create plugin instance
+const googlePlaces = googlePlacesPlugin({
+  apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
+  defaultCountryRestrictions: ['IT'],
+});
+
+// Merge with default components
+const fieldComponents = {
+  ...defaultFieldComponents,
+  ...googlePlaces.fieldComponents,
+};
+
+export default function App() {
+  return (
+    <WizardProvider config={config} fieldComponents={fieldComponents}>
+      {/* Your form */}
+    </WizardProvider>
+  );
+}`;
+
+const plugins = [
+  {
+    name: '@better-form/plugin-google-places',
+    icon: (
+      <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+      </svg>
+    ),
+    title: 'Google Places',
+    description: 'Address autocomplete with interactive map picker and editable detail fields.',
+    features: ['Autocomplete', 'Map Picker', 'Reverse Geocoding', 'Detail Fields'],
+    status: 'available' as const,
+  },
+  {
+    name: '@better-form/plugin-rich-text',
+    icon: (
+      <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M5 4v3h5.5v12h3V7H19V4H5z" />
+      </svg>
+    ),
+    title: 'Rich Text Editor',
+    description: 'WYSIWYG editor with formatting, links, and media embedding.',
+    features: ['Bold/Italic', 'Lists', 'Links', 'Images'],
+    status: 'coming-soon' as const,
+  },
+  {
+    name: '@better-form/plugin-signature',
+    icon: (
+      <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+      </svg>
+    ),
+    title: 'Digital Signature',
+    description: 'Capture signatures with touch/mouse drawing and export as image.',
+    features: ['Touch Support', 'PNG Export', 'Undo/Redo', 'Clear'],
+    status: 'coming-soon' as const,
+  },
+];
+
 const features = [
   {
     icon: '{}',
@@ -194,6 +256,74 @@ export default function HomePage() {
                 <p className="text-sm text-muted-foreground">{feature.description}</p>
               </SpotlightCard>
             ))}
+          </div>
+        </section>
+
+        {/* Plugins Section */}
+        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="mb-12 text-center">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-1.5">
+              <span className="text-sm font-medium text-primary">Extensible</span>
+            </div>
+            <h2 className="mb-4 text-3xl font-bold sm:text-4xl">Powerful Plugin System</h2>
+            <p className="mx-auto max-w-2xl text-muted-foreground">
+              Extend better-form with official plugins for specialized field types. Each plugin
+              integrates seamlessly with your existing configuration.
+            </p>
+          </div>
+
+          {/* Plugin Cards */}
+          <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {plugins.map((plugin) => (
+              <div
+                key={plugin.name}
+                className={`relative rounded-xl border bg-card p-6 transition-all ${
+                  plugin.status === 'available'
+                    ? 'border-primary/30 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5'
+                    : 'border-border opacity-75'
+                }`}
+              >
+                {plugin.status === 'coming-soon' && (
+                  <div className="absolute right-4 top-4 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+                    Coming Soon
+                  </div>
+                )}
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  {plugin.icon}
+                </div>
+                <h3 className="mb-2 text-lg font-semibold">{plugin.title}</h3>
+                <p className="mb-4 text-sm text-muted-foreground">{plugin.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {plugin.features.map((feature) => (
+                    <span
+                      key={feature}
+                      className="rounded-md bg-muted px-2 py-1 text-xs text-muted-foreground"
+                    >
+                      {feature}
+                    </span>
+                  ))}
+                </div>
+                {plugin.status === 'available' && (
+                  <div className="mt-4 border-t border-border pt-4">
+                    <code className="text-xs text-muted-foreground">{plugin.name}</code>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Plugin Usage Code */}
+          <div className="mx-auto max-w-4xl">
+            <div className="mb-4 flex items-center justify-between">
+              <h3 className="text-lg font-semibold">Plugin Integration</h3>
+              <Link
+                href="/examples/address-autocomplete"
+                className="text-sm text-primary hover:underline"
+              >
+                View Live Demo
+              </Link>
+            </div>
+            <CodeBlock code={pluginCode} language="typescript" showLineNumbers />
           </div>
         </section>
 
