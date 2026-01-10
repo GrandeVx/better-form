@@ -18,6 +18,7 @@ import {
 
 import { ConditionalLogicEvaluator } from '../core/conditional-logic/ConditionalLogicEvaluator';
 import { WizardValidator } from '../core/validation/WizardValidator';
+import { defaultFieldComponents } from '../fields/defaultFieldComponents';
 import { defaultTheme } from '../themes/defaultTheme';
 import type { BetterFormTheme } from '../themes/types';
 import type {
@@ -243,7 +244,7 @@ export function WizardProvider({
   onSubmit,
   onStepChange,
   onNotify,
-  fieldComponents = {},
+  fieldComponents = defaultFieldComponents,
   renderBlockingDialog,
   storageAdapter = defaultStorageAdapter,
 }: WizardProviderProps) {
