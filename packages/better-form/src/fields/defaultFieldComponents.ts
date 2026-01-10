@@ -50,6 +50,8 @@ export const defaultFieldComponents: FieldComponentsMap = {
   // Boolean types
   boolean: BooleanField,
   checkbox: BooleanField,
+  'single-checkbox': BooleanField,
+  singlecheckbox: BooleanField,
   switch: SwitchField,
   toggle: SwitchField,
   terms: AcceptTermsField,

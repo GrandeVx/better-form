@@ -76,6 +76,22 @@ export class WizardValidator {
       return { isValid: true };
     }
 
+    // Check field.required property first
+    if (field.required && this.isEmpty(value)) {
+      return { isValid: false, error: `${field.label || field.name} is required` };
+    }
+
+    // Auto-validate email format when field type is 'email'
+    if (field.type === 'email' && value && !this.isEmpty(value)) {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(String(value))) {
+        return {
+          isValid: false,
+          error: `${field.label || field.name} must be a valid email address`,
+        };
+      }
+    }
+
     const validations = field.validations || [];
 
     for (const rule of validations) {
@@ -293,8 +309,9 @@ export class WizardValidator {
       }
 
       // Check if required fields have values
-      const requiredRule = field.validations?.find((v) => v.type === 'required');
-      if (requiredRule) {
+      // Support both field.required property and validations array
+      const isRequired = field.required || field.validations?.some((v) => v.type === 'required');
+      if (isRequired) {
         const value = this.formData[field.name];
         if (this.isEmpty(value)) {
           return false;
@@ -343,8 +360,9 @@ export class WizardValidator {
       }
 
       // Check if required fields have values
-      const requiredRule = field.validations?.find((v) => v.type === 'required');
-      if (requiredRule) {
+      // Support both field.required property and validations array
+      const isRequired = field.required || field.validations?.some((v) => v.type === 'required');
+      if (isRequired) {
         const value = this.formData[field.name];
         if (this.isEmpty(value)) {
           missingFields.push(field.label);
