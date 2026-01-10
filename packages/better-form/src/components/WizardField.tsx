@@ -8,10 +8,7 @@
 import type React from 'react';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useWizard } from '../hooks/useWizard';
-import type {
-  FieldComponentProps,
-  WizardField as WizardFieldType,
-} from '../types/wizard-schema';
+import type { FieldComponentProps, WizardField as WizardFieldType } from '../types/wizard-schema';
 
 // Re-export for backwards compatibility
 export type { FieldComponentProps };
