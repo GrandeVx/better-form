@@ -52,9 +52,18 @@ export function WizardField({ field, className, style, component }: WizardFieldP
           clearTimeout(debounceTimerRef.current);
         }
 
-        debounceTimerRef.current = setTimeout(() => {
+        debounceTimerRef.current = setTimeout(async () => {
           if (field.onChange) {
-            field.onChange(newValue, formData);
+            // Get the return value from onChange (can be sync or async)
+            const updates = await field.onChange(newValue, formData);
+            console.log('[better-form] onChange returned:', updates);
+            // If onChange returns an object, update the corresponding fields
+            if (updates && typeof updates === 'object') {
+              for (const [fieldName, fieldValue] of Object.entries(updates)) {
+                console.log(`[better-form] Setting ${fieldName} = ${fieldValue}`);
+                setFieldValue(fieldName, fieldValue);
+              }
+            }
           }
         }, 300);
       }

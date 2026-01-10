@@ -14,12 +14,11 @@ const examples = [
     tags: ['showIf', 'steps', 'dynamic'],
   },
   {
-    slug: 'validation',
+    slug: 'cross-field-validation',
     title: 'Cross-field Validation',
     description: 'Validate fields against each other with custom validation rules and messages.',
     icon: '!',
     tags: ['validation', 'custom', 'rules'],
-    comingSoon: true,
   },
   {
     slug: 'auto-fill',
@@ -28,7 +27,6 @@ const examples = [
       'Automatically populate fields based on other field changes using onChange callbacks.',
     icon: '->',
     tags: ['onChange', 'auto-fill', 'callbacks'],
-    comingSoon: true,
   },
   {
     slug: 'step-callbacks',
@@ -36,7 +34,6 @@ const examples = [
     description: 'Execute custom logic when entering or exiting steps with onEnter/onExit hooks.',
     icon: 'fn',
     tags: ['onEnter', 'onExit', 'lifecycle'],
-    comingSoon: true,
   },
   {
     slug: 'address-autocomplete',
@@ -44,7 +41,6 @@ const examples = [
     description: 'Integrate with address APIs to auto-complete and validate addresses.',
     icon: '@',
     tags: ['address', 'api', 'autocomplete'],
-    comingSoon: true,
   },
 ];
 
