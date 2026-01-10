@@ -8,7 +8,13 @@
 import type React from 'react';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useWizard } from '../hooks/useWizard';
-import type { WizardField as WizardFieldType } from '../types/wizard-schema';
+import type {
+  FieldComponentProps,
+  WizardField as WizardFieldType,
+} from '../types/wizard-schema';
+
+// Re-export for backwards compatibility
+export type { FieldComponentProps };
 
 export interface WizardFieldProps {
   /** Field configuration */
@@ -19,26 +25,6 @@ export interface WizardFieldProps {
   style?: React.CSSProperties;
   /** Override the field component */
   component?: React.ComponentType<FieldComponentProps>;
-}
-
-/**
- * Props passed to field components
- */
-export interface FieldComponentProps {
-  /** Field configuration */
-  field: WizardFieldType;
-  /** Current field value */
-  value: unknown;
-  /** Update field value */
-  onChange: (value: unknown) => void;
-  /** Field error message */
-  error?: string;
-  /** Whether the field is disabled */
-  disabled?: boolean;
-  /** Whether the field is required */
-  required?: boolean;
-  /** Full form data (for dependent fields) */
-  formData: Record<string, unknown>;
 }
 
 /**

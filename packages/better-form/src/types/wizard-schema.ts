@@ -331,12 +331,23 @@ export type WizardAction =
 // ============================================
 
 export interface FieldComponentProps<T = unknown> {
+  /** Field configuration */
   field: WizardField;
+  /** Current field value */
   value: T;
-  error?: string;
+  /** Update field value */
   onChange: (value: T) => void;
-  onBlur?: () => void;
+  /** Field error message */
+  error?: string;
+  /** Whether the field is disabled */
   disabled?: boolean;
+  /** Whether the field is required */
+  required?: boolean;
+  /** Full form data (for dependent fields) */
+  formData: Record<string, unknown>;
+  /** Blur handler */
+  onBlur?: () => void;
+  /** Custom class name */
   className?: string;
 }
 
