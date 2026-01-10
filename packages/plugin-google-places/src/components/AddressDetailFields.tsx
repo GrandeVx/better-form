@@ -130,8 +130,11 @@ export function AddressDetailFields({
     <div className={`bfp-detail-fields ${className || ''}`}>
       <div className="bfp-detail-row">
         <div className="bfp-detail-field bfp-detail-field-street">
-          <label className="bfp-detail-label">{mergedLabels.street}</label>
+          <label htmlFor="bfp-street" className="bfp-detail-label">
+            {mergedLabels.street}
+          </label>
           <input
+            id="bfp-street"
             type="text"
             value={localAddress.street || ''}
             onChange={(e) => handleFieldChange('street', e.target.value)}
@@ -142,8 +145,11 @@ export function AddressDetailFields({
         </div>
 
         <div className="bfp-detail-field bfp-detail-field-number">
-          <label className="bfp-detail-label">{mergedLabels.number}</label>
+          <label htmlFor="bfp-number" className="bfp-detail-label">
+            {mergedLabels.number}
+          </label>
           <input
+            id="bfp-number"
             type="text"
             value={localAddress.number || ''}
             onChange={(e) => handleFieldChange('number', e.target.value)}
@@ -156,8 +162,11 @@ export function AddressDetailFields({
 
       <div className="bfp-detail-row">
         <div className="bfp-detail-field bfp-detail-field-postal">
-          <label className="bfp-detail-label">{mergedLabels.postalCode}</label>
+          <label htmlFor="bfp-postal" className="bfp-detail-label">
+            {mergedLabels.postalCode}
+          </label>
           <input
+            id="bfp-postal"
             type="text"
             value={localAddress.postalCode || ''}
             onChange={(e) => handleFieldChange('postalCode', e.target.value)}
@@ -168,8 +177,11 @@ export function AddressDetailFields({
         </div>
 
         <div className="bfp-detail-field bfp-detail-field-city">
-          <label className="bfp-detail-label">{mergedLabels.city}</label>
+          <label htmlFor="bfp-city" className="bfp-detail-label">
+            {mergedLabels.city}
+          </label>
           <input
+            id="bfp-city"
             type="text"
             value={localAddress.city || ''}
             onChange={(e) => handleFieldChange('city', e.target.value)}

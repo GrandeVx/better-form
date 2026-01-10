@@ -110,13 +110,11 @@ export function createPlugin(
 export function mergePlugins(
   ...plugins: BetterFormPlugin[]
 ): Record<string, ComponentType<FieldComponentProps>> {
-  return plugins.reduce(
-    (acc, plugin) => ({
-      ...acc,
-      ...plugin.fieldComponents,
-    }),
-    {} as Record<string, ComponentType<FieldComponentProps>>
-  );
+  const result: Record<string, ComponentType<FieldComponentProps>> = {};
+  for (const plugin of plugins) {
+    Object.assign(result, plugin.fieldComponents);
+  }
+  return result;
 }
 
 /**

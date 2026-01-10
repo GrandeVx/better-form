@@ -85,7 +85,8 @@ export function GoogleMapPicker({
     [reverseGeocode, onLocationSelect]
   );
 
-  // Initialize map
+  // Initialize map (only runs once when loaded - deps intentionally minimal)
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Map should only initialize once on mount
   useEffect(() => {
     if (!isLoaded || !mapContainerRef.current || mapRef.current) return;
 
@@ -175,11 +176,10 @@ export function GoogleMapPicker({
       }
       mapRef.current = null;
     };
-    // Only run once on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoaded]);
 
   // Update marker position when props change
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Only update on coordinate changes
   useEffect(() => {
     if (!mapRef.current || !isLoaded) return;
 
@@ -214,7 +214,6 @@ export function GoogleMapPicker({
 
       mapRef.current.panTo(position);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [latitude, longitude, isLoaded]);
 
   if (!isLoaded) {
