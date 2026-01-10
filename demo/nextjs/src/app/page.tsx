@@ -143,20 +143,22 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={() => setActiveTab('config')}
-                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${activeTab === 'config'
+                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                  activeTab === 'config'
                     ? 'bg-primary text-primary-foreground'
                     : 'bg-muted text-muted-foreground hover:text-foreground'
-                  }`}
+                }`}
               >
                 wizard.config.ts
               </button>
               <button
                 type="button"
                 onClick={() => setActiveTab('usage')}
-                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${activeTab === 'usage'
+                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                  activeTab === 'usage'
                     ? 'bg-primary text-primary-foreground'
                     : 'bg-muted text-muted-foreground hover:text-foreground'
-                  }`}
+                }`}
               >
                 page.tsx
               </button>
