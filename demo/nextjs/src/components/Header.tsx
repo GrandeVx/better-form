@@ -2,6 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { ThemeToggle } from './ThemeToggle';
 
 interface HeaderProps {
@@ -9,6 +10,30 @@ interface HeaderProps {
 }
 
 export function Header({ className }: HeaderProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Close menu on route change or escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('keydown', handleEscape);
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+
+  const closeMenu = () => setIsMenuOpen(false);
+
   return (
     <header
       className={cn(
@@ -37,7 +62,7 @@ export function Header({ className }: HeaderProps) {
           <span className="text-lg font-semibold">better-form</span>
         </Link>
 
-        {/* Navigation */}
+        {/* Desktop Navigation */}
         <nav className="hidden items-center gap-6 md:flex">
           <NavLink href="/">Home</NavLink>
           <NavLink href="/examples">Examples</NavLink>
@@ -56,20 +81,81 @@ export function Header({ className }: HeaderProps) {
           <ThemeToggle />
           <button
             type="button"
-            className="flex h-9 w-9 items-center justify-center rounded-md border border-border"
-            aria-label="Toggle menu"
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-border transition-colors hover:bg-muted"
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMenuOpen}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
+            {isMenuOpen ? (
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            )}
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <>
+          {/* Backdrop - keyboard users can close with Escape key */}
+          {/* biome-ignore lint/a11y/useKeyWithClickEvents: Backdrop is aria-hidden, keyboard users use Escape */}
+          <div
+            className="fixed inset-0 top-16 z-40 bg-background/80 backdrop-blur-sm md:hidden"
+            onClick={closeMenu}
+            aria-hidden="true"
+          />
+
+          {/* Menu Panel */}
+          <nav
+            className="fixed inset-x-0 top-16 z-50 border-b border-border bg-background p-4 shadow-lg md:hidden"
+            aria-label="Mobile navigation"
+          >
+            <div className="flex flex-col gap-1">
+              <MobileNavLink href="/" onClick={closeMenu}>
+                Home
+              </MobileNavLink>
+              <MobileNavLink href="/examples" onClick={closeMenu}>
+                Examples
+              </MobileNavLink>
+              <MobileNavLink href="/playground" onClick={closeMenu}>
+                Playground
+              </MobileNavLink>
+
+              <div className="my-2 border-t border-border" />
+
+              <MobileNavLink
+                href={process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'}
+                onClick={closeMenu}
+                external
+              >
+                Documentation
+              </MobileNavLink>
+              <MobileNavLink
+                href="https://github.com/GrandeVx/better-form"
+                onClick={closeMenu}
+                external
+              >
+                GitHub
+              </MobileNavLink>
+            </div>
+          </nav>
+        </>
+      )}
     </header>
   );
 }
@@ -108,6 +194,59 @@ function NavLink({ href, children, external }: NavLinkProps) {
   return (
     <Link href={href} className={className}>
       {children}
+    </Link>
+  );
+}
+
+interface MobileNavLinkProps {
+  href: string;
+  children: React.ReactNode;
+  onClick: () => void;
+  external?: boolean;
+}
+
+function MobileNavLink({ href, children, onClick, external }: MobileNavLinkProps) {
+  const className =
+    'flex items-center justify-between rounded-lg px-3 py-2.5 text-base font-medium text-foreground transition-colors hover:bg-muted';
+
+  if (external) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+        onClick={onClick}
+      >
+        {children}
+        <svg
+          className="h-4 w-4 text-muted-foreground"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+          />
+        </svg>
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} className={className} onClick={onClick}>
+      {children}
+      <svg
+        className="h-4 w-4 text-muted-foreground"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+      </svg>
     </Link>
   );
 }
