@@ -42,6 +42,9 @@ export function Header({ className }: HeaderProps) {
           <NavLink href="/">Home</NavLink>
           <NavLink href="/examples">Examples</NavLink>
           <NavLink href="/playground">Playground</NavLink>
+          <NavLink href={process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'} external>
+            Docs
+          </NavLink>
           <NavLink href="https://github.com/GrandeVx/better-form" external>
             GitHub
           </NavLink>

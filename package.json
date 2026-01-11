@@ -22,18 +22,20 @@
     "format": "biome format --write .",
     "clean": "turbo clean && rm -rf node_modules .turbo",
     "typecheck": "turbo typecheck",
-    "release": "turbo build && bumpp && pnpm -r publish --access public --no-git-checks",
-    "release:canary": "turbo build && bumpp --tag canary && pnpm -r publish --tag canary --no-git-checks"
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@changesets/changelog-github": "^0.5.2",
+    "@changesets/cli": "^2.29.8",
     "@types/node": "^22.0.0",
-    "bumpp": "^10.0.0",
+    "@vitest/coverage-v8": "^2.1.0",
     "publint": "^0.3.0",
     "turbo": "^2.3.0",
     "typescript": "^5.7.0",
-    "vitest": "^2.1.0",
-    "@vitest/coverage-v8": "^2.1.0"
+    "vitest": "^2.1.0"
   },
   "repository": {
     "type": "git",

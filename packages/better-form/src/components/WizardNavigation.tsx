@@ -306,6 +306,7 @@ export function SaveIndicator({
   const [showSaved, setShowSaved] = React.useState(false);
 
   // Show "Saved" indicator briefly after data changes
+  // biome-ignore lint/correctness/useExhaustiveDependencies: formData is intentionally used to trigger effect on data change
   React.useEffect(() => {
     if (!state.isSubmitting) {
       setShowSaved(true);

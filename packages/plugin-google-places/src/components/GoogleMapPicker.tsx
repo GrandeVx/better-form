@@ -1,5 +1,5 @@
 /**
- * @better-form/plugin-google-places - GoogleMapPicker
+ * better-form-plugin-google-places - GoogleMapPicker
  *
  * Interactive map component for location selection
  *
@@ -165,7 +165,7 @@ export function GoogleMapPicker({
         });
       }
     } catch (error) {
-      console.error('[@better-form/plugin-google-places] Failed to create map:', error);
+      console.error('[better-form-plugin-google-places] Failed to create map:', error);
     }
 
     return () => {
@@ -208,7 +208,7 @@ export function GoogleMapPicker({
             });
           }
         } catch (error) {
-          console.error('[@better-form/plugin-google-places] Failed to create marker:', error);
+          console.error('[better-form-plugin-google-places] Failed to create marker:', error);
         }
       }
 

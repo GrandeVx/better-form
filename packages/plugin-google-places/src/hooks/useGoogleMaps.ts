@@ -1,5 +1,5 @@
 /**
- * @better-form/plugin-google-places - useGoogleMaps Hook
+ * better-form-plugin-google-places - useGoogleMaps Hook
  *
  * React hook for loading and using Google Maps API
  */
@@ -73,7 +73,7 @@ export function useGoogleMaps(): UseGoogleMapsReturn {
         await loadGoogleMapsScript();
         if (mounted) setIsLoaded(true);
       } catch (err) {
-        console.error('[@better-form/plugin-google-places] Failed to load Google Maps:', err);
+        console.error('[better-form-plugin-google-places] Failed to load Google Maps:', err);
         if (mounted) setError(err as Error);
       }
     };
@@ -101,7 +101,7 @@ export function useGoogleMaps(): UseGoogleMapsReturn {
       }
       placesServiceRef.current = createPlacesService(placesContainerRef.current);
     } catch (err) {
-      console.error('[@better-form/plugin-google-places] Failed to initialize services:', err);
+      console.error('[better-form-plugin-google-places] Failed to initialize services:', err);
       setError(err as Error);
     }
 
@@ -118,7 +118,7 @@ export function useGoogleMaps(): UseGoogleMapsReturn {
   const searchPredictions = useCallback(
     async (input: string, countryRestrictions?: string[]): Promise<PlacePrediction[]> => {
       if (!autocompleteServiceRef.current) {
-        console.warn('[@better-form/plugin-google-places] AutocompleteService not ready');
+        console.warn('[better-form-plugin-google-places] AutocompleteService not ready');
         return [];
       }
 
@@ -153,7 +153,7 @@ export function useGoogleMaps(): UseGoogleMapsReturn {
         if (error?.code === 'ZERO_RESULTS') {
           return [];
         }
-        console.error('[@better-form/plugin-google-places] Prediction error:', err);
+        console.error('[better-form-plugin-google-places] Prediction error:', err);
         return [];
       }
     },
@@ -163,7 +163,7 @@ export function useGoogleMaps(): UseGoogleMapsReturn {
   // Get place details
   const getPlaceDetails = useCallback(async (placeId: string): Promise<AddressData | null> => {
     if (!placesServiceRef.current) {
-      console.warn('[@better-form/plugin-google-places] PlacesService not ready');
+      console.warn('[better-form-plugin-google-places] PlacesService not ready');
       return null;
     }
 
@@ -190,7 +190,7 @@ export function useGoogleMaps(): UseGoogleMapsReturn {
 
       return parseGooglePlaceResult(result);
     } catch (err) {
-      console.error('[@better-form/plugin-google-places] Place details error:', err);
+      console.error('[better-form-plugin-google-places] Place details error:', err);
       return null;
     }
   }, []);
@@ -199,7 +199,7 @@ export function useGoogleMaps(): UseGoogleMapsReturn {
   const reverseGeocode = useCallback(
     async (lat: number, lng: number): Promise<AddressData | null> => {
       if (!geocoderRef.current) {
-        console.warn('[@better-form/plugin-google-places] Geocoder not ready');
+        console.warn('[better-form-plugin-google-places] Geocoder not ready');
         return null;
       }
 
@@ -214,7 +214,7 @@ export function useGoogleMaps(): UseGoogleMapsReturn {
 
         return null;
       } catch (err) {
-        console.error('[@better-form/plugin-google-places] Reverse geocode error:', err);
+        console.error('[better-form-plugin-google-places] Reverse geocode error:', err);
         return null;
       }
     },

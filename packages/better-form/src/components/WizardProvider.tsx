@@ -280,7 +280,7 @@ export function WizardProvider({
 
       return () => clearTimeout(timeoutId);
     }
-  }, [state.formData, state.currentStepIndex, config, storageAdapter]);
+  }, [state.formData, state.currentStepIndex, state.completedSteps, config, storageAdapter]);
 
   // Load saved state on mount
   useEffect(() => {
@@ -396,7 +396,8 @@ export function WizardProvider({
   const findNextVisibleStepIndex = useCallback(
     (fromIndex: number): number => {
       for (let i = fromIndex + 1; i < config.steps.length; i++) {
-        if (isStepVisible(config.steps[i]!)) {
+        const step = config.steps[i];
+        if (step && isStepVisible(step)) {
           return i;
         }
       }
@@ -408,7 +409,8 @@ export function WizardProvider({
   const findPreviousVisibleStepIndex = useCallback(
     (fromIndex: number): number => {
       for (let i = fromIndex - 1; i >= 0; i--) {
-        if (isStepVisible(config.steps[i]!)) {
+        const step = config.steps[i];
+        if (step && isStepVisible(step)) {
           return i;
         }
       }

@@ -1,5 +1,5 @@
 /**
- * @better-form/plugin-google-places - AddressAutocomplete
+ * better-form-plugin-google-places - AddressAutocomplete
  *
  * Google Places Autocomplete input component
  *

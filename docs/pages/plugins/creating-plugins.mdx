@@ -1,0 +1,105 @@
+# Creating Plugins
+
+Extend better-form with custom plugins that add new field types.
+
+## Plugin Structure
+
+A plugin is an object that implements the `BetterFormPlugin` interface:
+
+```tsx
+import type { BetterFormPlugin } from 'better-form';
+
+const myPlugin: BetterFormPlugin = {
+  name: 'my-plugin',
+  version: '1.0.0',
+  fieldComponents: {
+    'custom-field': CustomFieldComponent,
+  },
+  fieldTypes: ['custom-field'],
+  init: async () => {
+    // Optional: Initialize plugin (load scripts, etc.)
+  },
+};
+```
+
+## Creating a Plugin
+
+```tsx
+// my-plugin.ts
+import type { BetterFormPlugin, FieldComponentProps } from 'better-form';
+
+function MyCustomField({ field, value, onChange, error }: FieldComponentProps) {
+  return (
+    <div>
+      <label>{field.label}</label>
+      <input
+        value={value as string}
+        onChange={(e) => onChange(e.target.value)}
+      />
+      {error && <span>{error}</span>}
+    </div>
+  );
+}
+
+export function myPlugin(config?: { option: string }): BetterFormPlugin {
+  return {
+    name: 'my-plugin',
+    version: '1.0.0',
+    fieldComponents: {
+      'my-custom': MyCustomField,
+    },
+    fieldTypes: ['my-custom'],
+  };
+}
+```
+
+## Using Your Plugin
+
+```tsx
+import { WizardProvider, defaultFieldComponents } from 'better-form';
+import { myPlugin } from './my-plugin';
+
+const plugin = myPlugin({ option: 'value' });
+
+const fieldComponents = {
+  ...defaultFieldComponents,
+  ...plugin.fieldComponents,
+};
+
+<WizardProvider config={config} fieldComponents={fieldComponents}>
+  <WizardContainer />
+</WizardProvider>
+```
+
+## Plugin Helpers
+
+```tsx
+import { createPlugin, mergePlugins } from 'better-form/plugins';
+
+// Simple plugin creation
+const simplePlugin = createPlugin('simple', '1.0.0', {
+  'simple-field': SimpleFieldComponent,
+});
+
+// Merge multiple plugins
+const allComponents = mergePlugins(pluginA, pluginB, pluginC);
+```
+
+## Publishing Your Plugin
+
+1. Create an npm package
+2. Export your plugin factory function
+3. Include TypeScript types
+4. Document your plugin options
+
+```json
+{
+  "name": "better-form-plugin-yourname",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "peerDependencies": {
+    "better-form": "^0.1.0",
+    "react": "^18.0.0 || ^19.0.0"
+  }
+}
+```

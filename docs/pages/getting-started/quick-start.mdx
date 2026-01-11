@@ -1,0 +1,175 @@
+# Quick Start
+
+Learn how to create your first multi-step form with better-form.
+
+## Basic Form
+
+```tsx
+import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+import 'better-form/styles';
+
+const config = {
+  id: 'contact-form',
+  title: 'Contact Us',
+  steps: [
+    {
+      id: 'personal-info',
+      title: 'Personal Information',
+      fieldGroups: [
+        {
+          id: 'contact-details',
+          title: 'Your Details',
+          fields: [
+            {
+              id: 'firstName',
+              name: 'firstName',
+              label: 'First Name',
+              type: 'text',
+              required: true,
+              placeholder: 'Enter your first name',
+            },
+            {
+              id: 'lastName',
+              name: 'lastName',
+              label: 'Last Name',
+              type: 'text',
+              required: true,
+            },
+            {
+              id: 'email',
+              name: 'email',
+              label: 'Email',
+              type: 'text',
+              required: true,
+              validation: {
+                pattern: '^[^@]+@[^@]+\\.[^@]+$',
+                patternMessage: 'Please enter a valid email',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'message',
+      title: 'Your Message',
+      fieldGroups: [
+        {
+          id: 'message-group',
+          fields: [
+            {
+              id: 'subject',
+              name: 'subject',
+              label: 'Subject',
+              type: 'select',
+              required: true,
+              options: [
+                { label: 'General Inquiry', value: 'general' },
+                { label: 'Support', value: 'support' },
+                { label: 'Sales', value: 'sales' },
+              ],
+            },
+            {
+              id: 'message',
+              name: 'message',
+              label: 'Message',
+              type: 'textarea',
+              required: true,
+              placeholder: 'How can we help you?',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export default function ContactForm() {
+  const handleComplete = (data) => {
+    console.log('Form submitted:', data);
+    // Send to your API
+  };
+
+  return (
+    <WizardProvider
+      config={config}
+      fieldComponents={defaultFieldComponents}
+      onComplete={handleComplete}
+    >
+      <WizardContainer />
+    </WizardProvider>
+  );
+}
+```
+
+## Field Types
+
+better-form includes these built-in field types:
+
+| Type | Description |
+|------|-------------|
+| `text` | Single-line text input |
+| `textarea` | Multi-line text input |
+| `number` | Numeric input with min/max |
+| `select` | Dropdown select |
+| `radio` | Radio button group |
+| `checkbox` | Checkbox group |
+| `single-checkbox` | Single checkbox |
+| `boolean` | Toggle switch |
+| `date` | Date picker |
+| `file` | File upload |
+| `hidden` | Hidden field |
+
+## Validation
+
+Add validation rules to any field:
+
+```tsx
+{
+  id: 'age',
+  name: 'age',
+  label: 'Age',
+  type: 'number',
+  required: true,
+  validation: {
+    min: 18,
+    minMessage: 'You must be at least 18',
+    max: 120,
+    maxMessage: 'Please enter a valid age',
+  },
+}
+```
+
+## Conditional Logic
+
+Show/hide fields based on other field values:
+
+```tsx
+{
+  id: 'hasAccount',
+  name: 'hasAccount',
+  label: 'Do you have an account?',
+  type: 'boolean',
+},
+{
+  id: 'accountId',
+  name: 'accountId',
+  label: 'Account ID',
+  type: 'text',
+  conditions: {
+    visible: {
+      operator: 'AND',
+      conditions: [
+        { field: 'hasAccount', operator: 'equals', value: true },
+      ],
+    },
+  },
+}
+```
+
+## Next Steps
+
+- [Learn about WizardConfig](/core-concepts/wizard-config)
+- [Explore field types](/core-concepts/field-types)
+- [Add validation](/core-concepts/validation)
+- [Use conditional logic](/core-concepts/conditional-logic)

@@ -1,5 +1,5 @@
 /**
- * @better-form/plugin-google-places - AddressDetailFields
+ * better-form-plugin-google-places - AddressDetailFields
  *
  * Editable address detail fields
  *

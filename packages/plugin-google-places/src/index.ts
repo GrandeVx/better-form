@@ -1,12 +1,12 @@
 /**
- * @better-form/plugin-google-places
+ * better-form-plugin-google-places
  *
  * Google Places address autocomplete plugin for better-form
  *
  * @example
  * ```typescript
- * import { googlePlacesPlugin } from '@better-form/plugin-google-places';
- * import type { AddressData } from '@better-form/plugin-google-places';
+ * import { googlePlacesPlugin } from 'better-form-plugin-google-places';
+ * import type { AddressData } from 'better-form-plugin-google-places';
  *
  * const plugin = googlePlacesPlugin({
  *   apiKey: 'your-api-key',

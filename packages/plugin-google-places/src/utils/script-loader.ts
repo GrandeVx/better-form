@@ -1,5 +1,5 @@
 /**
- * @better-form/plugin-google-places - Script Loader
+ * better-form-plugin-google-places - Script Loader
  *
  * Utility to load the Google Maps JavaScript API
  */
@@ -89,7 +89,7 @@ export function isGoogleMapsLoaded(): boolean {
 export function getMapsLibrary(): google.maps.MapsLibrary {
   if (!mapsLibrary) {
     throw new Error(
-      '[@better-form/plugin-google-places] Google Maps library not loaded. ' +
+      '[better-form-plugin-google-places] Google Maps library not loaded. ' +
         'Call loadGoogleMapsScript() first or wait for the component to mount.'
     );
   }
@@ -102,7 +102,7 @@ export function getMapsLibrary(): google.maps.MapsLibrary {
 export function getPlacesLibrary(): google.maps.PlacesLibrary {
   if (!placesLibrary) {
     throw new Error(
-      '[@better-form/plugin-google-places] Google Places library not loaded. ' +
+      '[better-form-plugin-google-places] Google Places library not loaded. ' +
         'Call loadGoogleMapsScript() first or wait for the component to mount.'
     );
   }
@@ -115,7 +115,7 @@ export function getPlacesLibrary(): google.maps.PlacesLibrary {
 export function getGeocodingLibrary(): google.maps.GeocodingLibrary {
   if (!geocodingLibrary) {
     throw new Error(
-      '[@better-form/plugin-google-places] Google Geocoding library not loaded. ' +
+      '[better-form-plugin-google-places] Google Geocoding library not loaded. ' +
         'Call loadGoogleMapsScript() first or wait for the component to mount.'
     );
   }
@@ -164,7 +164,7 @@ export function createMap(
 export function createMarker(options: google.maps.MarkerOptions): google.maps.Marker {
   // Marker is still on google.maps namespace
   if (typeof google === 'undefined' || !google.maps?.Marker) {
-    throw new Error('[@better-form/plugin-google-places] Google Maps Marker not available.');
+    throw new Error('[better-form-plugin-google-places] Google Maps Marker not available.');
   }
   return new google.maps.Marker(options);
 }
@@ -172,7 +172,7 @@ export function createMarker(options: google.maps.MarkerOptions): google.maps.Ma
 // Legacy export for backwards compatibility
 export function getGoogleMaps(): typeof google.maps {
   if (typeof google === 'undefined' || !google.maps) {
-    throw new Error('[@better-form/plugin-google-places] Google Maps API not loaded.');
+    throw new Error('[better-form-plugin-google-places] Google Maps API not loaded.');
   }
   return google.maps;
 }

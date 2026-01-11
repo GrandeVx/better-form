@@ -1,0 +1,121 @@
+# TypeScript
+
+better-form is built with TypeScript and provides comprehensive type definitions.
+
+## Importing Types
+
+```tsx
+import type {
+  WizardConfig,
+  WizardField,
+  WizardStep,
+  FieldGroup,
+  FieldComponentProps,
+  ValidationRule,
+} from 'better-form';
+```
+
+## Type-Safe Configuration
+
+```tsx
+import type { WizardConfig } from 'better-form';
+
+const config: WizardConfig = {
+  id: 'typed-form',
+  steps: [
+    {
+      id: 'step-1',
+      title: 'Step 1',
+      fieldGroups: [
+        {
+          id: 'group-1',
+          fields: [
+            {
+              id: 'name',
+              name: 'name',
+              label: 'Name',
+              type: 'text', // TypeScript will validate this
+              required: true,
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+```
+
+## Custom Field Components
+
+Type your custom field components:
+
+```tsx
+import type { FieldComponentProps } from 'better-form';
+
+interface CustomFieldProps extends FieldComponentProps {
+  // Add custom props here
+}
+
+export function CustomField({ field, value, onChange, error }: CustomFieldProps) {
+  return (
+    <div>
+      <label>{field.label}</label>
+      <input
+        value={value as string}
+        onChange={(e) => onChange(e.target.value)}
+      />
+      {error && <span className="error">{error}</span>}
+    </div>
+  );
+}
+```
+
+## Plugin Types
+
+Import types from plugins:
+
+```tsx
+import type { AddressData, GooglePlacesPluginConfig } from '@better-form/plugin-google-places';
+
+const pluginConfig: GooglePlacesPluginConfig = {
+  apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
+  defaultCountryRestrictions: ['IT'],
+  defaultLanguage: 'it',
+};
+```
+
+## Form Data Types
+
+Type your form submission data:
+
+```tsx
+interface ContactFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  message: string;
+}
+
+<WizardProvider
+  config={config}
+  fieldComponents={defaultFieldComponents}
+  onComplete={(data: ContactFormData) => {
+    // data is typed
+    console.log(data.firstName);
+  }}
+>
+```
+
+## Strict Mode
+
+For maximum type safety, enable strict mode in your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true
+  }
+}
+```

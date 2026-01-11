@@ -1,0 +1,90 @@
+---
+title: better-form
+---
+
+import { Callout, Cards, Card } from 'nextra/components'
+
+# better-form
+
+A powerful React form wizard library with built-in validation, conditional logic, and theming.
+
+<Callout type="info">
+  **Version 0.1.0** - Production ready with full TypeScript support
+</Callout>
+
+## Features
+
+- **Multi-step Forms** - Create complex wizards with progress tracking
+- **JSON Configuration** - Define forms declaratively with JSON/TypeScript configs
+- **Built-in Validation** - Required, min/max, regex, and custom validation rules
+- **Conditional Logic** - Show/hide fields and steps dynamically based on form data
+- **Theming** - Fully customizable with CSS variables or custom themes
+- **TypeScript** - Full type safety with comprehensive type definitions
+- **Plugin System** - Extend with custom field types and third-party integrations
+- **Accessible** - Built with accessibility in mind (ARIA, keyboard navigation)
+
+## Quick Install
+
+```bash npm2yarn
+npm install better-form
+```
+
+## Quick Start
+
+```tsx
+import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+import 'better-form/styles';
+
+const config = {
+  id: 'my-form',
+  steps: [{
+    id: 'step-1',
+    title: 'Personal Info',
+    fieldGroups: [{
+      id: 'personal',
+      fields: [
+        { id: 'name', name: 'name', label: 'Name', type: 'text', required: true },
+        { id: 'email', name: 'email', label: 'Email', type: 'text', required: true },
+      ],
+    }],
+  }],
+};
+
+export default function MyForm() {
+  return (
+    <WizardProvider
+      config={config}
+      fieldComponents={defaultFieldComponents}
+      onComplete={(data) => console.log('Form submitted:', data)}
+    >
+      <WizardContainer />
+    </WizardProvider>
+  );
+}
+```
+
+<Cards>
+  <Card title="Getting Started" href="/getting-started/installation" />
+  <Card title="Core Concepts" href="/core-concepts/wizard-config" />
+  <Card title="Plugins" href="/plugins/google-places" />
+  <Card title="API Reference" href="/api-reference/types" />
+</Cards>
+
+## Why better-form?
+
+| Feature | better-form | React Hook Form | Formik |
+|---------|-------------|-----------------|--------|
+| Multi-step wizards | Built-in | Manual | Manual |
+| JSON configuration | Yes | No | No |
+| Conditional logic | Built-in | Manual | Manual |
+| Theming system | Yes | No | No |
+| Plugin system | Yes | No | No |
+
+## Ecosystem
+
+- **better-form** - Core library
+- **@better-form/plugin-google-places** - Google Places address autocomplete
+
+## License
+
+MIT License - Free for personal and commercial use.

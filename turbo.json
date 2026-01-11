@@ -37,6 +37,13 @@
     "clean": {
       "cache": false,
       "outputs": []
+    },
+    "docs:dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "docs:build": {
+      "outputs": [".next/**", "!.next/cache/**"]
     }
   }
 }

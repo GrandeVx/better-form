@@ -1,5 +1,5 @@
 /**
- * @better-form/plugin-google-places - Types
+ * better-form-plugin-google-places - Types
  */
 
 import type { WizardFieldConfig } from 'better-form';

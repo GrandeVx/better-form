@@ -1,0 +1,130 @@
+# Installation
+
+## Package Manager
+
+Install better-form using your preferred package manager:
+
+```bash npm2yarn
+npm install better-form
+```
+
+## Peer Dependencies
+
+better-form requires React 18 or 19 as a peer dependency:
+
+```bash npm2yarn
+npm install react react-dom
+```
+
+## CSS Styles
+
+Import the default styles in your app's entry point:
+
+```tsx
+import 'better-form/styles';
+```
+
+Or in your CSS:
+
+```css
+@import 'better-form/styles';
+```
+
+## With Plugins
+
+If you're using plugins like Google Places:
+
+```bash npm2yarn
+npm install better-form @better-form/plugin-google-places
+```
+
+```tsx
+import 'better-form/styles';
+import '@better-form/plugin-google-places/styles';
+```
+
+## Framework-Specific Setup
+
+### Next.js (App Router)
+
+```tsx filename="app/layout.tsx"
+import 'better-form/styles';
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+### Next.js (Pages Router)
+
+```tsx filename="pages/_app.tsx"
+import 'better-form/styles';
+import type { AppProps } from 'next/app';
+
+export default function App({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
+}
+```
+
+### Vite / Create React App
+
+```tsx filename="src/main.tsx"
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import 'better-form/styles';
+import App from './App';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
+
+## TypeScript
+
+better-form is written in TypeScript and includes type definitions out of the box.
+No additional `@types` packages are needed.
+
+```tsx
+import type { WizardConfig, WizardField } from 'better-form';
+```
+
+## Verify Installation
+
+Create a simple form to verify everything is working:
+
+```tsx
+import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+
+const config = {
+  id: 'test-form',
+  steps: [{
+    id: 'step-1',
+    title: 'Test',
+    fieldGroups: [{
+      id: 'group-1',
+      fields: [{
+        id: 'name',
+        name: 'name',
+        label: 'Your Name',
+        type: 'text',
+      }],
+    }],
+  }],
+};
+
+export default function TestForm() {
+  return (
+    <WizardProvider config={config} fieldComponents={defaultFieldComponents}>
+      <WizardContainer />
+    </WizardProvider>
+  );
+}
+```
+
+If you see a form with a text input, you're ready to go!

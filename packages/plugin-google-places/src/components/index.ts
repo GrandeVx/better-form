@@ -1,5 +1,5 @@
 /**
- * @better-form/plugin-google-places - Components
+ * better-form-plugin-google-places - Components
  */
 
 export { AddressField, default } from './AddressField';

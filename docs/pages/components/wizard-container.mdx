@@ -1,0 +1,56 @@
+# WizardContainer
+
+A pre-built container component that renders the complete form wizard.
+
+## Usage
+
+```tsx
+import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+
+function MyForm() {
+  return (
+    <WizardProvider config={config} fieldComponents={defaultFieldComponents}>
+      <WizardContainer />
+    </WizardProvider>
+  );
+}
+```
+
+## What It Includes
+
+WizardContainer renders:
+- Step navigation (progress indicator)
+- Current step fields
+- Navigation buttons (Back/Next/Submit)
+- Validation errors
+- Loading states
+
+## Custom Layout
+
+For custom layouts, use individual components:
+
+```tsx
+import {
+  WizardProvider,
+  WizardNavigation,
+  WizardStep,
+  WizardButtons,
+  useWizard,
+} from 'better-form';
+
+function CustomWizard() {
+  const { state, currentStep } = useWizard();
+
+  return (
+    <div className="my-custom-layout">
+      <aside>
+        <WizardNavigation />
+      </aside>
+      <main>
+        <WizardStep step={currentStep} />
+        <WizardButtons />
+      </main>
+    </div>
+  );
+}
+```

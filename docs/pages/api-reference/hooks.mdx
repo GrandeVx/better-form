@@ -1,0 +1,143 @@
+# Hooks
+
+React hooks for accessing wizard state and functionality.
+
+## useWizard
+
+Access the wizard context from any component inside `WizardProvider`.
+
+```tsx
+import { useWizard } from 'better-form';
+
+function MyComponent() {
+  const {
+    state,
+    config,
+    currentStep,
+    goToStep,
+    nextStep,
+    prevStep,
+    setFieldValue,
+    getFieldValue,
+    validateStep,
+    submitForm,
+  } = useWizard();
+
+  return (
+    <div>
+      <p>Current step: {state.currentStepIndex + 1}</p>
+      <p>Total steps: {config.steps.length}</p>
+      <button onClick={nextStep}>Next</button>
+    </div>
+  );
+}
+```
+
+## Return Values
+
+### state
+
+```tsx
+interface WizardState {
+  currentStepIndex: number;
+  formData: Record<string, unknown>;
+  errors: Record<string, string>;
+  isSubmitting: boolean;
+  isValid: boolean;
+  completedSteps: Set<number>;
+}
+```
+
+### config
+
+The original `WizardConfig` passed to `WizardProvider`.
+
+### currentStep
+
+The current `WizardStep` object.
+
+### goToStep(index: number)
+
+Navigate to a specific step by index.
+
+```tsx
+const { goToStep } = useWizard();
+goToStep(2); // Go to step 3 (0-indexed)
+```
+
+### nextStep()
+
+Navigate to the next step (with validation).
+
+```tsx
+const { nextStep } = useWizard();
+await nextStep(); // Returns false if validation fails
+```
+
+### prevStep()
+
+Navigate to the previous step.
+
+```tsx
+const { prevStep } = useWizard();
+prevStep();
+```
+
+### setFieldValue(name: string, value: unknown)
+
+Update a field value programmatically.
+
+```tsx
+const { setFieldValue } = useWizard();
+setFieldValue('email', 'new@example.com');
+```
+
+### getFieldValue(name: string)
+
+Get a field's current value.
+
+```tsx
+const { getFieldValue } = useWizard();
+const email = getFieldValue('email');
+```
+
+### validateStep(stepIndex?: number)
+
+Validate a step (defaults to current step).
+
+```tsx
+const { validateStep } = useWizard();
+const isValid = await validateStep();
+```
+
+### submitForm()
+
+Submit the form (triggers `onComplete` callback).
+
+```tsx
+const { submitForm } = useWizard();
+await submitForm();
+```
+
+## Example: Custom Navigation
+
+```tsx
+function CustomNav() {
+  const { state, config, goToStep, currentStep } = useWizard();
+
+  return (
+    <nav>
+      {config.steps.map((step, index) => (
+        <button
+          key={step.id}
+          onClick={() => goToStep(index)}
+          className={index === state.currentStepIndex ? 'active' : ''}
+          disabled={index > state.currentStepIndex}
+        >
+          {step.title}
+        </button>
+      ))}
+    </nav>
+  );
+}
+```

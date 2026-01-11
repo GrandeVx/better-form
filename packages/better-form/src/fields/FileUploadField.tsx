@@ -139,14 +139,16 @@ export function FileUploadField({ field, value, onChange, error, disabled }: Fie
     if (multiple) {
       const newFiles = [...files];
       // Revoke preview URL if exists
-      if (newFiles[index]?.preview) {
-        URL.revokeObjectURL(newFiles[index].preview!);
+      const fileToRemove = newFiles[index];
+      if (fileToRemove?.preview) {
+        URL.revokeObjectURL(fileToRemove.preview);
       }
       newFiles.splice(index, 1);
       onChange(newFiles);
     } else {
-      if ((value as FileInfo)?.preview) {
-        URL.revokeObjectURL((value as FileInfo).preview!);
+      const fileValue = value as FileInfo | null;
+      if (fileValue?.preview) {
+        URL.revokeObjectURL(fileValue.preview);
       }
       onChange(null);
     }
@@ -212,7 +214,7 @@ export function FileUploadField({ field, value, onChange, error, disabled }: Fie
       {files.length > 0 && (
         <div className="better-form-file-list">
           {files.map((fileInfo: FileInfo, index: number) => (
-            <div key={index} className="better-form-file-item">
+            <div key={`${fileInfo.name}-${fileInfo.size}`} className="better-form-file-item">
               {fileInfo.preview && (
                 <img
                   src={fileInfo.preview}

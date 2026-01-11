@@ -1,0 +1,85 @@
+# WizardProvider
+
+The main context provider that manages form state and logic.
+
+## Props
+
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `config` | `WizardConfig` | Yes | Form configuration |
+| `fieldComponents` | `FieldComponentsMap` | Yes | Map of field type to component |
+| `onComplete` | `(data) => void` | No | Called when form is submitted |
+| `onStepChange` | `(step, data) => void` | No | Called when step changes |
+| `initialData` | `Record<string, any>` | No | Pre-fill form data |
+| `theme` | `Theme` | No | Custom theme |
+
+## Basic Usage
+
+```tsx
+import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+
+function MyForm() {
+  return (
+    <WizardProvider
+      config={config}
+      fieldComponents={defaultFieldComponents}
+      onComplete={(data) => console.log('Submitted:', data)}
+    >
+      <WizardContainer />
+    </WizardProvider>
+  );
+}
+```
+
+## With Initial Data
+
+```tsx
+<WizardProvider
+  config={config}
+  fieldComponents={defaultFieldComponents}
+  initialData={{
+    email: 'user@example.com',
+    country: 'IT',
+  }}
+>
+  <WizardContainer />
+</WizardProvider>
+```
+
+## With Custom Components
+
+```tsx
+import { WizardProvider, defaultFieldComponents } from 'better-form';
+import { MyCustomField } from './components/MyCustomField';
+
+const fieldComponents = {
+  ...defaultFieldComponents,
+  'custom-field': MyCustomField,
+};
+
+<WizardProvider config={config} fieldComponents={fieldComponents}>
+  <WizardContainer />
+</WizardProvider>
+```
+
+## Callbacks
+
+```tsx
+<WizardProvider
+  config={config}
+  fieldComponents={defaultFieldComponents}
+  onComplete={(data) => {
+    // Handle form submission
+    fetch('/api/submit', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }}
+  onStepChange={(stepIndex, formData) => {
+    // Track step changes
+    analytics.track('step_change', { step: stepIndex });
+  }}
+>
+  <WizardContainer />
+</WizardProvider>
+```

@@ -63,7 +63,13 @@ export function SwitchField({ field, value, onChange, error, disabled }: FieldCo
         <span className="better-form-switch-thumb" />
       </button>
       {field.checkboxLabel && (
-        <span className="better-form-switch-label" onClick={handleClick}>
+        <span
+          className="better-form-switch-label"
+          onClick={handleClick}
+          onKeyDown={handleKeyDown}
+          role="button"
+          tabIndex={0}
+        >
           {field.checkboxLabel}
         </span>
       )}

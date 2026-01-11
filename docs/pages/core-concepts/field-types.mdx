@@ -1,0 +1,184 @@
+# Field Types
+
+better-form includes 11 built-in field types for common form inputs.
+
+## Text
+
+Single-line text input.
+
+```tsx
+{
+  id: 'name',
+  name: 'name',
+  label: 'Full Name',
+  type: 'text',
+  placeholder: 'Enter your name',
+  textTransform: 'capitalize', // 'uppercase' | 'lowercase' | 'capitalize' | 'none'
+}
+```
+
+## Textarea
+
+Multi-line text input.
+
+```tsx
+{
+  id: 'bio',
+  name: 'bio',
+  label: 'Biography',
+  type: 'textarea',
+  rows: 5,
+  maxLength: 500,
+}
+```
+
+## Number
+
+Numeric input with optional min/max.
+
+```tsx
+{
+  id: 'age',
+  name: 'age',
+  label: 'Age',
+  type: 'number',
+  min: 0,
+  max: 120,
+  step: 1,
+}
+```
+
+## Select
+
+Dropdown selection.
+
+```tsx
+{
+  id: 'country',
+  name: 'country',
+  label: 'Country',
+  type: 'select',
+  options: [
+    { label: 'Italy', value: 'IT' },
+    { label: 'Germany', value: 'DE' },
+    { label: 'France', value: 'FR' },
+  ],
+  searchable: true, // Enable search
+}
+```
+
+## Radio
+
+Radio button group.
+
+```tsx
+{
+  id: 'plan',
+  name: 'plan',
+  label: 'Select Plan',
+  type: 'radio',
+  layout: 'vertical', // 'horizontal' | 'vertical'
+  options: [
+    { label: 'Free', value: 'free', description: '5 projects' },
+    { label: 'Pro', value: 'pro', description: 'Unlimited' },
+  ],
+}
+```
+
+## Checkbox
+
+Multiple selection checkbox group.
+
+```tsx
+{
+  id: 'interests',
+  name: 'interests',
+  label: 'Interests',
+  type: 'checkbox',
+  layout: 'grid',
+  columns: 2,
+  options: [
+    { label: 'Technology', value: 'tech' },
+    { label: 'Sports', value: 'sports' },
+    { label: 'Music', value: 'music' },
+  ],
+}
+```
+
+## Single Checkbox
+
+Single checkbox for boolean values.
+
+```tsx
+{
+  id: 'acceptTerms',
+  name: 'acceptTerms',
+  label: 'Terms',
+  type: 'single-checkbox',
+  checkboxLabel: 'I accept the terms and conditions',
+  required: true,
+}
+```
+
+## Boolean
+
+Toggle switch for boolean values.
+
+```tsx
+{
+  id: 'notifications',
+  name: 'notifications',
+  label: 'Email Notifications',
+  type: 'boolean',
+  defaultValue: true,
+}
+```
+
+## Date
+
+Date picker input.
+
+```tsx
+{
+  id: 'birthdate',
+  name: 'birthdate',
+  label: 'Date of Birth',
+  type: 'date',
+  minDate: '1900-01-01',
+  maxDate: new Date().toISOString().split('T')[0],
+}
+```
+
+## File
+
+File upload input.
+
+```tsx
+{
+  id: 'avatar',
+  name: 'avatar',
+  label: 'Profile Picture',
+  type: 'file',
+  accept: 'image/*',
+  maxSize: 5 * 1024 * 1024, // 5MB
+  multiple: false,
+}
+```
+
+## Hidden
+
+Hidden field (not rendered).
+
+```tsx
+{
+  id: 'userId',
+  name: 'userId',
+  label: 'User ID',
+  type: 'hidden',
+  defaultValue: 'abc123',
+}
+```
+
+## Custom Field Types
+
+You can add custom field types via [plugins](/plugins/creating-plugins).

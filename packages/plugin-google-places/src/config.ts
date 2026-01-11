@@ -1,5 +1,5 @@
 /**
- * @better-form/plugin-google-places - Config Store
+ * better-form-plugin-google-places - Config Store
  *
  * Module-level configuration storage for the plugin.
  * This allows components to access the API key without prop drilling.
@@ -24,7 +24,7 @@ export function setPluginConfig(config: GooglePlacesPluginConfig): void {
 export function getPluginConfig(): GooglePlacesPluginConfig {
   if (!pluginConfig) {
     throw new Error(
-      '[@better-form/plugin-google-places] Plugin not initialized. ' +
+      '[better-form-plugin-google-places] Plugin not initialized. ' +
         'Make sure to call googlePlacesPlugin() before using address components.'
     );
   }

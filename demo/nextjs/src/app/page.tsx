@@ -169,16 +169,22 @@ export default function HomePage() {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link href="/examples" className="btn btn-primary">
-                View Examples
+              <a
+                href={process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'}
+                className="btn btn-primary"
+              >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                   />
                 </svg>
+                Documentation
+              </a>
+              <Link href="/examples" className="btn btn-secondary">
+                View Examples
               </Link>
               <a
                 href="https://github.com/GrandeVx/better-form"
@@ -345,25 +351,165 @@ export default function HomePage() {
                   </code>
                 </pre>
               </div>
-              <Link href="/examples" className="btn btn-primary">
-                Explore Examples
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
-                  />
-                </svg>
-              </Link>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <a
+                  href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'}/getting-started/installation`}
+                  className="btn btn-primary"
+                >
+                  Read the Docs
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    />
+                  </svg>
+                </a>
+                <Link href="/examples" className="btn btn-secondary">
+                  Explore Examples
+                </Link>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Footer */}
-        <footer className="border-t border-border py-8">
+        <footer className="border-t border-border py-12">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              {/* Brand */}
+              <div className="sm:col-span-2 lg:col-span-1">
+                <div className="flex items-center gap-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+                    <svg
+                      className="h-5 w-5 text-primary-foreground"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
+                    </svg>
+                  </div>
+                  <span className="text-lg font-semibold">better-form</span>
+                </div>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  JSON-driven wizard forms for React with validation, conditional logic, and
+                  theming.
+                </p>
+              </div>
+
+              {/* Documentation */}
+              <div>
+                <h4 className="mb-3 text-sm font-semibold">Documentation</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>
+                    <a
+                      href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'}/getting-started/installation`}
+                      className="hover:text-foreground"
+                    >
+                      Getting Started
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'}/core-concepts/wizard-config`}
+                      className="hover:text-foreground"
+                    >
+                      Core Concepts
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'}/plugins/google-places`}
+                      className="hover:text-foreground"
+                    >
+                      Plugins
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'}/api-reference/types`}
+                      className="hover:text-foreground"
+                    >
+                      API Reference
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Resources */}
+              <div>
+                <h4 className="mb-3 text-sm font-semibold">Resources</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>
+                    <Link href="/examples" className="hover:text-foreground">
+                      Examples
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/playground" className="hover:text-foreground">
+                      Playground
+                    </Link>
+                  </li>
+                  <li>
+                    <a
+                      href="https://github.com/GrandeVx/better-form/releases"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-foreground"
+                    >
+                      Changelog
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Community */}
+              <div>
+                <h4 className="mb-3 text-sm font-semibold">Community</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>
+                    <a
+                      href="https://github.com/GrandeVx/better-form"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-foreground"
+                    >
+                      GitHub
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://github.com/GrandeVx/better-form/issues"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-foreground"
+                    >
+                      Issues
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://github.com/GrandeVx/better-form/discussions"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-foreground"
+                    >
+                      Discussions
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Bottom */}
+            <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
               <p className="text-sm text-muted-foreground">
                 Built with care by{' '}
                 <a

@@ -1,0 +1,187 @@
+# Types
+
+Complete TypeScript type reference for better-form.
+
+## WizardConfig
+
+```tsx
+interface WizardConfig {
+  id: string;
+  title?: string;
+  steps: WizardStep[];
+  autoSave?: boolean;
+  storageKey?: string;
+}
+```
+
+## WizardStep
+
+```tsx
+interface WizardStep {
+  id: string;
+  title: string;
+  description?: string;
+  fieldGroups: FieldGroup[];
+  conditions?: StepConditions;
+  onEnter?: (formData: Record<string, unknown>) => void;
+  onLeave?: (formData: Record<string, unknown>) => void;
+}
+```
+
+## FieldGroup
+
+```tsx
+interface FieldGroup {
+  id: string;
+  title?: string;
+  description?: string;
+  fields: WizardField[];
+  layout?: 'vertical' | 'horizontal' | 'grid';
+  columns?: number;
+}
+```
+
+## WizardField
+
+```tsx
+interface WizardField {
+  // Identity
+  id: string;
+  name: string;
+  label: string;
+  type: FieldType;
+
+  // Display
+  placeholder?: string;
+  description?: string;
+  width?: FieldWidth;
+  className?: string;
+
+  // State
+  required?: boolean;
+  requiredMessage?: string;
+  disabled?: boolean;
+  defaultValue?: unknown;
+
+  // Validation
+  validation?: ValidationRule;
+  customValidation?: (value: unknown, formData: Record<string, unknown>) => string | undefined | Promise<string | undefined>;
+
+  // Conditions
+  conditions?: FieldConditions;
+
+  // Select/Radio/Checkbox options
+  options?: SelectOption[];
+  layout?: 'horizontal' | 'vertical' | 'grid';
+  columns?: number;
+
+  // Number specific
+  min?: number;
+  max?: number;
+  step?: number;
+
+  // Text specific
+  minLength?: number;
+  maxLength?: number;
+  textTransform?: TextTransform;
+
+  // File specific
+  accept?: string;
+  maxSize?: number;
+  multiple?: boolean;
+}
+```
+
+## FieldType
+
+```tsx
+type FieldType =
+  | 'text'
+  | 'textarea'
+  | 'number'
+  | 'select'
+  | 'radio'
+  | 'checkbox'
+  | 'single-checkbox'
+  | 'boolean'
+  | 'date'
+  | 'file'
+  | 'hidden';
+```
+
+## ValidationRule
+
+```tsx
+interface ValidationRule {
+  // String
+  minLength?: number;
+  minLengthMessage?: string;
+  maxLength?: number;
+  maxLengthMessage?: string;
+  pattern?: string;
+  patternMessage?: string;
+
+  // Number
+  min?: number;
+  minMessage?: string;
+  max?: number;
+  maxMessage?: string;
+}
+```
+
+## FieldConditions
+
+```tsx
+interface FieldConditions {
+  visible?: ConditionGroup;
+  required?: ConditionGroup;
+  disabled?: ConditionGroup;
+}
+
+interface ConditionGroup {
+  operator: 'AND' | 'OR';
+  conditions: (Condition | ConditionGroup)[];
+}
+
+interface Condition {
+  field: string;
+  operator: ConditionOperator;
+  value: unknown;
+}
+
+type ConditionOperator =
+  | 'equals'
+  | 'notEquals'
+  | 'contains'
+  | 'notContains'
+  | 'greaterThan'
+  | 'lessThan'
+  | 'isEmpty'
+  | 'isNotEmpty';
+```
+
+## FieldComponentProps
+
+```tsx
+interface FieldComponentProps {
+  field: WizardField;
+  value: unknown;
+  onChange: (value: unknown) => void;
+  error?: string;
+  disabled?: boolean;
+  className?: string;
+}
+```
+
+## BetterFormPlugin
+
+```tsx
+interface BetterFormPlugin {
+  name: string;
+  version: string;
+  fieldComponents: Record<string, ComponentType<FieldComponentProps>>;
+  fieldTypes?: string[];
+  init?: () => void | Promise<void>;
+  destroy?: () => void | Promise<void>;
+}
+```

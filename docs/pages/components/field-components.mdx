@@ -1,0 +1,91 @@
+# Field Components
+
+Field components render individual form fields based on their type.
+
+## Default Components
+
+Import the default field components:
+
+```tsx
+import { defaultFieldComponents } from 'better-form';
+
+// Includes:
+// - TextField
+// - TextareaField
+// - NumberField
+// - SelectField
+// - RadioField
+// - CheckboxField
+// - BooleanField
+// - DateField
+// - FileUploadField
+// - HiddenField
+```
+
+## Custom Field Component
+
+Create a custom field component:
+
+```tsx
+import type { FieldComponentProps } from 'better-form';
+
+export function CustomRatingField({ field, value, onChange, error }: FieldComponentProps) {
+  const rating = (value as number) || 0;
+
+  return (
+    <div className="rating-field">
+      <label>{field.label}</label>
+      <div className="stars">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <button
+            key={star}
+            type="button"
+            onClick={() => onChange(star)}
+            className={star <= rating ? 'active' : ''}
+          >
+            ★
+          </button>
+        ))}
+      </div>
+      {error && <span className="error">{error}</span>}
+    </div>
+  );
+}
+```
+
+## Register Custom Component
+
+```tsx
+const fieldComponents = {
+  ...defaultFieldComponents,
+  rating: CustomRatingField,
+};
+
+<WizardProvider config={config} fieldComponents={fieldComponents}>
+  <WizardContainer />
+</WizardProvider>
+```
+
+## Use in Config
+
+```tsx
+{
+  id: 'satisfaction',
+  name: 'satisfaction',
+  label: 'How satisfied are you?',
+  type: 'rating', // Uses your custom component
+}
+```
+
+## FieldComponentProps
+
+```tsx
+interface FieldComponentProps {
+  field: WizardField;          // Field configuration
+  value: unknown;               // Current field value
+  onChange: (value: unknown) => void; // Update value
+  error?: string;               // Validation error
+  disabled?: boolean;           // Is field disabled
+  className?: string;           // Additional CSS class
+}
+```

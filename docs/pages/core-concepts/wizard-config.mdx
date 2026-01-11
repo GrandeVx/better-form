@@ -1,0 +1,94 @@
+# Wizard Config
+
+The `WizardConfig` is the central configuration object that defines your form structure.
+
+## Structure
+
+```tsx
+interface WizardConfig {
+  id: string;                    // Unique form identifier
+  title?: string;                // Form title
+  steps: WizardStep[];           // Array of form steps
+  autoSave?: boolean;            // Enable auto-save to storage
+  storageKey?: string;           // Key for localStorage
+}
+```
+
+## Example
+
+```tsx
+const config: WizardConfig = {
+  id: 'registration-form',
+  title: 'Create Account',
+  autoSave: true,
+  storageKey: 'registration-draft',
+  steps: [
+    {
+      id: 'account',
+      title: 'Account Details',
+      description: 'Set up your account credentials',
+      fieldGroups: [
+        {
+          id: 'credentials',
+          title: 'Login Credentials',
+          fields: [
+            { id: 'email', name: 'email', label: 'Email', type: 'text', required: true },
+            { id: 'password', name: 'password', label: 'Password', type: 'text', required: true },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'profile',
+      title: 'Profile',
+      fieldGroups: [
+        {
+          id: 'personal',
+          fields: [
+            { id: 'name', name: 'name', label: 'Full Name', type: 'text' },
+            { id: 'bio', name: 'bio', label: 'Bio', type: 'textarea' },
+          ],
+        },
+      ],
+    },
+  ],
+};
+```
+
+## Steps
+
+Each step represents a page in your wizard:
+
+```tsx
+interface WizardStep {
+  id: string;                    // Unique step ID
+  title: string;                 // Step title (shown in navigation)
+  description?: string;          // Optional description
+  fieldGroups: FieldGroup[];     // Groups of fields
+  conditions?: StepConditions;   // Visibility conditions
+  onEnter?: (data) => void;      // Called when entering step
+  onLeave?: (data) => void;      // Called when leaving step
+}
+```
+
+## Field Groups
+
+Group related fields together:
+
+```tsx
+interface FieldGroup {
+  id: string;
+  title?: string;
+  description?: string;
+  fields: WizardField[];
+  layout?: 'vertical' | 'horizontal' | 'grid';
+  columns?: number;             // For grid layout
+}
+```
+
+## Best Practices
+
+1. **Use descriptive IDs** - Makes debugging easier
+2. **Group related fields** - Improves UX
+3. **Add descriptions** - Help users understand what's needed
+4. **Keep steps focused** - 3-5 fields per step is ideal

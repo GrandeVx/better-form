@@ -1,0 +1,140 @@
+# Conditional Logic
+
+Show or hide fields and steps based on form data.
+
+## Field Visibility
+
+Use `conditions.visible` to control field visibility:
+
+```tsx
+{
+  id: 'hasCompany',
+  name: 'hasCompany',
+  label: 'Do you represent a company?',
+  type: 'boolean',
+},
+{
+  id: 'companyName',
+  name: 'companyName',
+  label: 'Company Name',
+  type: 'text',
+  conditions: {
+    visible: {
+      operator: 'AND',
+      conditions: [
+        { field: 'hasCompany', operator: 'equals', value: true },
+      ],
+    },
+  },
+}
+```
+
+## Operators
+
+| Operator | Description |
+|----------|-------------|
+| `equals` | Field equals value |
+| `notEquals` | Field does not equal value |
+| `contains` | Field contains value (string/array) |
+| `notContains` | Field does not contain value |
+| `greaterThan` | Field is greater than value |
+| `lessThan` | Field is less than value |
+| `isEmpty` | Field is empty |
+| `isNotEmpty` | Field is not empty |
+
+## Combining Conditions
+
+### AND Logic
+
+All conditions must be true:
+
+```tsx
+conditions: {
+  visible: {
+    operator: 'AND',
+    conditions: [
+      { field: 'country', operator: 'equals', value: 'IT' },
+      { field: 'age', operator: 'greaterThan', value: 18 },
+    ],
+  },
+}
+```
+
+### OR Logic
+
+Any condition must be true:
+
+```tsx
+conditions: {
+  visible: {
+    operator: 'OR',
+    conditions: [
+      { field: 'plan', operator: 'equals', value: 'pro' },
+      { field: 'plan', operator: 'equals', value: 'enterprise' },
+    ],
+  },
+}
+```
+
+## Step Conditions
+
+Hide entire steps based on conditions:
+
+```tsx
+{
+  id: 'company-details',
+  title: 'Company Details',
+  conditions: {
+    visible: {
+      operator: 'AND',
+      conditions: [
+        { field: 'accountType', operator: 'equals', value: 'business' },
+      ],
+    },
+  },
+  fieldGroups: [...],
+}
+```
+
+## Required Conditions
+
+Make fields conditionally required:
+
+```tsx
+{
+  id: 'vatNumber',
+  name: 'vatNumber',
+  label: 'VAT Number',
+  type: 'text',
+  conditions: {
+    required: {
+      operator: 'AND',
+      conditions: [
+        { field: 'accountType', operator: 'equals', value: 'business' },
+      ],
+    },
+  },
+}
+```
+
+## Nested Conditions
+
+Combine AND/OR for complex logic:
+
+```tsx
+conditions: {
+  visible: {
+    operator: 'AND',
+    conditions: [
+      { field: 'hasAccount', operator: 'equals', value: true },
+      {
+        operator: 'OR',
+        conditions: [
+          { field: 'accountType', operator: 'equals', value: 'premium' },
+          { field: 'isAdmin', operator: 'equals', value: true },
+        ],
+      },
+    ],
+  },
+}
+```

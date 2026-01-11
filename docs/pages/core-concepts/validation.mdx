@@ -1,0 +1,129 @@
+# Validation
+
+better-form provides built-in validation rules and supports custom validators.
+
+## Required Fields
+
+```tsx
+{
+  id: 'email',
+  name: 'email',
+  label: 'Email',
+  type: 'text',
+  required: true,
+  requiredMessage: 'Email is required', // Custom message
+}
+```
+
+## Built-in Rules
+
+### Min/Max Length (text)
+
+```tsx
+{
+  id: 'username',
+  name: 'username',
+  type: 'text',
+  validation: {
+    minLength: 3,
+    minLengthMessage: 'Username must be at least 3 characters',
+    maxLength: 20,
+    maxLengthMessage: 'Username cannot exceed 20 characters',
+  },
+}
+```
+
+### Min/Max Value (number)
+
+```tsx
+{
+  id: 'age',
+  name: 'age',
+  type: 'number',
+  validation: {
+    min: 18,
+    minMessage: 'Must be at least 18 years old',
+    max: 120,
+    maxMessage: 'Please enter a valid age',
+  },
+}
+```
+
+### Pattern (regex)
+
+```tsx
+{
+  id: 'email',
+  name: 'email',
+  type: 'text',
+  validation: {
+    pattern: '^[^@]+@[^@]+\\.[^@]+$',
+    patternMessage: 'Please enter a valid email address',
+  },
+}
+```
+
+## Custom Validation
+
+Use the `customValidation` property for complex rules:
+
+```tsx
+{
+  id: 'password',
+  name: 'password',
+  type: 'text',
+  customValidation: (value, formData) => {
+    if (!value) return 'Password is required';
+    if (value.length < 8) return 'Password must be at least 8 characters';
+    if (!/[A-Z]/.test(value)) return 'Password must contain uppercase letter';
+    if (!/[0-9]/.test(value)) return 'Password must contain a number';
+    return undefined; // Valid
+  },
+}
+```
+
+## Cross-Field Validation
+
+Validate fields based on other field values:
+
+```tsx
+{
+  id: 'confirmPassword',
+  name: 'confirmPassword',
+  type: 'text',
+  customValidation: (value, formData) => {
+    if (value !== formData.password) {
+      return 'Passwords do not match';
+    }
+    return undefined;
+  },
+}
+```
+
+## Async Validation
+
+Validate against external APIs:
+
+```tsx
+{
+  id: 'username',
+  name: 'username',
+  type: 'text',
+  customValidation: async (value, formData) => {
+    const response = await fetch(`/api/check-username?name=${value}`);
+    const { available } = await response.json();
+    if (!available) {
+      return 'Username is already taken';
+    }
+    return undefined;
+  },
+}
+```
+
+## Validation Timing
+
+Validation runs:
+- On blur (when leaving a field)
+- On change (after first validation attempt)
+- On step navigation
+- On form submission

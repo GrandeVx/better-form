@@ -1,5 +1,5 @@
 /**
- * @better-form/plugin-google-places - AddressField
+ * better-form-plugin-google-places - AddressField
  *
  * Main address field component for better-form
  *

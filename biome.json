@@ -90,6 +90,32 @@
           }
         }
       }
+    },
+    {
+      "include": [
+        "packages/better-form/src/fields/**",
+        "packages/plugin-google-places/src/components/**"
+      ],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "useSemanticElements": "off",
+            "useKeyWithClickEvents": "off",
+            "useAriaPropsForRole": "off",
+            "noSvgWithoutTitle": "off"
+          }
+        }
+      }
+    },
+    {
+      "include": ["docs/**"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noSvgWithoutTitle": "off"
+          }
+        }
+      }
     }
   ]
 }

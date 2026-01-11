@@ -1,5 +1,5 @@
 /**
- * @better-form/plugin-google-places - Address Parser
+ * better-form-plugin-google-places - Address Parser
  *
  * Utility to parse Google Place results into structured address data
  */

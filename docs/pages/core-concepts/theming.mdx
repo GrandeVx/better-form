@@ -1,0 +1,128 @@
+# Theming
+
+Customize the look and feel of your forms with CSS variables or custom themes.
+
+## CSS Variables
+
+Override the default CSS variables:
+
+```css
+:root {
+  /* Colors */
+  --bf-primary: #3b82f6;
+  --bf-primary-hover: #2563eb;
+  --bf-background: #ffffff;
+  --bf-foreground: #111827;
+  --bf-muted: #f3f4f6;
+  --bf-border: #e5e7eb;
+  --bf-error: #ef4444;
+  --bf-success: #22c55e;
+
+  /* Spacing */
+  --bf-spacing-sm: 0.5rem;
+  --bf-spacing-md: 1rem;
+  --bf-spacing-lg: 1.5rem;
+
+  /* Border Radius */
+  --bf-radius-sm: 0.25rem;
+  --bf-radius-md: 0.5rem;
+  --bf-radius-lg: 0.75rem;
+
+  /* Typography */
+  --bf-font-family: system-ui, sans-serif;
+  --bf-font-size-sm: 0.875rem;
+  --bf-font-size-md: 1rem;
+  --bf-font-size-lg: 1.125rem;
+}
+```
+
+## Dark Mode
+
+Add dark mode support:
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bf-background: #111827;
+    --bf-foreground: #f9fafb;
+    --bf-muted: #374151;
+    --bf-border: #4b5563;
+  }
+}
+
+/* Or with a class */
+.dark {
+  --bf-background: #111827;
+  --bf-foreground: #f9fafb;
+}
+```
+
+## Custom Theme Object
+
+Create a theme object programmatically:
+
+```tsx
+import { createTheme } from 'better-form/themes';
+
+const myTheme = createTheme({
+  colors: {
+    primary: '#8b5cf6',
+    primaryHover: '#7c3aed',
+    background: '#fafafa',
+    foreground: '#18181b',
+    muted: '#f4f4f5',
+    border: '#e4e4e7',
+    error: '#dc2626',
+    success: '#16a34a',
+  },
+  spacing: {
+    sm: '0.5rem',
+    md: '1rem',
+    lg: '1.5rem',
+  },
+  radius: {
+    sm: '0.25rem',
+    md: '0.5rem',
+    lg: '0.75rem',
+  },
+});
+
+<WizardProvider theme={myTheme} {...props} />
+```
+
+## Tailwind CSS Integration
+
+better-form works seamlessly with Tailwind CSS. The default styles use CSS variables that can be mapped to Tailwind colors:
+
+```css
+/* tailwind.css */
+@layer base {
+  :root {
+    --bf-primary: theme('colors.blue.500');
+    --bf-primary-hover: theme('colors.blue.600');
+    --bf-background: theme('colors.white');
+    --bf-foreground: theme('colors.gray.900');
+  }
+
+  .dark {
+    --bf-primary: theme('colors.blue.400');
+    --bf-background: theme('colors.gray.900');
+    --bf-foreground: theme('colors.gray.100');
+  }
+}
+```
+
+## Custom Component Styling
+
+Add custom classes to components:
+
+```tsx
+{
+  id: 'email',
+  name: 'email',
+  label: 'Email',
+  type: 'text',
+  className: 'custom-input-class',
+  containerClassName: 'custom-container-class',
+}
+```

@@ -1,0 +1,106 @@
+# Google Places Plugin
+
+Address autocomplete with Google Places API, interactive map picker, and editable detail fields.
+
+## Installation
+
+```bash npm2yarn
+npm install @better-form/plugin-google-places
+```
+
+## Setup
+
+```tsx
+import { WizardProvider, defaultFieldComponents } from 'better-form';
+import { googlePlacesPlugin } from '@better-form/plugin-google-places';
+import 'better-form/styles';
+import '@better-form/plugin-google-places/styles';
+
+// Create plugin instance
+const googlePlaces = googlePlacesPlugin({
+  apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
+  defaultCountryRestrictions: ['IT'],
+  defaultLanguage: 'it',
+});
+
+// Merge with default components
+const fieldComponents = {
+  ...defaultFieldComponents,
+  ...googlePlaces.fieldComponents,
+};
+```
+
+## Configuration
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `apiKey` | `string` | **Required.** Google Maps API key |
+| `defaultCountryRestrictions` | `string[]` | ISO country codes to restrict results |
+| `defaultLanguage` | `string` | Language for autocomplete results |
+| `defaultMapCenter` | `[lat, lng]` | Initial map center |
+| `defaultMapZoom` | `number` | Initial map zoom level |
+
+## Field Options
+
+```tsx
+{
+  id: 'address',
+  name: 'address',
+  label: 'Delivery Address',
+  type: 'address', // or 'google-address' or 'address-autocomplete'
+  required: true,
+
+  // Plugin options
+  showDetailFields: true,      // Show editable street/city/postal fields
+  showMapPicker: true,         // Show interactive map
+  countryRestrictions: ['IT'], // Override default restrictions
+  language: 'it',              // Override default language
+
+  // Callback when address is selected
+  onAddressSelected: (address, formData) => {
+    console.log('Selected:', address);
+    // Return values to update other fields
+    return {
+      city: address.city,
+      postalCode: address.postalCode,
+    };
+  },
+}
+```
+
+## AddressData Type
+
+```tsx
+interface AddressData {
+  formattedAddress: string;
+  street: string;
+  number: string;
+  city: string;
+  province?: string;
+  postalCode?: string;
+  country?: string;
+  countryCode?: string;
+  latitude?: number;
+  longitude?: number;
+  placeId?: string;
+}
+```
+
+## Features
+
+### Autocomplete
+Start typing to see Google Places suggestions. Results are filtered by country and language.
+
+### Map Picker
+Click anywhere on the map or drag the marker to select a location. Reverse geocoding fills the address fields.
+
+### Detail Fields
+After selecting an address, editable fields for street, number, city, and postal code appear. Manual edits clear the GPS coordinates.
+
+## API Key Setup
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com)
+2. Create a new project or select existing
+3. Enable "Places API" and "Maps JavaScript API"
+4. Create credentials → API Key
+5. Restrict the key to your domain in production

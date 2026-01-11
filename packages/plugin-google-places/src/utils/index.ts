@@ -1,5 +1,5 @@
 /**
- * @better-form/plugin-google-places - Utilities
+ * better-form-plugin-google-places - Utilities
  */
 
 export {
