@@ -2,7 +2,7 @@ services:
   website:
     build:
       context: .
-      dockerfile: website/nextjs/Dockerfile
+      dockerfile: Dockerfile.website
     ports:
       - "3000:3000"
     restart: unless-stopped
@@ -11,8 +11,8 @@ services:
 
   docs:
     build:
-      context: docs
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: Dockerfile.docs
     ports:
       - "3001:3000"
     restart: unless-stopped
