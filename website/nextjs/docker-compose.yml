@@ -1,10 +1,10 @@
 services:
-  docs:
+  website:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ../..
+      dockerfile: website/nextjs/Dockerfile
     ports:
-      - "3001:3000"
+      - "3000:3000"
     restart: unless-stopped
     environment:
       - NODE_ENV=production

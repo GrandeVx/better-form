@@ -1,0 +1,36 @@
+# Dependencies
+node_modules
+**/node_modules
+
+# Build outputs
+.next
+**/.next
+dist
+**/dist
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+**/Dockerfile
+**/docker-compose.yml
+
+# Environment
+.env*.local
+**/.env*.local
+
+# IDE
+.vscode
+.idea
+
+# Test
+test
+coverage
+
+# Misc
+*.md
+.changeset
+.github
