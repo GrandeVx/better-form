@@ -1,0 +1,713 @@
+# Styling & Customization
+
+better-form provides multiple levels of customization to match your design system. From simple theme overrides to complete component replacement, you have full control over the appearance.
+
+## Customization Levels
+
+| Level | Use Case | Complexity |
+|-------|----------|------------|
+| **Theme Override** | Change colors, spacing, typography | Low |
+| **CSS Variables** | Quick tweaks via style prop | Low |
+| **CSS Class Override** | Structural/layout changes | Medium |
+| **Custom Components** | Replace navigation, step indicator | Medium |
+| **Custom Field Components** | Full control over field rendering | High |
+
+---
+
+## 1. Theme Override
+
+The recommended way to customize colors, spacing, and typography.
+
+### Using createTheme
+
+```tsx
+import { createTheme, WizardContainer } from 'better-form';
+import 'better-form/styles';
+
+const myTheme = createTheme({
+  colors: {
+    primary: '#0B493D',
+    primaryHover: '#083d33',
+    primaryForeground: '#ffffff',
+
+    secondary: '#f3f4f6',
+    secondaryHover: '#e5e7eb',
+    secondaryForeground: '#374151',
+
+    background: '#ffffff',
+    surface: '#f9fafb',
+    surfaceHover: '#f3f4f6',
+
+    text: '#111827',
+    textMuted: '#6b7280',
+    textDisabled: '#9ca3af',
+
+    border: '#e5e7eb',
+    borderFocus: '#0B493D',
+    borderError: '#ef4444',
+
+    inputBackground: '#ffffff',
+    inputBorder: '#d1d5db',
+    inputPlaceholder: '#9ca3af',
+
+    error: '#ef4444',
+    errorForeground: '#ffffff',
+    success: '#10b981',
+    successForeground: '#ffffff',
+    warning: '#f59e0b',
+    warningForeground: '#ffffff',
+  },
+  borderRadius: {
+    none: '0',
+    sm: '0.25rem',
+    md: '0.5rem',
+    lg: '0.75rem',
+    xl: '1rem',
+    '2xl': '1.5rem',
+    full: '9999px',
+  },
+  spacing: {
+    none: '0',
+    xs: '0.25rem',
+    sm: '0.5rem',
+    md: '1rem',
+    lg: '1.5rem',
+    xl: '2rem',
+    '2xl': '3rem',
+  },
+  typography: {
+    fontFamily: 'Inter, system-ui, sans-serif',
+    fontFamilyMono: 'ui-monospace, monospace',
+    textXs: '0.75rem',
+    textSm: '0.875rem',
+    textBase: '1rem',
+    textLg: '1.125rem',
+    textXl: '1.25rem',
+    text2xl: '1.5rem',
+    text3xl: '1.875rem',
+    fontNormal: '400',
+    fontMedium: '500',
+    fontSemibold: '600',
+    fontBold: '700',
+    leadingTight: '1.25',
+    leadingNormal: '1.5',
+    leadingRelaxed: '1.75',
+  },
+  shadows: {
+    none: 'none',
+    sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+    md: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+    lg: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
+    xl: '0 20px 25px -5px rgb(0 0 0 / 0.1)',
+  },
+  transitions: {
+    fast: '150ms',
+    normal: '200ms',
+    slow: '300ms',
+  },
+});
+
+function MyForm() {
+  return (
+    <WizardContainer config={config} theme={myTheme}>
+      <AutoStep />
+    </WizardContainer>
+  );
+}
+```
+
+### Built-in Theme Presets
+
+```tsx
+import { themePresets, WizardContainer } from 'better-form';
+
+// Available presets
+themePresets.default  // Neutral blue
+themePresets.dark     // Dark mode
+themePresets.green    // Emerald green
+themePresets.purple   // Violet purple
+themePresets.warm     // Orange/amber
+
+<WizardContainer config={config} theme={themePresets.dark}>
+  <AutoStep />
+</WizardContainer>
+```
+
+---
+
+## 2. CSS Variables Override
+
+For quick inline customization without creating a full theme.
+
+### Via style prop
+
+```tsx
+<WizardContainer
+  config={config}
+  style={{
+    '--bf-color-primary': '#0B493D',
+    '--bf-color-primary-hover': '#083d33',
+    '--bf-radius-md': '8px',
+    '--bf-font-family': 'Inter, sans-serif',
+  } as React.CSSProperties}
+>
+  <AutoStep />
+</WizardContainer>
+```
+
+### All Available CSS Variables
+
+```css
+/* Colors */
+--bf-color-primary
+--bf-color-primary-hover
+--bf-color-secondary
+--bf-color-background
+--bf-color-surface
+--bf-color-text
+--bf-color-text-muted
+--bf-color-error
+--bf-color-success
+--bf-color-warning
+--bf-color-border
+
+/* Spacing */
+--bf-spacing-xs    /* 0.25rem */
+--bf-spacing-sm    /* 0.5rem */
+--bf-spacing-md    /* 1rem */
+--bf-spacing-lg    /* 1.5rem */
+--bf-spacing-xl    /* 2rem */
+
+/* Border Radius */
+--bf-radius-sm     /* 0.25rem */
+--bf-radius-md     /* 0.5rem */
+--bf-radius-lg     /* 0.75rem */
+
+/* Typography */
+--bf-font-family
+--bf-font-size-sm
+--bf-font-size-base
+--bf-font-size-lg
+--bf-font-size-xl
+
+/* Shadows */
+--bf-shadow-sm
+--bf-shadow-md
+--bf-shadow-lg
+
+/* Transitions */
+--bf-transition-fast    /* 150ms */
+--bf-transition-normal  /* 200ms */
+```
+
+---
+
+## 3. CSS Class Override
+
+Add custom classes and override specific elements.
+
+### Container className
+
+```tsx
+<WizardContainer
+  config={config}
+  className="my-custom-form"
+>
+  <AutoStep />
+</WizardContainer>
+```
+
+### Override with CSS
+
+```css
+/* Your custom CSS file */
+.my-custom-form .better-form-container {
+  max-width: 600px;
+  padding: 2rem;
+}
+
+.my-custom-form .better-form-input {
+  border-radius: 12px;
+  border-width: 2px;
+}
+
+.my-custom-form .better-form-btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 9999px;
+}
+
+.my-custom-form .better-form-step-item.active {
+  background-color: #667eea;
+}
+```
+
+### CSS Class Reference
+
+| Class | Description |
+|-------|-------------|
+| `.better-form-container` | Main container |
+| `.better-form-header` | Header section |
+| `.better-form-content` | Form content area |
+| `.better-form-footer` | Footer section |
+| `.better-form-step-header` | Step title container |
+| `.better-form-step-title` | Step title text |
+| `.better-form-step-description` | Step description |
+| `.better-form-steps` | Step indicator container |
+| `.better-form-step-item` | Individual step dot/pill |
+| `.better-form-step-item.active` | Current step |
+| `.better-form-step-item.completed` | Completed step |
+| `.better-form-field` | Field wrapper |
+| `.better-form-label` | Field label |
+| `.better-form-input` | Text input |
+| `.better-form-select` | Select dropdown |
+| `.better-form-textarea` | Textarea |
+| `.better-form-checkbox-option` | Checkbox item |
+| `.better-form-radio-option` | Radio item |
+| `.better-form-switch` | Toggle switch |
+| `.better-form-error` | Error message |
+| `.better-form-helper` | Helper text |
+| `.better-form-navigation` | Navigation container |
+| `.better-form-btn` | Button base |
+| `.better-form-btn-primary` | Primary button |
+| `.better-form-btn-secondary` | Secondary button |
+
+---
+
+## 4. Custom UI Components
+
+Replace the default navigation and step indicator with your own components.
+
+### Custom Step Indicator
+
+```tsx
+import { useWizard, WizardContainer, AutoStep } from 'better-form';
+
+function MyStepIndicator() {
+  const { visibleSteps, visibleCurrentStepIndex, goToStep, state } = useWizard();
+
+  return (
+    <div className="flex gap-2 mb-6">
+      {visibleSteps.map((visibleStep, index) => {
+        const isActive = index === visibleCurrentStepIndex;
+        const isCompleted = state.completedSteps.has(visibleStep.step.id);
+
+        return (
+          <button
+            key={visibleStep.step.id}
+            onClick={() => goToStep(visibleStep.originalIndex)}
+            disabled={index > visibleCurrentStepIndex && !isCompleted}
+            className={`
+              px-4 py-2 rounded-full text-sm font-medium transition-colors
+              ${isActive
+                ? 'bg-emerald-600 text-white'
+                : isCompleted
+                  ? 'bg-emerald-100 text-emerald-700'
+                  : 'bg-gray-100 text-gray-500'
+              }
+            `}
+          >
+            {visibleStep.step.title}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+<WizardContainer
+  config={config}
+  stepIndicator={<MyStepIndicator />}
+>
+  <AutoStep />
+</WizardContainer>
+```
+
+### Custom Navigation
+
+```tsx
+import { useWizard, WizardContainer, AutoStep } from 'better-form';
+
+function MyNavigation() {
+  const {
+    previousStep,
+    nextStep,
+    submit,
+    canProceed,
+    isSubmitting,
+    visibleCurrentStepIndex,
+    visibleSteps
+  } = useWizard();
+
+  const isFirstStep = visibleCurrentStepIndex === 0;
+  const isLastStep = visibleCurrentStepIndex === visibleSteps.length - 1;
+
+  return (
+    <div className="flex justify-between mt-8 pt-6 border-t">
+      <button
+        onClick={previousStep}
+        disabled={isFirstStep || isSubmitting}
+        className="px-6 py-2 rounded-lg border hover:bg-gray-50 disabled:opacity-50"
+      >
+        Back
+      </button>
+
+      {isLastStep ? (
+        <button
+          onClick={submit}
+          disabled={!canProceed || isSubmitting}
+          className="px-6 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-50"
+        >
+          {isSubmitting ? 'Submitting...' : 'Submit'}
+        </button>
+      ) : (
+        <button
+          onClick={nextStep}
+          disabled={!canProceed}
+          className="px-6 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-50"
+        >
+          Continue
+        </button>
+      )}
+    </div>
+  );
+}
+
+<WizardContainer
+  config={config}
+  navigation={<MyNavigation />}
+>
+  <AutoStep />
+</WizardContainer>
+```
+
+### Custom Header & Footer
+
+```tsx
+<WizardContainer
+  config={config}
+  header={
+    <div className="text-center mb-8">
+      <img src="/logo.svg" alt="Logo" className="h-12 mx-auto mb-4" />
+      <h1 className="text-2xl font-bold">Create Your Account</h1>
+    </div>
+  }
+  footer={
+    <div className="text-center mt-8 text-sm text-gray-500">
+      By continuing, you agree to our Terms of Service
+    </div>
+  }
+>
+  <AutoStep />
+</WizardContainer>
+```
+
+### Hide Default Components
+
+```tsx
+<WizardContainer
+  config={config}
+  showStepIndicator={false}  // Hide step indicator
+  showNavigation={false}     // Hide navigation buttons
+>
+  <AutoStep />
+  {/* Add your own navigation */}
+</WizardContainer>
+```
+
+---
+
+## 5. Custom Field Components
+
+Replace how individual field types are rendered for complete control.
+
+### Creating a Custom Text Field
+
+```tsx
+import type { FieldComponentProps } from 'better-form';
+
+function MyTextField({
+  field,
+  value,
+  onChange,
+  onBlur,
+  error,
+  disabled
+}: FieldComponentProps) {
+  return (
+    <div className="space-y-2">
+      <label className="block text-sm font-medium text-gray-700">
+        {field.label}
+        {field.required && <span className="text-red-500 ml-1">*</span>}
+      </label>
+
+      {field.description && (
+        <p className="text-sm text-gray-500">{field.description}</p>
+      )}
+
+      <input
+        type="text"
+        value={value as string || ''}
+        onChange={(e) => onChange(e.target.value)}
+        onBlur={onBlur}
+        disabled={disabled}
+        placeholder={field.placeholder}
+        className={`
+          w-full px-4 py-2 rounded-lg border transition-colors
+          focus:outline-none focus:ring-2 focus:ring-emerald-500
+          ${error
+            ? 'border-red-500 bg-red-50'
+            : 'border-gray-300 hover:border-gray-400'
+          }
+          ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}
+        `}
+      />
+
+      {error && (
+        <p className="text-sm text-red-500">{error}</p>
+      )}
+    </div>
+  );
+}
+```
+
+### Registering Custom Field Components
+
+```tsx
+import {
+  defaultFieldComponents,
+  mergeFieldComponents,
+  WizardContainer,
+  AutoStep
+} from 'better-form';
+import type { FieldComponentsMap } from 'better-form';
+
+// Your custom components
+const myFieldComponents: Partial<FieldComponentsMap> = {
+  text: MyTextField,
+  email: MyTextField,  // Reuse for email
+  select: MySelectField,
+  checkbox: MyCheckboxField,
+  // ... add more as needed
+};
+
+// Merge with defaults (keeps default for types you don't override)
+const allFieldComponents = mergeFieldComponents(
+  defaultFieldComponents,
+  myFieldComponents
+);
+
+function MyForm() {
+  return (
+    <WizardContainer
+      config={config}
+      fieldComponents={allFieldComponents}
+    >
+      <AutoStep />
+    </WizardContainer>
+  );
+}
+```
+
+### FieldComponentProps Reference
+
+```typescript
+interface FieldComponentProps {
+  field: WizardField;        // Field configuration
+  value: unknown;            // Current field value
+  onChange: (value: unknown) => void;  // Update value
+  onBlur: () => void;        // Trigger validation
+  error?: string;            // Validation error message
+  disabled?: boolean;        // Field disabled state
+  theme: BetterFormTheme;    // Current theme
+}
+
+// WizardField contains:
+interface WizardField {
+  id: string;
+  name: string;
+  label?: string;
+  type: FieldType;
+  required?: boolean;
+  placeholder?: string;
+  description?: string;
+  options?: SelectOption[];  // For select/radio/checkbox
+  min?: number;
+  max?: number;
+  minLength?: number;
+  maxLength?: number;
+  pattern?: string;
+  defaultValue?: unknown;
+  // ... and more
+}
+```
+
+---
+
+## 6. useWizard Hook Reference
+
+Access wizard state and methods in custom components.
+
+```tsx
+import { useWizard } from 'better-form';
+
+function MyComponent() {
+  const {
+    // Configuration
+    config,              // WizardConfig object
+    theme,               // Current theme
+
+    // State
+    state,               // Full wizard state
+    visibleSteps,        // Steps visible based on conditions
+    visibleCurrentStepIndex,  // Current visible step index
+
+    // Navigation
+    nextStep,            // Go to next step
+    previousStep,        // Go to previous step
+    goToStep,            // Go to specific step (by index)
+    submit,              // Submit the form
+
+    // Validation
+    canProceed,          // Can navigate forward
+    isSubmitting,        // Form is submitting
+
+    // Field Operations
+    getValue,            // Get field value: getValue('fieldName')
+    setValue,            // Set field value: setValue('fieldName', value)
+    getError,            // Get field error: getError('fieldName')
+    validateField,       // Validate specific field
+
+    // UI
+    showBlockingDialog,  // Show blocking dialog state
+    setShowBlockingDialog,
+    blockingReason,      // Reason for blocking
+  } = useWizard();
+}
+```
+
+---
+
+## Complete Example: Custom Styled Form
+
+```tsx
+import {
+  createTheme,
+  WizardContainer,
+  AutoStep,
+  useWizard,
+  mergeFieldComponents,
+  defaultFieldComponents
+} from 'better-form';
+import type { FieldComponentProps, FieldComponentsMap } from 'better-form';
+
+// 1. Custom Theme
+const brandTheme = createTheme({
+  colors: {
+    primary: '#0B493D',
+    primaryHover: '#083d33',
+    background: '#fafafa',
+    surface: '#ffffff',
+    text: '#1a1a1a',
+    border: '#e5e5e5',
+  },
+  borderRadius: {
+    md: '12px',
+    lg: '16px',
+  },
+});
+
+// 2. Custom Field Component
+function BrandTextField({ field, value, onChange, onBlur, error }: FieldComponentProps) {
+  return (
+    <div className="mb-4">
+      <label className="block mb-1 font-medium">{field.label}</label>
+      <input
+        type="text"
+        value={value as string || ''}
+        onChange={(e) => onChange(e.target.value)}
+        onBlur={onBlur}
+        className={`w-full p-3 rounded-xl border-2 ${error ? 'border-red-500' : 'border-gray-200'}`}
+      />
+      {error && <p className="mt-1 text-red-500 text-sm">{error}</p>}
+    </div>
+  );
+}
+
+// 3. Custom Navigation
+function BrandNavigation() {
+  const { previousStep, nextStep, submit, canProceed, isLastStep, visibleCurrentStepIndex } = useWizard();
+
+  return (
+    <div className="flex justify-between mt-6">
+      {visibleCurrentStepIndex > 0 && (
+        <button onClick={previousStep} className="btn-secondary">
+          Back
+        </button>
+      )}
+      <button
+        onClick={isLastStep ? submit : nextStep}
+        disabled={!canProceed}
+        className="btn-primary ml-auto"
+      >
+        {isLastStep ? 'Complete' : 'Next'}
+      </button>
+    </div>
+  );
+}
+
+// 4. Custom Step Indicator
+function BrandSteps() {
+  const { visibleSteps, visibleCurrentStepIndex } = useWizard();
+
+  return (
+    <div className="flex justify-center gap-2 mb-8">
+      {visibleSteps.map((_, i) => (
+        <div
+          key={i}
+          className={`w-3 h-3 rounded-full ${
+            i <= visibleCurrentStepIndex ? 'bg-emerald-600' : 'bg-gray-200'
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
+
+// 5. Combine Everything
+const brandFields = mergeFieldComponents(defaultFieldComponents, {
+  text: BrandTextField,
+});
+
+export function BrandForm({ config, onSubmit }) {
+  return (
+    <WizardContainer
+      config={config}
+      theme={brandTheme}
+      fieldComponents={brandFields}
+      stepIndicator={<BrandSteps />}
+      navigation={<BrandNavigation />}
+      onSubmit={onSubmit}
+      className="brand-form"
+    >
+      <AutoStep />
+    </WizardContainer>
+  );
+}
+```
+
+---
+
+## Not Using Default Styles
+
+If you want complete control and don't want to use the default CSS:
+
+```tsx
+// DON'T import 'better-form/styles'
+
+import { WizardContainer, AutoStep } from 'better-form';
+
+// Write your own CSS targeting .better-form-* classes
+// Or use fieldComponents to render completely custom markup
+```
+
+You'll need to style all `.better-form-*` classes yourself, or provide custom field components that don't rely on the default class names.

@@ -8,4 +8,16 @@ const withNextra = nextra({
 
 export default withNextra({
   output: 'standalone',
+  async rewrites() {
+    return [
+      {
+        source: '/llms.txt',
+        destination: '/api/llms.txt',
+      },
+      {
+        source: '/llms.txt/:path*',
+        destination: '/api/llms/:path*',
+      },
+    ];
+  },
 });

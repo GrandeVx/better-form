@@ -5,26 +5,31 @@ const config: DocsThemeConfig = {
   project: {
     link: 'https://github.com/GrandeVx/better-form',
   },
-  chat: {
-    link: process.env.NEXT_PUBLIC_DEMO_URL || 'http://localhost:3000',
-    icon: (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        role="img"
-        aria-label="View Demo"
-      >
-        <title>View Demo</title>
-        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-        <polyline points="10 17 15 12 10 7" />
-        <line x1="15" y1="12" x2="3" y2="12" />
-      </svg>
-    ),
-  },
+  // Demo link - only shown in production when NEXT_PUBLIC_DEMO_URL is set
+  ...(process.env.NEXT_PUBLIC_DEMO_URL
+    ? {
+        chat: {
+          link: process.env.NEXT_PUBLIC_DEMO_URL,
+          icon: (
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              role="img"
+              aria-label="View Demo"
+            >
+              <title>View Demo</title>
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+              <polyline points="10 17 15 12 10 7" />
+              <line x1="15" y1="12" x2="3" y2="12" />
+            </svg>
+          ),
+        },
+      }
+    : {}),
   docsRepositoryBase: 'https://github.com/GrandeVx/better-form/tree/main/docs',
   footer: {
     text: `better-form ${new Date().getFullYear()} - MIT License`,
