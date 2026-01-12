@@ -31,13 +31,17 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /app/docs/public ./public
+# Copy standalone output (preserves workspace structure)
 COPY --from=builder --chown=nextjs:nodejs /app/docs/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/docs/.next/static ./.next/static
+# Copy static files to the correct nested location
+COPY --from=builder --chown=nextjs:nodejs /app/docs/.next/static ./docs/.next/static
+# Copy public folder to the correct nested location
+COPY --from=builder /app/docs/public ./docs/public
 
 USER nextjs
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["node", "server.js"]
+# server.js is at the nested workspace path
+CMD ["node", "docs/server.js"]
