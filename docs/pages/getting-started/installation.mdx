@@ -5,12 +5,12 @@
 Install better-form using your preferred package manager:
 
 ```bash npm2yarn
-npm install better-form
+npm install @better_form/core
 ```
 
 ## Peer Dependencies
 
-better-form requires React 18 or 19 as a peer dependency:
+@better_form/core requires React 18 or 19 as a peer dependency:
 
 ```bash npm2yarn
 npm install react react-dom
@@ -21,13 +21,13 @@ npm install react react-dom
 Import the default styles in your app's entry point:
 
 ```tsx
-import 'better-form/styles';
+import '@better_form/core/styles';
 ```
 
 Or in your CSS:
 
 ```css
-@import 'better-form/styles';
+@import '@better_form/core/styles';
 ```
 
 ## With Plugins
@@ -35,12 +35,12 @@ Or in your CSS:
 If you're using plugins like Google Places:
 
 ```bash npm2yarn
-npm install better-form @better-form/plugin-google-places
+npm install @better_form/core @better_form/plugin-google-places
 ```
 
 ```tsx
-import 'better-form/styles';
-import '@better-form/plugin-google-places/styles';
+import '@better_form/core/styles';
+import '@better_form/plugin-google-places/styles';
 ```
 
 ## Framework-Specific Setup
@@ -48,7 +48,7 @@ import '@better-form/plugin-google-places/styles';
 ### Next.js (App Router)
 
 ```tsx filename="app/layout.tsx"
-import 'better-form/styles';
+import '@better_form/core/styles';
 
 export default function RootLayout({ children }) {
   return (
@@ -62,7 +62,7 @@ export default function RootLayout({ children }) {
 ### Next.js (Pages Router)
 
 ```tsx filename="pages/_app.tsx"
-import 'better-form/styles';
+import '@better_form/core/styles';
 import type { AppProps } from 'next/app';
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -75,7 +75,7 @@ export default function App({ Component, pageProps }: AppProps) {
 ```tsx filename="src/main.tsx"
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import 'better-form/styles';
+import '@better_form/core/styles';
 import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -91,7 +91,7 @@ better-form is written in TypeScript and includes type definitions out of the bo
 No additional `@types` packages are needed.
 
 ```tsx
-import type { WizardConfig, WizardField } from 'better-form';
+import type { WizardConfig, WizardField } from '@better_form/core';
 ```
 
 ## Verify Installation
@@ -99,7 +99,7 @@ import type { WizardConfig, WizardField } from 'better-form';
 Create a simple form to verify everything is working:
 
 ```tsx
-import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+import { WizardProvider, WizardContainer, defaultFieldComponents } from '@better_form/core';
 
 const config = {
   id: 'test-form',

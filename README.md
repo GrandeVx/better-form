@@ -1,7 +1,7 @@
 # Better Form
 
 [![CI](https://github.com/GrandeVx/better-form/actions/workflows/ci.yml/badge.svg)](https://github.com/GrandeVx/better-form/actions/workflows/ci.yml)
-[![npm version](https://img.shields.io/npm/v/better-form.svg)](https://www.npmjs.com/package/better-form)
+[![npm version](https://img.shields.io/npm/v/@better_form/core.svg)](https://www.npmjs.com/package/@better_form/core)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A powerful, schema-driven form wizard library for React. Build complex multi-step forms with JSON configuration, conditional logic, validation, and theming support.
@@ -20,11 +20,11 @@ A powerful, schema-driven form wizard library for React. Build complex multi-ste
 ## Installation
 
 ```bash
-npm install better-form
+npm install @better_form/core
 # or
-yarn add better-form
+yarn add @better_form/core
 # or
-pnpm add better-form
+pnpm add @better_form/core
 ```
 
 ## Quick Start
@@ -34,7 +34,7 @@ import {
   WizardContainer,
   AutoStep,
   type WizardConfig,
-} from 'better-form';
+} from '@better_form/core';
 
 // Define your form configuration
 const config: WizardConfig = {
@@ -194,7 +194,7 @@ import {
   isEmpty,
   andConditions,
   orConditions,
-} from 'better-form';
+} from '@better_form/core';
 
 // Simple condition
 const showIfAdult = equals('age', 18);
@@ -217,7 +217,7 @@ const showIfAdminOrModerator = orConditions(
 ### Built-in Validators
 
 ```tsx
-import { commonValidations } from 'better-form';
+import { commonValidations } from '@better_form/core';
 
 const field = {
   id: 'email',
@@ -268,7 +268,7 @@ const field = {
 ### Using Presets
 
 ```tsx
-import { WizardContainer, themePresets } from 'better-form';
+import { WizardContainer, themePresets } from '@better_form/core';
 
 <WizardContainer
   config={config}
@@ -282,7 +282,7 @@ import { WizardContainer, themePresets } from 'better-form';
 ### Custom Theme
 
 ```tsx
-import { createTheme } from 'better-form';
+import { createTheme } from '@better_form/core';
 
 const myTheme = createTheme({
   colors: {
@@ -313,7 +313,7 @@ const myTheme = createTheme({
 Register custom field components:
 
 ```tsx
-import type { FieldComponentProps } from 'better-form';
+import type { FieldComponentProps } from '@better_form/core';
 
 // Custom address field
 function AddressField({ field, value, onChange, error }: FieldComponentProps) {
@@ -352,7 +352,7 @@ function AddressField({ field, value, onChange, error }: FieldComponentProps) {
 Access wizard state and actions from any component:
 
 ```tsx
-import { useWizard } from 'better-form';
+import { useWizard } from '@better_form/core';
 
 function CustomNavigation() {
   const {

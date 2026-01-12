@@ -16,7 +16,7 @@ better-form integrates smoothly with Remix, allowing you to build multi-step for
 ## Installation
 
 ```bash npm2yarn
-npm install better-form
+npm install @better_form/core
 ```
 
 ## Setup
@@ -27,7 +27,7 @@ Add styles to your root route:
 
 ```tsx filename="app/root.tsx"
 import type { LinksFunction } from '@remix-run/node';
-import styles from 'better-form/styles?url';
+import styles from '@better_form/core/styles?url';
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: styles },
@@ -56,8 +56,8 @@ export default function App() {
 ### 2. Create Your Form Component
 
 ```tsx filename="app/components/ContactForm.tsx"
-import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
-import type { WizardConfig } from 'better-form';
+import { WizardProvider, WizardContainer, defaultFieldComponents } from '@better_form/core';
+import type { WizardConfig } from '@better_form/core';
 
 const config: WizardConfig = {
   id: 'contact-form',
@@ -179,8 +179,8 @@ Here's a full registration flow with Remix:
 import type { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
 import { useActionData, useLoaderData, useSubmit, useNavigation } from '@remix-run/react';
-import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
-import type { WizardConfig } from 'better-form';
+import { WizardProvider, WizardContainer, defaultFieldComponents } from '@better_form/core';
+import type { WizardConfig } from '@better_form/core';
 
 // Load any necessary data (e.g., country list)
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -349,7 +349,7 @@ export default function ContactPage() {
 If styles aren't loading, try using a CSS side effect import:
 
 ```tsx filename="app/root.tsx"
-import 'better-form/styles';
+import '@better_form/core/styles';
 ```
 
 Or use the links function with the correct path resolution.

@@ -7,7 +7,7 @@ Field components render individual form fields based on their type.
 Import the default field components:
 
 ```tsx
-import { defaultFieldComponents } from 'better-form';
+import { defaultFieldComponents } from '@better_form/core';
 
 // Includes:
 // - TextField
@@ -27,7 +27,7 @@ import { defaultFieldComponents } from 'better-form';
 Create a custom field component:
 
 ```tsx
-import type { FieldComponentProps } from 'better-form';
+import type { FieldComponentProps } from '@better_form/core';
 
 export function CustomRatingField({ field, value, onChange, error }: FieldComponentProps) {
   const rating = (value as number) || 0;

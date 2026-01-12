@@ -5,16 +5,16 @@ Address autocomplete with Google Places API, interactive map picker, and editabl
 ## Installation
 
 ```bash npm2yarn
-npm install @better-form/plugin-google-places
+npm install @better_form/plugin-google-places
 ```
 
 ## Setup
 
 ```tsx
-import { WizardProvider, defaultFieldComponents } from 'better-form';
-import { googlePlacesPlugin } from '@better-form/plugin-google-places';
-import 'better-form/styles';
-import '@better-form/plugin-google-places/styles';
+import { WizardProvider, defaultFieldComponents } from '@better_form/core';
+import { googlePlacesPlugin } from '@better_form/plugin-google-places';
+import '@better_form/core/styles';
+import '@better_form/plugin-google-places/styles';
 
 // Create plugin instance
 const googlePlaces = googlePlacesPlugin({

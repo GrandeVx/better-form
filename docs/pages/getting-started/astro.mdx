@@ -24,7 +24,7 @@ npx astro add react
 Then install better-form:
 
 ```bash npm2yarn
-npm install better-form
+npm install @better_form/core
 ```
 
 ## Setup
@@ -68,22 +68,22 @@ const { title } = Astro.props;
 </html>
 
 <style is:global>
-  @import 'better-form/styles';
+  @import '@better_form/core/styles';
 </style>
 ```
 
 Or import in your React component:
 
 ```tsx filename="src/components/ContactForm.tsx"
-import 'better-form/styles';
+import '@better_form/core/styles';
 // ... rest of component
 ```
 
 ### 3. Create Your React Form Component
 
 ```tsx filename="src/components/ContactForm.tsx"
-import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
-import type { WizardConfig } from 'better-form';
+import { WizardProvider, WizardContainer, defaultFieldComponents } from '@better_form/core';
+import type { WizardConfig } from '@better_form/core';
 
 const config: WizardConfig = {
   id: 'contact-form',
@@ -279,9 +279,9 @@ import { ContactForm } from '../components/ContactForm';
 ```
 
 ```tsx filename="src/components/ContactForm.tsx"
-import 'better-form/styles';
-import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
-import type { WizardConfig } from 'better-form';
+import '@better_form/core/styles';
+import { WizardProvider, WizardContainer, defaultFieldComponents } from '@better_form/core';
+import type { WizardConfig } from '@better_form/core';
 import { useState } from 'react';
 
 const config: WizardConfig = {
@@ -393,7 +393,7 @@ Ensure you have a `client:*` directive on your component. Without it, React comp
 Try importing styles directly in your React component:
 
 ```tsx
-import 'better-form/styles';
+import '@better_form/core/styles';
 ```
 
 Or add them to your global CSS in the layout.

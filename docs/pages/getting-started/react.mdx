@@ -12,7 +12,7 @@ better-form works with any React setup including Vite, Create React App, and cus
 ## Installation
 
 ```bash npm2yarn
-npm install better-form
+npm install @better_form/core
 ```
 
 ## Setup
@@ -26,7 +26,7 @@ npm install better-form
     ```tsx filename="src/main.tsx"
     import React from 'react';
     import ReactDOM from 'react-dom/client';
-    import 'better-form/styles';
+    import '@better_form/core/styles';
     import App from './App';
     import './index.css';
 
@@ -40,8 +40,8 @@ npm install better-form
     **2. Create your form component:**
 
     ```tsx filename="src/components/ContactForm.tsx"
-    import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
-    import type { WizardConfig } from 'better-form';
+    import { WizardProvider, WizardContainer, defaultFieldComponents } from '@better_form/core';
+    import type { WizardConfig } from '@better_form/core';
 
     const config: WizardConfig = {
       id: 'contact-form',
@@ -141,7 +141,7 @@ npm install better-form
     ```tsx filename="src/index.tsx"
     import React from 'react';
     import ReactDOM from 'react-dom/client';
-    import 'better-form/styles';
+    import '@better_form/core/styles';
     import App from './App';
     import './index.css';
 
@@ -158,8 +158,8 @@ npm install better-form
     **2. Create your form component:**
 
     ```tsx filename="src/components/ContactForm.tsx"
-    import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
-    import type { WizardConfig } from 'better-form';
+    import { WizardProvider, WizardContainer, defaultFieldComponents } from '@better_form/core';
+    import type { WizardConfig } from '@better_form/core';
 
     const config: WizardConfig = {
       id: 'contact-form',
@@ -216,8 +216,8 @@ npm install better-form
 Here's a complete multi-step form example:
 
 ```tsx filename="src/components/RegistrationForm.tsx"
-import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
-import type { WizardConfig } from 'better-form';
+import { WizardProvider, WizardContainer, defaultFieldComponents } from '@better_form/core';
+import type { WizardConfig } from '@better_form/core';
 
 const registrationConfig: WizardConfig = {
   id: 'registration',
@@ -388,16 +388,16 @@ Ensure you have the correct import paths:
 
 ```tsx
 // Correct
-import { WizardProvider } from 'better-form';
+import { WizardProvider } from '@better_form/core';
 
 // Incorrect
-import { WizardProvider } from 'better-form/dist';
+import { WizardProvider } from '@better_form/core';
 ```
 
 ### Styles Not Appearing
 
 1. Make sure you import styles before your component CSS
-2. Check that the import path is correct: `'better-form/styles'`
+2. Check that the import path is correct: `'@better_form/core/styles'`
 
 ### TypeScript Configuration
 

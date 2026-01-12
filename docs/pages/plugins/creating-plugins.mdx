@@ -7,7 +7,7 @@ Extend better-form with custom plugins that add new field types.
 A plugin is an object that implements the `BetterFormPlugin` interface:
 
 ```tsx
-import type { BetterFormPlugin } from 'better-form';
+import type { BetterFormPlugin } from '@better_form/core';
 
 const myPlugin: BetterFormPlugin = {
   name: 'my-plugin',
@@ -26,7 +26,7 @@ const myPlugin: BetterFormPlugin = {
 
 ```tsx
 // my-plugin.ts
-import type { BetterFormPlugin, FieldComponentProps } from 'better-form';
+import type { BetterFormPlugin, FieldComponentProps } from '@better_form/core';
 
 function MyCustomField({ field, value, onChange, error }: FieldComponentProps) {
   return (
@@ -56,7 +56,7 @@ export function myPlugin(config?: { option: string }): BetterFormPlugin {
 ## Using Your Plugin
 
 ```tsx
-import { WizardProvider, defaultFieldComponents } from 'better-form';
+import { WizardProvider, defaultFieldComponents } from '@better_form/core';
 import { myPlugin } from './my-plugin';
 
 const plugin = myPlugin({ option: 'value' });
@@ -74,7 +74,7 @@ const fieldComponents = {
 ## Plugin Helpers
 
 ```tsx
-import { createPlugin, mergePlugins } from 'better-form/plugins';
+import { createPlugin, mergePlugins } from '@better_form/core/plugins';
 
 // Simple plugin creation
 const simplePlugin = createPlugin('simple', '1.0.0', {
@@ -94,11 +94,11 @@ const allComponents = mergePlugins(pluginA, pluginB, pluginC);
 
 ```json
 {
-  "name": "better-form-plugin-yourname",
+  "name": "@better_form/plugin-yourname",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "peerDependencies": {
-    "better-form": "^0.1.0",
+    "@better_form/core": "^0.2.0",
     "react": "^18.0.0 || ^19.0.0"
   }
 }

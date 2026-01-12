@@ -16,7 +16,7 @@ better-form works seamlessly with Next.js, supporting both the App Router and Pa
 ## Installation
 
 ```bash npm2yarn
-npm install better-form
+npm install @better_form/core
 ```
 
 ## Setup
@@ -28,7 +28,7 @@ npm install better-form
     **1. Import styles in your root layout:**
 
     ```tsx filename="app/layout.tsx"
-    import 'better-form/styles';
+    import '@better_form/core/styles';
     import type { Metadata } from 'next';
 
     export const metadata: Metadata = {
@@ -53,8 +53,8 @@ npm install better-form
     ```tsx filename="app/components/MyForm.tsx"
     'use client';
 
-    import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
-    import type { WizardConfig } from 'better-form';
+    import { WizardProvider, WizardContainer, defaultFieldComponents } from '@better_form/core';
+    import type { WizardConfig } from '@better_form/core';
 
     const config: WizardConfig = {
       id: 'contact-form',
@@ -126,7 +126,7 @@ npm install better-form
     **1. Import styles in your `_app.tsx`:**
 
     ```tsx filename="pages/_app.tsx"
-    import 'better-form/styles';
+    import '@better_form/core/styles';
     import type { AppProps } from 'next/app';
 
     export default function App({ Component, pageProps }: AppProps) {
@@ -137,8 +137,8 @@ npm install better-form
     **2. Create your form component:**
 
     ```tsx filename="components/MyForm.tsx"
-    import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
-    import type { WizardConfig } from 'better-form';
+    import { WizardProvider, WizardContainer, defaultFieldComponents } from '@better_form/core';
+    import type { WizardConfig } from '@better_form/core';
 
     const config: WizardConfig = {
       id: 'contact-form',
@@ -223,8 +223,8 @@ export async function submitForm(data: Record<string, unknown>) {
 ```tsx filename="app/components/MyForm.tsx" {5,13-16}
 'use client';
 
-import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
-import type { WizardConfig } from 'better-form';
+import { WizardProvider, WizardContainer, defaultFieldComponents } from '@better_form/core';
+import type { WizardConfig } from '@better_form/core';
 import { submitForm } from '../actions';
 
 // ... config ...
@@ -254,8 +254,8 @@ export function MyForm() {
 If using plugins like Google Places, import their styles too:
 
 ```tsx filename="app/layout.tsx"
-import 'better-form/styles';
-import 'better-form-plugin-google-places/styles';
+import '@better_form/core/styles';
+import '@better_form/plugin-google-places/styles';
 ```
 
 And configure the plugin in your form:
@@ -263,8 +263,8 @@ And configure the plugin in your form:
 ```tsx filename="app/components/AddressForm.tsx"
 'use client';
 
-import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
-import { googlePlacesPlugin } from 'better-form-plugin-google-places';
+import { WizardProvider, WizardContainer, defaultFieldComponents } from '@better_form/core';
+import { googlePlacesPlugin } from '@better_form/plugin-google-places';
 
 // Enable the plugin
 const fieldComponents = {

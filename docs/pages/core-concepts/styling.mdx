@@ -21,8 +21,8 @@ The recommended way to customize colors, spacing, and typography.
 ### Using createTheme
 
 ```tsx
-import { createTheme, WizardContainer } from 'better-form';
-import 'better-form/styles';
+import { createTheme, WizardContainer } from '@better_form/core';
+import '@better_form/core/styles';
 
 const myTheme = createTheme({
   colors: {
@@ -119,7 +119,7 @@ function MyForm() {
 ### Built-in Theme Presets
 
 ```tsx
-import { themePresets, WizardContainer } from 'better-form';
+import { themePresets, WizardContainer } from '@better_form/core';
 
 // Available presets
 themePresets.default  // Neutral blue
@@ -280,7 +280,7 @@ Replace the default navigation and step indicator with your own components.
 ### Custom Step Indicator
 
 ```tsx
-import { useWizard, WizardContainer, AutoStep } from 'better-form';
+import { useWizard, WizardContainer, AutoStep } from '@better_form/core';
 
 function MyStepIndicator() {
   const { visibleSteps, visibleCurrentStepIndex, goToStep, state } = useWizard();
@@ -325,7 +325,7 @@ function MyStepIndicator() {
 ### Custom Navigation
 
 ```tsx
-import { useWizard, WizardContainer, AutoStep } from 'better-form';
+import { useWizard, WizardContainer, AutoStep } from '@better_form/core';
 
 function MyNavigation() {
   const {
@@ -423,7 +423,7 @@ Replace how individual field types are rendered for complete control.
 ### Creating a Custom Text Field
 
 ```tsx
-import type { FieldComponentProps } from 'better-form';
+import type { FieldComponentProps } from '@better_form/core';
 
 function MyTextField({
   field,
@@ -478,8 +478,8 @@ import {
   mergeFieldComponents,
   WizardContainer,
   AutoStep
-} from 'better-form';
-import type { FieldComponentsMap } from 'better-form';
+} from '@better_form/core';
+import type { FieldComponentsMap } from '@better_form/core';
 
 // Your custom components
 const myFieldComponents: Partial<FieldComponentsMap> = {
@@ -548,7 +548,7 @@ interface WizardField {
 Access wizard state and methods in custom components.
 
 ```tsx
-import { useWizard } from 'better-form';
+import { useWizard } from '@better_form/core';
 
 function MyComponent() {
   const {
@@ -597,8 +597,8 @@ import {
   useWizard,
   mergeFieldComponents,
   defaultFieldComponents
-} from 'better-form';
-import type { FieldComponentProps, FieldComponentsMap } from 'better-form';
+} from '@better_form/core';
+import type { FieldComponentProps, FieldComponentsMap } from '@better_form/core';
 
 // 1. Custom Theme
 const brandTheme = createTheme({
@@ -702,9 +702,9 @@ export function BrandForm({ config, onSubmit }) {
 If you want complete control and don't want to use the default CSS:
 
 ```tsx
-// DON'T import 'better-form/styles'
+// DON'T import '@better_form/core/styles'
 
-import { WizardContainer, AutoStep } from 'better-form';
+import { WizardContainer, AutoStep } from '@better_form/core';
 
 // Write your own CSS targeting .better-form-* classes
 // Or use fieldComponents to render completely custom markup

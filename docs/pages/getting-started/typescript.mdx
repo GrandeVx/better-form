@@ -12,13 +12,13 @@ import type {
   FieldGroup,
   FieldComponentProps,
   ValidationRule,
-} from 'better-form';
+} from '@better_form/core';
 ```
 
 ## Type-Safe Configuration
 
 ```tsx
-import type { WizardConfig } from 'better-form';
+import type { WizardConfig } from '@better_form/core';
 
 const config: WizardConfig = {
   id: 'typed-form',
@@ -50,7 +50,7 @@ const config: WizardConfig = {
 Type your custom field components:
 
 ```tsx
-import type { FieldComponentProps } from 'better-form';
+import type { FieldComponentProps } from '@better_form/core';
 
 interface CustomFieldProps extends FieldComponentProps {
   // Add custom props here
@@ -75,7 +75,7 @@ export function CustomField({ field, value, onChange, error }: CustomFieldProps)
 Import types from plugins:
 
 ```tsx
-import type { AddressData, GooglePlacesPluginConfig } from '@better-form/plugin-google-places';
+import type { AddressData, GooglePlacesPluginConfig } from '@better_form/plugin-google-places';
 
 const pluginConfig: GooglePlacesPluginConfig = {
   apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
