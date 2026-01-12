@@ -8,10 +8,10 @@ WORKDIR /app
 # Copy workspace config and lockfile
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
 
-# Copy docs package.json
+# Copy docs package.json for workspace resolution
 COPY docs/package.json ./docs/
 
-RUN pnpm install --frozen-lockfile --filter @better_form/docs
+RUN pnpm install --frozen-lockfile
 
 FROM base AS builder
 WORKDIR /app
@@ -20,9 +20,10 @@ COPY --from=deps /app/docs/node_modules ./docs/node_modules
 
 # Copy docs source
 COPY docs ./docs
+COPY pnpm-workspace.yaml package.json ./
 
 # Build docs
-RUN cd docs && pnpm build
+RUN pnpm --filter @better_form/docs build
 
 FROM base AS runner
 WORKDIR /app
