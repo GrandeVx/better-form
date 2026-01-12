@@ -1,6 +1,6 @@
 packages:
   - 'packages/*'
   - 'website/*'
-  - 'demo/*'
   - 'docs'
   - 'test'
+# Note: examples/* are standalone projects that install from npm registry
