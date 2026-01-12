@@ -3,6 +3,8 @@
 import { CodeBlock } from '@/components/CodeBlock';
 import { GridBackground } from '@/components/GridBackground';
 import { SpotlightCard } from '@/components/SpotlightCard';
+import { useTheme } from '@/components/ThemeProvider';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -234,6 +236,7 @@ const features = [
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState<'config' | 'usage'>('config');
+  const { theme } = useTheme();
 
   return (
     <GridBackground>
@@ -241,6 +244,7 @@ export default function HomePage() {
         {/* Hero Section */}
         <section className="mx-auto max-w-7xl px-4 pb-16 pt-20 sm:px-6 lg:px-8">
           <div className="text-center">
+
             {/* Badge */}
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5">
               <span className="h-2 w-2 rounded-full bg-primary" />
@@ -302,22 +306,20 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={() => setActiveTab('config')}
-                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
-                  activeTab === 'config'
+                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${activeTab === 'config'
                     ? 'bg-primary text-primary-foreground'
                     : 'bg-muted text-muted-foreground hover:text-foreground'
-                }`}
+                  }`}
               >
                 wizard.config.ts
               </button>
               <button
                 type="button"
                 onClick={() => setActiveTab('usage')}
-                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
-                  activeTab === 'usage'
+                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${activeTab === 'usage'
                     ? 'bg-primary text-primary-foreground'
                     : 'bg-muted text-muted-foreground hover:text-foreground'
-                }`}
+                  }`}
               >
                 page.tsx
               </button>
@@ -405,11 +407,10 @@ export default function HomePage() {
             {plugins.map((plugin) => (
               <div
                 key={plugin.name}
-                className={`relative rounded-xl border bg-card p-6 transition-all ${
-                  plugin.status === 'available'
+                className={`relative rounded-xl border bg-card p-6 transition-all ${plugin.status === 'available'
                     ? 'border-primary/30 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5'
                     : 'border-border opacity-75'
-                }`}
+                  }`}
               >
                 {plugin.status === 'coming-soon' && (
                   <div className="absolute right-4 top-4 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
@@ -503,21 +504,12 @@ export default function HomePage() {
               {/* Brand */}
               <div className="sm:col-span-2 lg:col-span-1">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                    <svg
-                      className="h-5 w-5 text-primary-foreground"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                      />
-                    </svg>
-                  </div>
+                  <Image
+                    src={theme === 'dark' ? '/logo-light.svg' : '/logo-dark.svg'}
+                    alt="better-form"
+                    width={32}
+                    height={32}
+                  />
                   <span className="text-lg font-semibold">better-form</span>
                 </div>
                 <p className="mt-3 text-sm text-muted-foreground">

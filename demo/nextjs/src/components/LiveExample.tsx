@@ -150,7 +150,7 @@ export function LiveExample({
                     key={key}
                     config={config}
                     theme={demoTheme}
-                    fieldComponents={fieldComponents}
+                    fieldComponents={fieldComponents as Parameters<typeof WizardContainer>[0]['fieldComponents']}
                   >
                     <AutoStep />
                   </WizardContainer>
@@ -190,7 +190,7 @@ export function LiveExample({
                 key={key}
                 config={config}
                 theme={demoTheme}
-                fieldComponents={fieldComponents}
+                fieldComponents={fieldComponents as Parameters<typeof WizardContainer>[0]['fieldComponents']}
               >
                 <AutoStep />
               </WizardContainer>

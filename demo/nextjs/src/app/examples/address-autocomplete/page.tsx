@@ -37,7 +37,7 @@ export default function AddressAutocompletePage() {
           setFieldComponents({
             ...defaultFieldComponents,
             ...plugin.fieldComponents,
-          });
+          } as FieldComponentsMap);
           setHasApiKey(true);
         } catch (error) {
           console.error('Failed to initialize Google Places plugin:', error);

@@ -1,7 +1,27 @@
 import type { DocsThemeConfig } from 'nextra-theme-docs';
+import { useTheme } from 'next-themes';
+import Image from 'next/image';
+
+function Logo() {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <Image
+        src={isDark ? '/logo-light.svg' : '/logo-dark.svg'}
+        alt="better-form"
+        width={28}
+        height={28}
+        style={{ width: 28, height: 28 }}
+      />
+      <span style={{ fontWeight: 700, fontSize: '1.125rem' }}>better-form</span>
+    </div>
+  );
+}
 
 const config: DocsThemeConfig = {
-  logo: <span style={{ fontWeight: 700, fontSize: '1.25rem' }}>better-form</span>,
+  logo: <Logo />,
   project: {
     link: 'https://github.com/GrandeVx/better-form',
   },

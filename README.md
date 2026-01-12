@@ -1,473 +1,95 @@
-# Better Form
+<p align="center">
+  <picture>
+    <source srcset="./banner-dark.png" media="(prefers-color-scheme: dark)"/>
+    <source srcset="./banner.png" media="(prefers-color-scheme: light)"/>
+    <img src="./banner.png" alt="Better Form Logo"/>
+  </picture>
+  <h2 align="center">
+    Better Form
+  </h2>
 
-[![CI](https://github.com/GrandeVx/better-form/actions/workflows/ci.yml/badge.svg)](https://github.com/GrandeVx/better-form/actions/workflows/ci.yml)
-[![npm version](https://img.shields.io/npm/v/@better_form/core.svg)](https://www.npmjs.com/package/@better_form/core)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  <p align="center">
+    The most powerful form wizard library for React
+    <br />
+    <a href="https://better-form.dev"><strong>Learn more »</strong></a>
+    <br />
+    <br />
+    <a href="https://better-form.dev">Website</a>
+    ·
+    <a href="https://github.com/GrandeVx/better-form/issues">Issues</a>
+  </p>
 
-A powerful, schema-driven form wizard library for React. Build complex multi-step forms with JSON configuration, conditional logic, validation, and theming support.
+[![npm](https://img.shields.io/npm/dm/@better_form/core?style=flat&colorA=000000&colorB=000000)](https://npm.chart.dev/@better_form/core?primary=neutral&gray=neutral&theme=dark)
+[![npm version](https://img.shields.io/npm/v/@better_form/core.svg?style=flat&colorA=000000&colorB=000000)](https://www.npmjs.com/package/@better_form/core)
+[![GitHub stars](https://img.shields.io/github/stars/GrandeVx/better-form?style=flat&colorA=000000&colorB=000000)](https://github.com/GrandeVx/better-form/stargazers)
+</p>
 
-## Features
+## About the Project
 
-- **Schema-Driven**: Define forms with JSON configuration
-- **Multi-Step Wizard**: Built-in step management and navigation
-- **Conditional Logic**: Show/hide fields based on form values
-- **Validation**: Comprehensive validation with custom rules
-- **Theming**: Full theme customization with CSS variables
-- **TypeScript**: Full TypeScript support with type inference
-- **Extensible**: Register custom field components
-- **Auto-Save**: Optional localStorage/custom storage persistence
+Better Form is a schema-driven form wizard library for React. It provides multi-step forms, validation, conditional logic, and theming out of the box. Define complex forms with JSON configuration and let Better Form handle the rest—step navigation, field visibility, validation, and state management.
 
-## Installation
+### Why Better Form
 
-```bash
-npm install @better_form/core
-# or
-yarn add @better_form/core
-# or
-pnpm add @better_form/core
-```
+Building multi-step forms in React is tedious. Existing solutions like React Hook Form or Formik are great for simple forms, but wizards require manual step management, conditional logic, and progress tracking. Better Form solves this with a declarative JSON schema approach—define your form structure once, and everything works automatically.
 
 ## Quick Start
 
-```tsx
-import {
-  WizardContainer,
-  AutoStep,
-  type WizardConfig,
-} from '@better_form/core';
+```bash
+npm install @better_form/core
+```
 
-// Define your form configuration
+```tsx
+import { WizardContainer, AutoStep, type WizardConfig } from '@better_form/core';
+import '@better_form/core/styles';
+
 const config: WizardConfig = {
-  id: 'registration-form',
+  id: 'my-form',
   steps: [
     {
       id: 'personal',
-      title: 'Informazioni Personali',
+      title: 'Personal Info',
       fields: [
-        {
-          id: 'name',
-          type: 'text',
-          label: 'Nome',
-          required: true,
-          placeholder: 'Inserisci il tuo nome',
-        },
-        {
-          id: 'email',
-          type: 'email',
-          label: 'Email',
-          required: true,
-          validation: [{ type: 'email', message: 'Email non valida' }],
-        },
-      ],
-    },
-    {
-      id: 'preferences',
-      title: 'Preferenze',
-      fields: [
-        {
-          id: 'newsletter',
-          type: 'boolean',
-          label: 'Newsletter',
-          checkboxLabel: 'Desidero ricevere la newsletter',
-        },
-        {
-          id: 'category',
-          type: 'select',
-          label: 'Categoria',
-          options: [
-            { value: 'personal', label: 'Personale' },
-            { value: 'business', label: 'Business' },
-          ],
-        },
+        { id: 'name', type: 'text', label: 'Name', required: true },
+        { id: 'email', type: 'email', label: 'Email', required: true },
       ],
     },
   ],
 };
 
 function MyForm() {
-  const handleSubmit = async (data: Record<string, unknown>) => {
-    console.log('Form data:', data);
-    // Submit to API
-  };
-
   return (
-    <WizardContainer
-      config={config}
-      onSubmit={handleSubmit}
-    >
+    <WizardContainer config={config} onSubmit={(data) => console.log(data)}>
       <AutoStep />
     </WizardContainer>
   );
 }
 ```
 
-## Field Types
+## Features
 
-Better Form includes many built-in field types:
+- **Schema-Driven** - Define forms with JSON/TypeScript configuration
+- **Multi-Step Wizard** - Built-in step management and progress tracking
+- **Conditional Logic** - Show/hide fields and steps based on form values
+- **Validation** - Required, patterns, min/max, and custom validators
+- **Theming** - Full customization with CSS variables or theme presets
+- **TypeScript** - Complete type safety with inference
+- **Plugin System** - Extend with custom field types
 
-### Text Fields
-- `text` - Standard text input
-- `email` - Email with validation
-- `password` - Password input with toggle
-- `phone` / `tel` - Phone number input
-- `url` - URL input
-- `textarea` - Multi-line text
+## Documentation
 
-### Selection Fields
-- `select` - Dropdown select
-- `multiselect` - Multiple selection
-- `searchable` - Searchable dropdown
-- `radio` - Radio button group
-- `radio-cards` - Radio as clickable cards
-- `checkboxes` - Checkbox group
-- `checkbox-cards` - Checkboxes as cards
-- `chips` - Tag/chip selection
+Visit [better-form.dev](https://better-form.dev) for full documentation, guides, and API reference.
 
-### Boolean Fields
-- `boolean` / `checkbox` - Single checkbox
-- `switch` / `toggle` - Toggle switch
-- `terms` - Accept terms checkbox
+## Contribution
 
-### Number Fields
-- `number` - Numeric input
-- `range` / `slider` - Range slider
-- `currency` - Currency input
-- `percentage` - Percentage input
+Better Form is a free and open source project licensed under the [MIT License](./LICENSE). You are free to do whatever you want with it.
 
-### Date/Time Fields
-- `date` - Date picker
-- `time` - Time picker
-- `datetime` - Date and time
-- `month` - Month picker
-- `date-range` - Date range
+You could help continuing its development by:
 
-### File Fields
-- `file` - File upload with drag & drop
-- `image` - Image upload with preview
-- `document` - Document upload
+- [Contribute to the source code](./CONTRIBUTING.md)
+- [Suggest new features and report issues](https://github.com/GrandeVx/better-form/issues)
 
-### Special Fields
-- `hidden` - Hidden field
-- `readonly` - Read-only display
+## Security
 
-## Conditional Logic
+If you discover a security vulnerability within Better Form, please open an issue on [GitHub](https://github.com/GrandeVx/better-form/issues).
 
-Show or hide fields based on other field values:
-
-```tsx
-const config: WizardConfig = {
-  id: 'conditional-form',
-  steps: [
-    {
-      id: 'main',
-      fields: [
-        {
-          id: 'hasCompany',
-          type: 'boolean',
-          label: 'Hai una azienda?',
-        },
-        {
-          id: 'companyName',
-          type: 'text',
-          label: 'Nome Azienda',
-          // Only show when hasCompany is true
-          showIf: {
-            field: 'hasCompany',
-            operator: 'equals',
-            value: true,
-          },
-        },
-      ],
-    },
-  ],
-};
-```
-
-### Condition Helpers
-
-```tsx
-import {
-  equals,
-  notEquals,
-  greaterThan,
-  contains,
-  isEmpty,
-  andConditions,
-  orConditions,
-} from '@better_form/core';
-
-// Simple condition
-const showIfAdult = equals('age', 18);
-
-// Combined conditions (AND)
-const showIfAdultFromItaly = andConditions(
-  greaterThan('age', 18),
-  equals('country', 'IT')
-);
-
-// Combined conditions (OR)
-const showIfAdminOrModerator = orConditions(
-  equals('role', 'admin'),
-  equals('role', 'moderator')
-);
-```
-
-## Validation
-
-### Built-in Validators
-
-```tsx
-import { commonValidations } from '@better_form/core';
-
-const field = {
-  id: 'email',
-  type: 'email',
-  validation: [
-    commonValidations.required('Email obbligatoria'),
-    commonValidations.email('Email non valida'),
-    commonValidations.maxLength(100, 'Massimo 100 caratteri'),
-  ],
-};
-```
-
-### Available Validators
-
-- `required(message)` - Field is required
-- `email(message)` - Valid email format
-- `minLength(n, message)` - Minimum length
-- `maxLength(n, message)` - Maximum length
-- `min(n, message)` - Minimum number value
-- `max(n, message)` - Maximum number value
-- `pattern(regex, message)` - Regex pattern
-- `url(message)` - Valid URL
-- `phone(message)` - Valid phone number
-- `custom(fn, message)` - Custom validation function
-
-### Custom Validation
-
-```tsx
-const field = {
-  id: 'username',
-  type: 'text',
-  validation: [
-    {
-      type: 'custom',
-      validator: (value, formData) => {
-        if (value && value.includes(' ')) {
-          return 'Username non può contenere spazi';
-        }
-        return null;
-      },
-    },
-  ],
-};
-```
-
-## Theming
-
-### Using Presets
-
-```tsx
-import { WizardContainer, themePresets } from '@better_form/core';
-
-<WizardContainer
-  config={config}
-  theme={themePresets.dark}
-  onSubmit={handleSubmit}
->
-  <AutoStep />
-</WizardContainer>
-```
-
-### Custom Theme
-
-```tsx
-import { createTheme } from '@better_form/core';
-
-const myTheme = createTheme({
-  colors: {
-    primary: '#6366f1',
-    primaryHover: '#4f46e5',
-    background: '#0f172a',
-    surface: '#1e293b',
-    text: '#f8fafc',
-  },
-  borderRadius: {
-    md: '12px',
-  },
-});
-
-<WizardContainer config={config} theme={myTheme} onSubmit={handleSubmit}>
-  <AutoStep />
-</WizardContainer>
-```
-
-### Theme Presets
-
-- `themePresets.light` - Light theme (default)
-- `themePresets.dark` - Dark theme
-- `themePresets.modern` - Modern with purple accent
-
-## Custom Field Components
-
-Register custom field components:
-
-```tsx
-import type { FieldComponentProps } from '@better_form/core';
-
-// Custom address field
-function AddressField({ field, value, onChange, error }: FieldComponentProps) {
-  const address = (value as { street?: string; city?: string }) || {};
-
-  return (
-    <div className="address-field">
-      <input
-        placeholder="Via"
-        value={address.street || ''}
-        onChange={(e) => onChange({ ...address, street: e.target.value })}
-      />
-      <input
-        placeholder="Città"
-        value={address.city || ''}
-        onChange={(e) => onChange({ ...address, city: e.target.value })}
-      />
-    </div>
-  );
-}
-
-// Register in WizardContainer
-<WizardContainer
-  config={config}
-  fieldComponents={{
-    address: AddressField,
-  }}
-  onSubmit={handleSubmit}
->
-  <AutoStep />
-</WizardContainer>
-```
-
-## useWizard Hook
-
-Access wizard state and actions from any component:
-
-```tsx
-import { useWizard } from '@better_form/core';
-
-function CustomNavigation() {
-  const {
-    currentStepIndex,
-    visibleSteps,
-    nextStep,
-    previousStep,
-    canGoNext,
-    state,
-    setFieldValue,
-  } = useWizard();
-
-  return (
-    <div>
-      <p>Step {currentStepIndex + 1} di {visibleSteps.length}</p>
-      <button onClick={previousStep}>Indietro</button>
-      <button onClick={nextStep} disabled={!canGoNext}>
-        Avanti
-      </button>
-    </div>
-  );
-}
-```
-
-## Storage / Auto-Save
-
-Enable auto-save to localStorage or custom storage:
-
-```tsx
-// localStorage (default)
-<WizardContainer
-  config={config}
-  storage={{ enabled: true, key: 'my-form-data' }}
-  onSubmit={handleSubmit}
->
-  <AutoStep />
-</WizardContainer>
-
-// Custom storage adapter
-const customStorage = {
-  getItem: async (key: string) => {
-    return await myDatabase.get(key);
-  },
-  setItem: async (key: string, value: string) => {
-    await myDatabase.set(key, value);
-  },
-  removeItem: async (key: string) => {
-    await myDatabase.delete(key);
-  },
-};
-
-<WizardContainer
-  config={config}
-  storage={{ enabled: true, key: 'my-form', adapter: customStorage }}
-  onSubmit={handleSubmit}
->
-  <AutoStep />
-</WizardContainer>
-```
-
-## API Reference
-
-### WizardContainer Props
-
-| Prop | Type | Description |
-|------|------|-------------|
-| `config` | `WizardConfig` | Form configuration (required) |
-| `initialData` | `Record<string, unknown>` | Initial form values |
-| `theme` | `BetterFormTheme` | Custom theme |
-| `storage` | `StorageOptions` | Auto-save configuration |
-| `fieldComponents` | `FieldComponentsMap` | Custom field components |
-| `onSubmit` | `(data) => Promise<void>` | Submit handler |
-| `onStepChange` | `(stepIndex, stepId) => void` | Step change callback |
-| `onFieldChange` | `(fieldId, value, data) => void` | Field change callback |
-| `onValidationError` | `(errors) => void` | Validation error callback |
-| `onNavigate` | `(path) => void` | Navigation callback |
-| `onNotify` | `(type, message) => void` | Notification callback |
-| `blockingDialog` | `ReactNode` | Blocking dialog component |
-
-### WizardConfig
-
-```typescript
-interface WizardConfig {
-  id: string;
-  steps: WizardStep[];
-  submitButtonText?: string;
-  nextButtonText?: string;
-  prevButtonText?: string;
-}
-
-interface WizardStep {
-  id: string;
-  title?: string;
-  description?: string;
-  fields: WizardField[];
-  showIf?: ConditionalLogic;
-  hideIf?: ConditionalLogic;
-}
-
-interface WizardField {
-  id: string;
-  type: WizardFieldType;
-  label?: string;
-  description?: string;
-  placeholder?: string;
-  required?: boolean;
-  disabled?: boolean;
-  validation?: ValidationRule[];
-  showIf?: ConditionalLogic;
-  hideIf?: ConditionalLogic;
-  options?: FieldOption[];
-  // ... other type-specific props
-}
-```
-
-## License
-
-MIT
+All reports will be promptly addressed, and you'll be credited accordingly.
