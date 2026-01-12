@@ -217,6 +217,31 @@ const defaultStorageAdapter: StorageAdapter = {
 };
 
 // ============================================
+// Config Normalization
+// ============================================
+
+/**
+ * Normalizes the wizard config by auto-generating field `id` from `name` if not provided.
+ * This allows users to only specify `name` in their config and have `id` auto-generated.
+ */
+function normalizeConfig(config: WizardConfig): WizardConfig {
+  return {
+    ...config,
+    steps: config.steps.map((step) => ({
+      ...step,
+      fieldGroups: step.fieldGroups.map((group) => ({
+        ...group,
+        fields: group.fields.map((field) => ({
+          ...field,
+          // Auto-generate id from name if not provided
+          id: field.id || field.name,
+        })),
+      })),
+    })),
+  };
+}
+
+// ============================================
 // Provider Props
 // ============================================
 
@@ -238,7 +263,7 @@ export interface WizardProviderProps {
 // ============================================
 
 export function WizardProvider({
-  config,
+  config: rawConfig,
   children,
   theme = defaultTheme,
   onSubmit,
@@ -248,7 +273,15 @@ export function WizardProvider({
   renderBlockingDialog,
   storageAdapter = defaultStorageAdapter,
 }: WizardProviderProps) {
-  const [state, dispatch] = useReducer(wizardReducer, config, createInitialState);
+  // Normalize config to auto-generate field ids from names
+  const config = useMemo(() => normalizeConfig(rawConfig), [rawConfig]);
+
+  // Initialize state with normalized config
+  const [state, dispatch] = useReducer(
+    wizardReducer,
+    rawConfig,
+    (cfg) => createInitialState(normalizeConfig(cfg))
+  );
   const [showBlockingDialog, setShowBlockingDialog] = useState(false);
   const [blockingReason, setBlockingReason] = useState('');
 

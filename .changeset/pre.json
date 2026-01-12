@@ -5,7 +5,8 @@
     "@better_form/demo-nextjs": "0.1.0",
     "@better_form/docs": "0.0.0",
     "@better_form/core": "0.1.0",
-    "@better_form/plugin-google-places": "0.1.0"
+    "@better_form/plugin-google-places": "0.1.0",
+    "@better_form/website": "0.1.0"
   },
   "changesets": [
     "initial-beta-release"
