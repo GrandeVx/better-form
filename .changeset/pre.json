@@ -8,7 +8,5 @@
     "@better_form/plugin-google-places": "0.1.0",
     "@better_form/website": "0.1.0"
   },
-  "changesets": [
-    "initial-beta-release"
-  ]
+  "changesets": ["initial-beta-release"]
 }

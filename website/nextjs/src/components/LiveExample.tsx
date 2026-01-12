@@ -150,7 +150,9 @@ export function LiveExample({
                     key={key}
                     config={config}
                     theme={demoTheme}
-                    fieldComponents={fieldComponents as Parameters<typeof WizardContainer>[0]['fieldComponents']}
+                    fieldComponents={
+                      fieldComponents as Parameters<typeof WizardContainer>[0]['fieldComponents']
+                    }
                   >
                     <AutoStep />
                   </WizardContainer>
@@ -190,7 +192,9 @@ export function LiveExample({
                 key={key}
                 config={config}
                 theme={demoTheme}
-                fieldComponents={fieldComponents as Parameters<typeof WizardContainer>[0]['fieldComponents']}
+                fieldComponents={
+                  fieldComponents as Parameters<typeof WizardContainer>[0]['fieldComponents']
+                }
               >
                 <AutoStep />
               </WizardContainer>
@@ -229,7 +233,13 @@ function ViewButton({ active, onClick, children, title }: ViewButtonProps) {
 
 function SplitIcon() {
   return (
-    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg
+      className="h-4 w-4"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      aria-hidden="true"
+    >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -242,7 +252,13 @@ function SplitIcon() {
 
 function CodeIcon() {
   return (
-    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg
+      className="h-4 w-4"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      aria-hidden="true"
+    >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -255,7 +271,13 @@ function CodeIcon() {
 
 function PreviewIcon() {
   return (
-    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg
+      className="h-4 w-4"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      aria-hidden="true"
+    >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -274,7 +296,13 @@ function PreviewIcon() {
 
 function ResetIcon() {
   return (
-    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg
+      className="h-4 w-4"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      aria-hidden="true"
+    >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"

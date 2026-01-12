@@ -89,7 +89,13 @@ export default function AddressAutocompletePage() {
           {!isLoading && !hasApiKey && (
             <div className="mb-8 rounded-xl border border-yellow-500/50 bg-yellow-500/10 p-6">
               <h2 className="mb-2 flex items-center gap-2 text-lg font-semibold text-yellow-500">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -237,7 +243,13 @@ const fieldComponents = {
               href="/examples/step-callbacks"
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
             >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -252,7 +264,13 @@ const fieldComponents = {
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
             >
               All Examples
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"

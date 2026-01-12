@@ -135,7 +135,13 @@ export default function CrossFieldValidationPage() {
               href="/examples"
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
             >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -150,7 +156,13 @@ export default function CrossFieldValidationPage() {
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
             >
               Auto-fill onChange
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"

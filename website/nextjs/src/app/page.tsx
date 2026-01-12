@@ -130,11 +130,25 @@ const frameworks = [
           <rect x="115" y="54" width="12" height="72" fill="url(#nextGradient2)" />
         </g>
         <defs>
-          <linearGradient id="nextGradient1" x1="109" y1="116.5" x2="144.5" y2="160.5" gradientUnits="userSpaceOnUse">
+          <linearGradient
+            id="nextGradient1"
+            x1="109"
+            y1="116.5"
+            x2="144.5"
+            y2="160.5"
+            gradientUnits="userSpaceOnUse"
+          >
             <stop stopColor="currentColor" />
             <stop offset="1" stopColor="currentColor" stopOpacity="0" />
           </linearGradient>
-          <linearGradient id="nextGradient2" x1="121" y1="54" x2="120.799" y2="106.875" gradientUnits="userSpaceOnUse">
+          <linearGradient
+            id="nextGradient2"
+            x1="121"
+            y1="54"
+            x2="120.799"
+            y2="106.875"
+            gradientUnits="userSpaceOnUse"
+          >
             <stop stopColor="currentColor" />
             <stop offset="1" stopColor="currentColor" stopOpacity="0" />
           </linearGradient>
@@ -244,7 +258,6 @@ export default function HomePage() {
         {/* Hero Section */}
         <section className="mx-auto max-w-7xl px-4 pb-16 pt-20 sm:px-6 lg:px-8">
           <div className="text-center">
-
             {/* Badge */}
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5">
               <span className="h-2 w-2 rounded-full bg-primary" />
@@ -268,7 +281,13 @@ export default function HomePage() {
                 href={process.env.NEXT_PUBLIC_DOCS_URL || 'https://docs.better-form.eu'}
                 className="btn btn-primary"
               >
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -306,20 +325,22 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={() => setActiveTab('config')}
-                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${activeTab === 'config'
+                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                  activeTab === 'config'
                     ? 'bg-primary text-primary-foreground'
                     : 'bg-muted text-muted-foreground hover:text-foreground'
-                  }`}
+                }`}
               >
                 wizard.config.ts
               </button>
               <button
                 type="button"
                 onClick={() => setActiveTab('usage')}
-                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${activeTab === 'usage'
+                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                  activeTab === 'usage'
                     ? 'bg-primary text-primary-foreground'
                     : 'bg-muted text-muted-foreground hover:text-foreground'
-                  }`}
+                }`}
               >
                 page.tsx
               </button>
@@ -361,9 +382,12 @@ export default function HomePage() {
         {/* Framework Support Section */}
         <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold sm:text-4xl">Works with your favorite framework</h2>
+            <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
+              Works with your favorite framework
+            </h2>
             <p className="mx-auto max-w-2xl text-muted-foreground">
-              better-form integrates seamlessly with React-based frameworks. Choose your stack and get started in minutes.
+              better-form integrates seamlessly with React-based frameworks. Choose your stack and
+              get started in minutes.
             </p>
           </div>
 
@@ -407,10 +431,11 @@ export default function HomePage() {
             {plugins.map((plugin) => (
               <div
                 key={plugin.name}
-                className={`relative rounded-xl border bg-card p-6 transition-all ${plugin.status === 'available'
+                className={`relative rounded-xl border bg-card p-6 transition-all ${
+                  plugin.status === 'available'
                     ? 'border-primary/30 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5'
                     : 'border-border opacity-75'
-                  }`}
+                }`}
               >
                 {plugin.status === 'coming-soon' && (
                   <div className="absolute right-4 top-4 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
@@ -480,7 +505,13 @@ export default function HomePage() {
                   className="btn btn-primary"
                 >
                   Read the Docs
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"

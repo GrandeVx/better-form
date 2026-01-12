@@ -61,7 +61,7 @@ export const rabbitBreeds = [
 // Reptile types
 export const reptileTypes = [
   { label: 'Tartaruga di Terra', value: 'land-turtle' },
-  { label: 'Tartaruga d\'Acqua', value: 'water-turtle' },
+  { label: "Tartaruga d'Acqua", value: 'water-turtle' },
   { label: 'Iguana', value: 'iguana' },
   { label: 'Geco Leopardino', value: 'leopard-gecko' },
   { label: 'Drago Barbuto', value: 'bearded-dragon' },

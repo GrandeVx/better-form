@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 
 const siteConfig = {
   name: 'better-form',
-  description: 'The most powerful form wizard library for React. Build complex multi-step forms with JSON configuration, conditional logic, validation, and theming.',
+  description:
+    'The most powerful form wizard library for React. Build complex multi-step forms with JSON configuration, conditional logic, validation, and theming.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://better-form.eu',
   ogImage: '/og.png',
   twitter: '@vittoIam',
@@ -68,9 +69,7 @@ export function createMetadata(override: Metadata = {}): Metadata {
         { url: '/favicon/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
       ],
       apple: [{ url: '/favicon/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
-      other: [
-        { rel: 'mask-icon', url: '/favicon/favicon-32x32.png', color: '#09090B' },
-      ],
+      other: [{ rel: 'mask-icon', url: '/favicon/favicon-32x32.png', color: '#09090B' }],
     },
     manifest: '/favicon/site.webmanifest',
     ...override,

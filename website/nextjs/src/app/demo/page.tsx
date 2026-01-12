@@ -6,12 +6,17 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 // Dynamic import to avoid SSR issues with the wizard
-const WizardContainer = dynamic(() => import('@better_form/core').then((mod) => mod.WizardContainer), {
-  ssr: false,
-  loading: () => <div className="p-8 text-center">Loading wizard...</div>,
-});
+const WizardContainer = dynamic(
+  () => import('@better_form/core').then((mod) => mod.WizardContainer),
+  {
+    ssr: false,
+    loading: () => <div className="p-8 text-center">Loading wizard...</div>,
+  }
+);
 
-const AutoStep = dynamic(() => import('@better_form/core').then((mod) => mod.AutoStep), { ssr: false });
+const AutoStep = dynamic(() => import('@better_form/core').then((mod) => mod.AutoStep), {
+  ssr: false,
+});
 
 export default function DemoPage() {
   const [submittedData, setSubmittedData] = useState<Record<string, unknown> | null>(null);

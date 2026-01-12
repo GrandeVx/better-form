@@ -1,5 +1,5 @@
-import type { AddressData } from '@better_form/plugin-google-places';
 import type { WizardConfig } from '@better_form/core';
+import type { AddressData } from '@better_form/plugin-google-places';
 
 /**
  * Address Autocomplete with Google Places Plugin

@@ -4,8 +4,8 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { ThemeToggle } from './ThemeToggle';
 import { useTheme } from './ThemeProvider';
+import { ThemeToggle } from './ThemeToggle';
 
 interface HeaderProps {
   className?: string;
@@ -62,7 +62,10 @@ export function Header({ className }: HeaderProps) {
           <NavLink href="/">Home</NavLink>
           <NavLink href="/examples">Examples</NavLink>
           <NavLink href="/playground">Playground</NavLink>
-          <NavLink href={process.env.NEXT_PUBLIC_DOCS_URL || 'https://docs.better-form.eu'} external>
+          <NavLink
+            href={process.env.NEXT_PUBLIC_DOCS_URL || 'https://docs.better-form.eu'}
+            external
+          >
             Docs
           </NavLink>
           <NavLink href="https://github.com/GrandeVx/better-form" external>
@@ -82,7 +85,13 @@ export function Header({ className }: HeaderProps) {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? (
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -91,7 +100,13 @@ export function Header({ className }: HeaderProps) {
                 />
               </svg>
             ) : (
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -174,6 +189,7 @@ function NavLink({ href, children, external }: NavLinkProps) {
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
+          aria-hidden="true"
         >
           <path
             strokeLinecap="round"
@@ -219,6 +235,7 @@ function MobileNavLink({ href, children, onClick, external }: MobileNavLinkProps
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
+          aria-hidden="true"
         >
           <path
             strokeLinecap="round"

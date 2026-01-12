@@ -1,6 +1,6 @@
-import type { DocsThemeConfig } from 'nextra-theme-docs';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
+import type { DocsThemeConfig } from 'nextra-theme-docs';
 
 function Logo() {
   const { resolvedTheme } = useTheme();
@@ -28,27 +28,27 @@ const config: DocsThemeConfig = {
   // Demo link - only shown in production when NEXT_PUBLIC_DEMO_URL is set
   ...(process.env.NEXT_PUBLIC_DEMO_URL
     ? {
-      chat: {
-        link: process.env.NEXT_PUBLIC_DEMO_URL,
-        icon: (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            role="img"
-            aria-label="View Demo"
-          >
-            <title>View Demo</title>
-            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-            <polyline points="10 17 15 12 10 7" />
-            <line x1="15" y1="12" x2="3" y2="12" />
-          </svg>
-        ),
-      },
-    }
+        chat: {
+          link: process.env.NEXT_PUBLIC_DEMO_URL,
+          icon: (
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              role="img"
+              aria-label="View Demo"
+            >
+              <title>View Demo</title>
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+              <polyline points="10 17 15 12 10 7" />
+              <line x1="15" y1="12" x2="3" y2="12" />
+            </svg>
+          ),
+        },
+      }
     : {}),
   docsRepositoryBase: 'https://github.com/GrandeVx/better-form/tree/main/docs',
   footer: {
@@ -62,7 +62,10 @@ const config: DocsThemeConfig = {
   head: (
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta name="description" content="The most powerful form wizard library for React. Build complex multi-step forms with JSON configuration, conditional logic, validation, and theming." />
+      <meta
+        name="description"
+        content="The most powerful form wizard library for React. Build complex multi-step forms with JSON configuration, conditional logic, validation, and theming."
+      />
       <meta name="theme-color" content="#09090B" />
 
       {/* Favicon */}
@@ -77,7 +80,10 @@ const config: DocsThemeConfig = {
       <meta property="og:site_name" content="better-form" />
       <meta property="og:url" content="https://docs.better-form.eu" />
       <meta property="og:title" content="better-form" />
-      <meta property="og:description" content="The most powerful form wizard library for React. Build complex multi-step forms with JSON configuration, conditional logic, validation, and theming." />
+      <meta
+        property="og:description"
+        content="The most powerful form wizard library for React. Build complex multi-step forms with JSON configuration, conditional logic, validation, and theming."
+      />
       <meta property="og:image" content="https://docs.better-form.eu/og.png" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />

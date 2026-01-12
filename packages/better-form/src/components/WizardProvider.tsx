@@ -277,10 +277,8 @@ export function WizardProvider({
   const config = useMemo(() => normalizeConfig(rawConfig), [rawConfig]);
 
   // Initialize state with normalized config
-  const [state, dispatch] = useReducer(
-    wizardReducer,
-    rawConfig,
-    (cfg) => createInitialState(normalizeConfig(cfg))
+  const [state, dispatch] = useReducer(wizardReducer, rawConfig, (cfg) =>
+    createInitialState(normalizeConfig(cfg))
   );
   const [showBlockingDialog, setShowBlockingDialog] = useState(false);
   const [blockingReason, setBlockingReason] = useState('');

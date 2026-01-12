@@ -5,9 +5,7 @@
   "author": "GrandeVx",
   "license": "MIT",
   "type": "module",
-  "sideEffects": [
-    "**/*.css"
-  ],
+  "sideEffects": ["**/*.css"],
   "exports": {
     ".": {
       "dev-source": "./src/index.ts",
@@ -59,41 +57,18 @@
   },
   "typesVersions": {
     "*": {
-      "*": [
-        "./dist/index.d.mts"
-      ],
-      "components": [
-        "./dist/components/index.d.mts"
-      ],
-      "fields": [
-        "./dist/fields/index.d.mts"
-      ],
-      "hooks": [
-        "./dist/hooks/index.d.mts"
-      ],
-      "themes": [
-        "./dist/themes/index.d.mts"
-      ],
-      "validation": [
-        "./dist/core/validation/index.d.mts"
-      ],
-      "conditional-logic": [
-        "./dist/core/conditional-logic/index.d.mts"
-      ],
-      "types": [
-        "./dist/types/index.d.mts"
-      ],
-      "plugins": [
-        "./dist/plugins/index.d.mts"
-      ]
+      "*": ["./dist/index.d.mts"],
+      "components": ["./dist/components/index.d.mts"],
+      "fields": ["./dist/fields/index.d.mts"],
+      "hooks": ["./dist/hooks/index.d.mts"],
+      "themes": ["./dist/themes/index.d.mts"],
+      "validation": ["./dist/core/validation/index.d.mts"],
+      "conditional-logic": ["./dist/core/conditional-logic/index.d.mts"],
+      "types": ["./dist/types/index.d.mts"],
+      "plugins": ["./dist/plugins/index.d.mts"]
     }
   },
-  "files": [
-    "dist",
-    "src/styles",
-    "README.md",
-    "LICENSE"
-  ],
+  "files": ["dist", "src/styles", "README.md", "LICENSE"],
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",

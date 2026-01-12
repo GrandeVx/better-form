@@ -126,7 +126,13 @@ function ExampleCard({ example }: ExampleCardProps) {
         {!example.comingSoon && (
           <div className="mt-4 flex items-center text-sm text-primary">
             View Example
-            <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg
+              className="ml-1 h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </div>

@@ -1,10 +1,10 @@
 'use client';
 
+import { AutoStep, WizardContainer } from '@better_form/core';
 import { useState } from 'react';
-import { WizardContainer, AutoStep } from '@better_form/core';
 import '@better_form/core/styles';
-import { petWizardConfig } from '@/config/pet-wizard.config';
 import { SuccessConfetti } from '@/components/SuccessConfetti';
+import { petWizardConfig } from '@/config/pet-wizard.config';
 import { petTypes } from '@/lib/pet-breeds';
 
 export default function Home() {
@@ -23,16 +23,14 @@ export default function Home() {
   };
 
   if (isComplete && submittedData) {
-    const petType = petTypes.find(p => p.id === submittedData.petType);
+    const petType = petTypes.find((p) => p.id === submittedData.petType);
 
     return (
       <>
         <SuccessConfetti trigger={isComplete} />
         <div className="card-pop p-8 text-center animate-bounce-in">
           <div className="text-7xl mb-4">{petType?.emoji || '🎉'}</div>
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">
-            Registrazione completata!
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-800 mb-2">Registrazione completata!</h2>
           <p className="text-gray-600 mb-6">
             <strong>{submittedData.petName as string}</strong> è stato registrato con successo!
           </p>
@@ -43,7 +41,9 @@ export default function Home() {
 
             <div className="summary-row">
               <span className="summary-label">Animale</span>
-              <span className="summary-value">{petType?.label} {petType?.emoji}</span>
+              <span className="summary-value">
+                {petType?.label} {petType?.emoji}
+              </span>
             </div>
 
             <div className="summary-row">
@@ -71,11 +71,7 @@ export default function Home() {
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={handleReset}
-            className="btn-pop btn-primary"
-          >
+          <button type="button" onClick={handleReset} className="btn-pop btn-primary">
             Registra un altro animale
           </button>
         </div>

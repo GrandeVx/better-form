@@ -1,14 +1,14 @@
-import type { WizardConfig } from '@better_form/core';
-import { createCondition, orConditions } from '@better_form/core';
 import {
-  dogBreeds,
-  catBreeds,
   birdSpecies,
+  cageSizes,
+  catBreeds,
+  dogBreeds,
   rabbitBreeds,
   reptileTypes,
-  cageSizes,
   terrariumSizes,
 } from '@/lib/pet-breeds';
+import type { WizardConfig } from '@better_form/core';
+import { createCondition, orConditions } from '@better_form/core';
 
 export const petWizardConfig: WizardConfig = {
   id: 'pet-registration',
@@ -41,9 +41,7 @@ export const petWizardConfig: WizardConfig = {
                 { label: '🦎 Rettile', value: 'reptile' },
                 { label: '❓ Altro', value: 'other' },
               ],
-              validation: [
-                { type: 'required', message: 'Seleziona un tipo di animale' },
-              ],
+              validation: [{ type: 'required', message: 'Seleziona un tipo di animale' }],
             },
           ],
         },
@@ -190,7 +188,7 @@ export const petWizardConfig: WizardConfig = {
 
         // --- UCCELLO ---
         {
-          title: 'Informazioni sull\'uccello',
+          title: "Informazioni sull'uccello",
           showIf: createCondition('petType', 'equals', 'bird'),
           fields: [
             {
@@ -354,7 +352,11 @@ export const petWizardConfig: WizardConfig = {
               // Nested condition: mostra solo se hasMicrochip è true
               showIf: createCondition('hasMicrochip', 'equals', true),
               validation: [
-                { type: 'pattern', value: '^[0-9]{15}$', message: 'Il microchip deve avere 15 cifre' },
+                {
+                  type: 'pattern',
+                  value: '^[0-9]{15}$',
+                  message: 'Il microchip deve avere 15 cifre',
+                },
               ],
             },
             {
@@ -393,9 +395,7 @@ export const petWizardConfig: WizardConfig = {
               type: 'text',
               placeholder: 'Mario Rossi',
               required: true,
-              validation: [
-                { type: 'required', message: 'Il nome è obbligatorio' },
-              ],
+              validation: [{ type: 'required', message: 'Il nome è obbligatorio' }],
             },
             {
               id: 'ownerEmail',
@@ -405,8 +405,12 @@ export const petWizardConfig: WizardConfig = {
               placeholder: 'mario.rossi@email.com',
               required: true,
               validation: [
-                { type: 'required', message: 'L\'email è obbligatoria' },
-                { type: 'pattern', value: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$', message: 'Email non valida' },
+                { type: 'required', message: "L'email è obbligatoria" },
+                {
+                  type: 'pattern',
+                  value: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
+                  message: 'Email non valida',
+                },
               ],
             },
             {
@@ -416,9 +420,7 @@ export const petWizardConfig: WizardConfig = {
               type: 'tel',
               placeholder: '+39 333 1234567',
               required: true,
-              validation: [
-                { type: 'required', message: 'Il telefono è obbligatorio' },
-              ],
+              validation: [{ type: 'required', message: 'Il telefono è obbligatorio' }],
             },
             {
               id: 'ownerCity',
@@ -455,9 +457,7 @@ export const petWizardConfig: WizardConfig = {
               label: 'Accetto i termini e le condizioni',
               type: 'single-checkbox',
               required: true,
-              validation: [
-                { type: 'required', message: 'Devi accettare i termini per procedere' },
-              ],
+              validation: [{ type: 'required', message: 'Devi accettare i termini per procedere' }],
             },
             {
               id: 'acceptPrivacy',

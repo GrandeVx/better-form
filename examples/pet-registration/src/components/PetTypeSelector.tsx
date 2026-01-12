@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { petTypes } from '@/lib/pet-breeds';
+import { motion } from 'framer-motion';
 
 interface PetTypeSelectorProps {
   value: string;
@@ -31,10 +31,14 @@ export function PetTypeSelector({ value, onChange, error }: PetTypeSelectorProps
           >
             <motion.span
               className="emoji"
-              animate={value === pet.id ? {
-                rotate: [0, -10, 10, -10, 0],
-                scale: [1, 1.1, 1]
-              } : {}}
+              animate={
+                value === pet.id
+                  ? {
+                      rotate: [0, -10, 10, -10, 0],
+                      scale: [1, 1.1, 1],
+                    }
+                  : {}
+              }
               transition={{ duration: 0.5 }}
             >
               {pet.emoji}
@@ -53,9 +57,7 @@ export function PetTypeSelector({ value, onChange, error }: PetTypeSelectorProps
           </motion.button>
         ))}
       </div>
-      {error && (
-        <p className="field-error mt-3 text-center">{error}</p>
-      )}
+      {error && <p className="field-error mt-3 text-center">{error}</p>}
     </div>
   );
 }

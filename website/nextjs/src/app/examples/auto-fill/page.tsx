@@ -137,7 +137,13 @@ export default function AutoFillPage() {
               href="/examples/cross-field-validation"
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
             >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -152,7 +158,13 @@ export default function AutoFillPage() {
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
             >
               Step Callbacks
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
