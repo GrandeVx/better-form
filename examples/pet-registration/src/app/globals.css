@@ -1,0 +1,389 @@
+@import 'tailwindcss';
+
+/* POP Design System */
+:root {
+  --pop-pink: #FF6B9D;
+  --pop-yellow: #FFE566;
+  --pop-blue: #6BC5FF;
+  --pop-green: #7FE57F;
+  --pop-purple: #B388FF;
+  --pop-orange: #FFB74D;
+  --pop-coral: #FF7F7F;
+
+  /* Gradienti */
+  --gradient-fun: linear-gradient(135deg, #FF6B9D 0%, #FFE566 100%);
+  --gradient-cool: linear-gradient(135deg, #6BC5FF 0%, #B388FF 100%);
+  --gradient-nature: linear-gradient(135deg, #7FE57F 0%, #6BC5FF 100%);
+  --gradient-sunset: linear-gradient(135deg, #FFB74D 0%, #FF6B9D 100%);
+
+  /* Background */
+  --bg-pattern: radial-gradient(circle at 20% 80%, rgba(255, 107, 157, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(107, 197, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(179, 136, 255, 0.05) 0%, transparent 70%);
+
+  /* Shadows */
+  --shadow-pop: 0 8px 32px rgba(255, 107, 157, 0.25);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-button: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+  /* Border radius */
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-full: 9999px;
+}
+
+/* Base styles */
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg-pattern), linear-gradient(180deg, #FAFBFF 0%, #F0F4FF 100%);
+  min-height: 100vh;
+}
+
+/* Animations */
+@keyframes bounce-in {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 157, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(255, 107, 157, 0.5); }
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(-100vh) rotate(0deg); }
+  100% { transform: translateY(100vh) rotate(720deg); }
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.5s ease-out forwards;
+}
+
+.animate-wiggle {
+  animation: wiggle 0.5s ease-in-out;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Card styles */
+.card-pop {
+  background: white;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.card-pop:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-pop);
+}
+
+/* Button styles */
+.btn-pop {
+  padding: 16px 32px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-button);
+}
+
+.btn-pop:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn-pop:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-primary {
+  background: var(--gradient-fun);
+  color: white;
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--pop-pink);
+  border: 3px solid var(--pop-pink);
+}
+
+/* Input styles */
+.input-pop {
+  width: 100%;
+  padding: 16px 20px;
+  border-radius: var(--radius-xl);
+  border: 3px solid #E8ECF4;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.input-pop:focus {
+  outline: none;
+  border-color: var(--pop-blue);
+  box-shadow: 0 0 0 4px rgba(107, 197, 255, 0.2);
+}
+
+.input-pop::placeholder {
+  color: #A0AEC0;
+}
+
+/* Pet type selector */
+.pet-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .pet-selector-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.pet-card {
+  padding: 24px 16px;
+  border-radius: var(--radius-2xl);
+  border: 4px solid #E8ECF4;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.pet-card:hover {
+  transform: scale(1.05);
+  border-color: #CBD5E0;
+}
+
+.pet-card.selected {
+  border-color: var(--pop-pink);
+  background: linear-gradient(180deg, rgba(255, 107, 157, 0.1) 0%, white 100%);
+  box-shadow: var(--shadow-pop);
+}
+
+.pet-card .emoji {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.pet-card .label {
+  font-weight: 700;
+  color: #2D3748;
+  font-size: 0.95rem;
+}
+
+/* Progress indicator */
+.progress-bar {
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: #E8ECF4;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--gradient-fun);
+  transition: width 0.5s ease;
+}
+
+/* Step indicator - Override library styles */
+.better-form-steps {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 8px 0;
+}
+
+.better-form-step-dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  background: #E8ECF4;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.better-form-step-dot:hover:not(:disabled) {
+  transform: scale(1.1);
+  background: #D1D5DB;
+}
+
+.better-form-step-dot.active {
+  background: var(--gradient-fun);
+  border-color: var(--pop-pink);
+  transform: scale(1.15);
+  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+}
+
+.better-form-step-dot.completed {
+  background: var(--pop-green);
+  border-color: #4ADE80;
+}
+
+.better-form-step-dot.completed::after {
+  content: '✓';
+  position: absolute;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.better-form-step-number {
+  font-weight: 700;
+  font-size: 14px;
+  color: #6B7280;
+}
+
+.better-form-step-dot.active .better-form-step-number {
+  color: white;
+}
+
+.better-form-step-dot.completed .better-form-step-number {
+  display: none;
+}
+
+/* Hide labels on step indicator for compact view */
+.better-form-step-label {
+  display: none;
+}
+
+/* Connector lines between steps */
+.better-form-step-dot:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 3px;
+  background: #E8ECF4;
+  margin-left: 0;
+}
+
+.better-form-step-dot.completed:not(:last-child)::before {
+  background: var(--pop-green);
+}
+
+/* Step indicator container */
+.better-form-step-indicator {
+  margin-bottom: 16px;
+}
+
+/* Form field wrapper */
+.field-wrapper {
+  margin-bottom: 24px;
+}
+
+.field-label {
+  display: block;
+  font-weight: 600;
+  color: #2D3748;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.field-error {
+  color: var(--pop-coral);
+  font-size: 0.875rem;
+  margin-top: 6px;
+}
+
+/* Radio/Checkbox custom */
+.radio-pop, .checkbox-pop {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.radio-option, .checkbox-option {
+  padding: 12px 20px;
+  border-radius: var(--radius-xl);
+  border: 3px solid #E8ECF4;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.radio-option:hover, .checkbox-option:hover {
+  border-color: var(--pop-blue);
+}
+
+.radio-option.selected, .checkbox-option.selected {
+  border-color: var(--pop-pink);
+  background: rgba(255, 107, 157, 0.1);
+  color: var(--pop-pink);
+}
+
+/* Summary card */
+.summary-card {
+  background: white;
+  border-radius: var(--radius-2xl);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #E8ECF4;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-label {
+  color: #718096;
+  font-weight: 500;
+}
+
+.summary-value {
+  color: #2D3748;
+  font-weight: 600;
+}
+
+/* Confetti container */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+}
