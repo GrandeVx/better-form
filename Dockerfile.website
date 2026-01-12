@@ -25,7 +25,7 @@ COPY --from=deps /app/website/nextjs/node_modules ./website/nextjs/node_modules
 # Copy source files
 COPY packages ./packages
 COPY website/nextjs ./website/nextjs
-COPY pnpm-workspace.yaml package.json turbo.json ./
+COPY pnpm-workspace.yaml package.json turbo.json tsconfig.base.json ./
 
 # Build packages first, then website
 RUN pnpm --filter @better_form/core build && \
