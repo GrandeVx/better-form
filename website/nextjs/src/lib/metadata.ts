@@ -8,7 +8,16 @@ const siteConfig = {
   twitter: '@vittoIam',
 };
 
+function getTitleString(title: Metadata['title']): string {
+  if (!title) return siteConfig.name;
+  if (typeof title === 'string') return title;
+  if (typeof title === 'object' && 'default' in title) return title.default;
+  return siteConfig.name;
+}
+
 export function createMetadata(override: Metadata = {}): Metadata {
+  const titleString = getTitleString(override.title);
+
   return {
     ...override,
     title: override.title ?? {
@@ -32,8 +41,8 @@ export function createMetadata(override: Metadata = {}): Metadata {
       type: 'website',
       locale: 'en_US',
       url: siteConfig.url,
-      title: override.title?.toString() ?? siteConfig.name,
-      description: override.description?.toString() ?? siteConfig.description,
+      title: titleString,
+      description: override.description ?? siteConfig.description,
       siteName: siteConfig.name,
       images: [
         {
@@ -47,8 +56,8 @@ export function createMetadata(override: Metadata = {}): Metadata {
     },
     twitter: {
       card: 'summary_large_image',
-      title: override.title?.toString() ?? siteConfig.name,
-      description: override.description?.toString() ?? siteConfig.description,
+      title: titleString,
+      description: override.description ?? siteConfig.description,
       images: [`${siteConfig.url}${siteConfig.ogImage}`],
       creator: siteConfig.twitter,
       ...override.twitter,
