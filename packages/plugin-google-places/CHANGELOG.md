@@ -1,10 +1,10 @@
-# @better-form/plugin-google-places
+# @better_form/plugin-google-places
 
 ## 1.0.0-beta.0
 
 ### Minor Changes
 
-- Initial beta release
+- c6e5264: Initial beta release
 
   - Multi-step wizard forms with JSON configuration
   - Built-in validation (required, minLength, maxLength, pattern, custom)
@@ -16,5 +16,5 @@
 
 ### Patch Changes
 
-- Updated dependencies []:
+- Updated dependencies [c6e5264]
   - better-form@0.2.0-beta.0

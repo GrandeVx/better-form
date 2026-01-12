@@ -2,7 +2,7 @@
  * better-form-plugin-google-places - Types
  */
 
-import type { WizardFieldConfig } from 'better-form';
+import type { WizardFieldConfig } from '@better_form/core';
 
 /**
  * Structured address data from Google Places

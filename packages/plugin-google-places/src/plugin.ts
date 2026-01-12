@@ -1,10 +1,10 @@
 /**
- * @better-form/plugin-google-places - Plugin Factory
+ * @better_form/plugin-google-places - Plugin Factory
  *
  * Creates a better-form plugin instance for Google Places address fields
  */
 
-import type { BetterFormPlugin } from 'better-form';
+import type { BetterFormPlugin } from '@better_form/core';
 import { AddressField } from './components/AddressField';
 import { setPluginConfig } from './config';
 import type { GooglePlacesPluginConfig } from './types';
@@ -18,8 +18,8 @@ import { loadGoogleMapsScript } from './utils/script-loader';
  *
  * @example
  * ```typescript
- * import { WizardProvider, defaultFieldComponents } from 'better-form';
- * import { googlePlacesPlugin } from '@better-form/plugin-google-places';
+ * import { WizardProvider, defaultFieldComponents } from '@better_form/core';
+ * import { googlePlacesPlugin } from '@better_form/plugin-google-places';
  *
  * const googlePlaces = googlePlacesPlugin({
  *   apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
@@ -41,7 +41,7 @@ export function googlePlacesPlugin(config: GooglePlacesPluginConfig): BetterForm
   // Validate config
   if (!config.apiKey) {
     throw new Error(
-      '[@better-form/plugin-google-places] API key is required. ' +
+      '[@better_form/plugin-google-places] API key is required. ' +
         'Please provide a valid Google Maps API key.'
     );
   }
@@ -50,7 +50,7 @@ export function googlePlacesPlugin(config: GooglePlacesPluginConfig): BetterForm
   setPluginConfig(config);
 
   return {
-    name: '@better-form/plugin-google-places',
+    name: '@better_form/plugin-google-places',
     version: '0.1.0',
 
     // Field components provided by this plugin
@@ -68,9 +68,9 @@ export function googlePlacesPlugin(config: GooglePlacesPluginConfig): BetterForm
     init: async () => {
       try {
         await loadGoogleMapsScript();
-        console.log('[@better-form/plugin-google-places] Google Maps loaded successfully');
+        console.log('[@better_form/plugin-google-places] Google Maps loaded successfully');
       } catch (error) {
-        console.error('[@better-form/plugin-google-places] Failed to load Google Maps:', error);
+        console.error('[@better_form/plugin-google-places] Failed to load Google Maps:', error);
         throw error;
       }
     },

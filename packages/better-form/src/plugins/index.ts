@@ -5,7 +5,7 @@
  *
  * @example
  * ```typescript
- * import { createPlugin, mergePlugins } from 'better-form/plugins';
+ * import { createPlugin, mergePlugins } from '@better_form/core/plugins';
  *
  * // Create a custom plugin
  * const myPlugin = createPlugin('my-plugin', '1.0.0', {

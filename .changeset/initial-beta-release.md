@@ -1,6 +1,6 @@
 ---
-"better-form": minor
-"@better-form/plugin-google-places": minor
+"@better_form/core": minor
+"@better_form/plugin-google-places": minor
 ---
 
 Initial beta release

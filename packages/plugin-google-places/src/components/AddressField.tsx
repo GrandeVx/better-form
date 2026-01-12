@@ -12,7 +12,7 @@
 
 'use client';
 
-import type { FieldComponentProps } from 'better-form';
+import type { FieldComponentProps } from '@better_form/core';
 import { useCallback, useState } from 'react';
 import {
   getDefaultCountryRestrictions,

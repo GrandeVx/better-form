@@ -38,12 +38,12 @@ importers:
 
   demo/nextjs:
     dependencies:
-      '@better-form/plugin-google-places':
-        specifier: workspace:*
-        version: link:../../packages/plugin-google-places
-      better-form:
+      '@better_form/core':
         specifier: workspace:*
         version: link:../../packages/better-form
+      '@better_form/plugin-google-places':
+        specifier: workspace:*
+        version: link:../../packages/plugin-google-places
       clsx:
         specifier: ^2.1.0
         version: 2.1.1
@@ -180,6 +180,9 @@ importers:
         specifier: ^1.16.8
         version: 1.16.10
     devDependencies:
+      '@better_form/core':
+        specifier: workspace:*
+        version: link:../better-form
       '@types/google.maps':
         specifier: ^3.58.0
         version: 3.58.1
@@ -189,9 +192,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.0
         version: 19.2.3(@types/react@19.2.7)
-      better-form:
-        specifier: workspace:*
-        version: link:../better-form
       react:
         specifier: ^19.0.0
         version: 19.2.3

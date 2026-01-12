@@ -1,5 +1,5 @@
 {
-  "name": "better-form",
+  "name": "@better_form/core",
   "version": "0.2.0-beta.0",
   "description": "JSON-driven wizard form generator for React with validation, conditional logic, and theming",
   "author": "GrandeVx",
