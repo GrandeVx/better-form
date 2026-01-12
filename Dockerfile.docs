@@ -25,6 +25,11 @@ COPY pnpm-workspace.yaml package.json ./
 # Build docs
 RUN pnpm --filter @better_form/docs build
 
+# Debug: show standalone structure
+RUN echo "=== Standalone structure ===" && \
+    find /app/docs/.next/standalone -name "server.js" && \
+    ls -la /app/docs/.next/standalone/
+
 FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV=production
