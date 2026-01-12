@@ -39,13 +39,17 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /app/website/nextjs/public ./public
+# Copy standalone output (preserves monorepo structure)
 COPY --from=builder --chown=nextjs:nodejs /app/website/nextjs/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/website/nextjs/.next/static ./.next/static
+# Copy static files to the correct nested location
+COPY --from=builder --chown=nextjs:nodejs /app/website/nextjs/.next/static ./website/nextjs/.next/static
+# Copy public folder to the correct nested location
+COPY --from=builder /app/website/nextjs/public ./website/nextjs/public
 
 USER nextjs
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["node", "server.js"]
+# server.js is at the nested monorepo path
+CMD ["node", "website/nextjs/server.js"]
