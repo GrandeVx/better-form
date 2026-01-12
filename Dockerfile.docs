@@ -32,18 +32,20 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy standalone output (server.js is at root in this minimal workspace)
-COPY --from=builder --chown=nextjs:nodejs /app/docs/.next/standalone ./
-# Overwrite node_modules with full deps (pnpm symlinks don't work in standalone)
-COPY --from=builder --chown=nextjs:nodejs /app/docs/node_modules ./node_modules
+# Copy root node_modules (contains .pnpm store that docs/node_modules symlinks to)
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
+# Copy standalone output to docs folder (preserving monorepo structure for symlinks)
+COPY --from=builder --chown=nextjs:nodejs /app/docs/.next/standalone ./docs/
+# Copy docs node_modules (symlinks to ../node_modules/.pnpm)
+COPY --from=builder --chown=nextjs:nodejs /app/docs/node_modules ./docs/node_modules
 # Copy static files
-COPY --from=builder --chown=nextjs:nodejs /app/docs/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/docs/.next/static ./docs/.next/static
 # Copy public folder
-COPY --from=builder /app/docs/public ./public
+COPY --from=builder /app/docs/public ./docs/public
 
 USER nextjs
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["node", "server.js"]
+CMD ["node", "docs/server.js"]
