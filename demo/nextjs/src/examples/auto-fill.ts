@@ -1,4 +1,4 @@
-import type { WizardConfig } from 'better-form';
+import type { WizardConfig } from '@better_form/core';
 
 // Province to Region mapping (Italian example)
 const provinceToRegion: Record<string, string> = {

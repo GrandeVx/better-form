@@ -2,8 +2,8 @@
 
 import { CodeBlock } from '@/components/CodeBlock';
 import { GridBackground } from '@/components/GridBackground';
-import type { WizardConfig } from 'better-form';
-import { AutoStep, WizardContainer } from 'better-form';
+import type { WizardConfig } from '@better_form/core';
+import { AutoStep, WizardContainer } from '@better_form/core';
 import { useCallback, useEffect, useState } from 'react';
 
 // Preset configurations

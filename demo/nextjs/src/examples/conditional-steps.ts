@@ -1,4 +1,4 @@
-import type { WizardConfig } from 'better-form';
+import type { WizardConfig } from '@better_form/core';
 
 export const conditionalStepsConfig: WizardConfig = {
   id: 'conditional-steps-demo',

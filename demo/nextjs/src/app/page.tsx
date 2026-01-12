@@ -31,7 +31,7 @@ const configCode = `const wizardConfig: WizardConfig = {
   ]
 };`;
 
-const usageCode = `import { WizardProvider, WizardContainer } from 'better-form';
+const usageCode = `import { WizardProvider, WizardContainer } from '@better_form/core';
 
 export default function ContactPage() {
   return (
@@ -41,8 +41,8 @@ export default function ContactPage() {
   );
 }`;
 
-const pluginCode = `import { WizardProvider, defaultFieldComponents } from 'better-form';
-import { googlePlacesPlugin } from '@better-form/plugin-google-places';
+const pluginCode = `import { WizardProvider, defaultFieldComponents } from '@better_form/core';
+import { googlePlacesPlugin } from '@better_form/plugin-google-places';
 
 // Create plugin instance
 const googlePlaces = googlePlacesPlugin({
@@ -66,7 +66,7 @@ export default function App() {
 
 const plugins = [
   {
-    name: '@better-form/plugin-google-places',
+    name: '@better_form/plugin-google-places',
     icon: (
       <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
@@ -78,7 +78,7 @@ const plugins = [
     status: 'available' as const,
   },
   {
-    name: '@better-form/plugin-rich-text',
+    name: '@better_form/plugin-rich-text',
     icon: (
       <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
         <path d="M5 4v3h5.5v12h3V7H19V4H5z" />
@@ -90,7 +90,7 @@ const plugins = [
     status: 'coming-soon' as const,
   },
   {
-    name: '@better-form/plugin-signature',
+    name: '@better_form/plugin-signature',
     icon: (
       <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
         <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
@@ -469,7 +469,7 @@ export default function HomePage() {
                 </div>
                 <pre className="p-4 text-left">
                   <code className="text-sm text-code-text">
-                    <span className="text-primary">$</span> npm install better-form
+                    <span className="text-primary">$</span> npm install @better_form/core
                   </code>
                 </pre>
               </div>

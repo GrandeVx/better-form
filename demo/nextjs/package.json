@@ -1,5 +1,5 @@
 {
-  "name": "@better-form/demo-nextjs",
+  "name": "@better_form/demo-nextjs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@better-form/plugin-google-places": "workspace:*",
-    "better-form": "workspace:*",
+    "@better_form/plugin-google-places": "workspace:*",
+    "@better_form/core": "workspace:*",
     "clsx": "^2.1.0",
     "framer-motion": "^12.25.0",
     "next": "16.1.1",

@@ -1,10 +1,10 @@
-import type { AddressData } from '@better-form/plugin-google-places';
-import type { WizardConfig } from 'better-form';
+import type { AddressData } from '@better_form/plugin-google-places';
+import type { WizardConfig } from '@better_form/core';
 
 /**
  * Address Autocomplete with Google Places Plugin
  *
- * This example demonstrates how to use the @better-form/plugin-google-places
+ * This example demonstrates how to use the @better_form/plugin-google-places
  * to add address autocomplete functionality.
  *
  * To use this example with real Google Places API:
@@ -158,9 +158,9 @@ export const addressAutocompleteConfig: WizardConfig = {
   ],
 };
 
-export const addressAutocompleteCode = `import { WizardProvider, defaultFieldComponents } from 'better-form';
-import { googlePlacesPlugin } from '@better-form/plugin-google-places';
-import '@better-form/plugin-google-places/styles';
+export const addressAutocompleteCode = `import { WizardProvider, defaultFieldComponents } from '@better_form/core';
+import { googlePlacesPlugin } from '@better_form/plugin-google-places';
+import '@better_form/plugin-google-places/styles';
 
 // Create the plugin instance with your API key
 const googlePlaces = googlePlacesPlugin({

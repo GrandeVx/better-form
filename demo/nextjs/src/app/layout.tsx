@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import 'better-form/styles';
+import '@better_form/core/styles';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { ThemeProvider } from '@/components/ThemeProvider';

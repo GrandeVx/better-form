@@ -1,8 +1,8 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { AutoStep, WizardContainer, createTheme } from 'better-form';
-import type { FieldComponentsMap, WizardConfig } from 'better-form';
+import { AutoStep, WizardContainer, createTheme } from '@better_form/core';
+import type { FieldComponentsMap, WizardConfig } from '@better_form/core';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { CodeBlock } from './CodeBlock';

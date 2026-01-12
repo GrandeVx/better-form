@@ -6,12 +6,12 @@ import {
   addressAutocompleteCode,
   addressAutocompleteConfig,
 } from '@/examples/address-autocomplete';
-import { type FieldComponentsMap, defaultFieldComponents } from 'better-form';
+import { type FieldComponentsMap, defaultFieldComponents } from '@better_form/core';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 // Import plugin styles
-import '@better-form/plugin-google-places/styles';
+import '@better_form/plugin-google-places/styles';
 
 export default function AddressAutocompletePage() {
   const [hasApiKey, setHasApiKey] = useState(false);
@@ -26,7 +26,7 @@ export default function AddressAutocompletePage() {
       if (apiKey) {
         try {
           // Dynamic import to avoid SSR issues
-          const { googlePlacesPlugin } = await import('@better-form/plugin-google-places');
+          const { googlePlacesPlugin } = await import('@better_form/plugin-google-places');
 
           const plugin = googlePlacesPlugin({
             apiKey,
@@ -79,7 +79,7 @@ export default function AddressAutocompletePage() {
               Search for addresses using Google Places API and auto-populate all related fields
               including street, city, postal code, and GPS coordinates. Uses the{' '}
               <code className="rounded bg-muted px-1.5 py-0.5 text-sm">
-                @better-form/plugin-google-places
+                @better_form/plugin-google-places
               </code>{' '}
               plugin.
             </p>
@@ -197,10 +197,10 @@ export default function AddressAutocompletePage() {
             <h2 className="mb-4 text-lg font-semibold">Installation</h2>
             <pre className="rounded-lg bg-muted p-4 text-sm overflow-x-auto">
               <code>{`# Install the plugin
-npm install @better-form/plugin-google-places
+npm install @better_form/plugin-google-places
 
 # Or with pnpm
-pnpm add @better-form/plugin-google-places`}</code>
+pnpm add @better_form/plugin-google-places`}</code>
             </pre>
           </div>
 
@@ -208,8 +208,8 @@ pnpm add @better-form/plugin-google-places`}</code>
           <div className="mt-8 rounded-xl border border-border bg-card p-6">
             <h2 className="mb-4 text-lg font-semibold">Usage</h2>
             <pre className="rounded-lg bg-muted p-4 text-sm overflow-x-auto">
-              <code>{`import { googlePlacesPlugin } from '@better-form/plugin-google-places';
-import '@better-form/plugin-google-places/styles';
+              <code>{`import { googlePlacesPlugin } from '@better_form/plugin-google-places';
+import '@better_form/plugin-google-places/styles';
 
 // Create plugin instance
 const googlePlaces = googlePlacesPlugin({

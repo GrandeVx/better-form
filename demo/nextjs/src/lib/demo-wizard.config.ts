@@ -3,8 +3,8 @@
  * Showcases better-form capabilities
  */
 
-import type { WizardConfig } from 'better-form';
-import { andConditions, commonValidations, equals, greaterThan } from 'better-form';
+import type { WizardConfig } from '@better_form/core';
+import { andConditions, commonValidations, equals, greaterThan } from '@better_form/core';
 
 export const demoWizardConfig: WizardConfig = {
   id: 'demo-wizard',
