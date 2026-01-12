@@ -62,7 +62,7 @@ export function Header({ className }: HeaderProps) {
           <NavLink href="/">Home</NavLink>
           <NavLink href="/examples">Examples</NavLink>
           <NavLink href="/playground">Playground</NavLink>
-          <NavLink href={process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'} external>
+          <NavLink href={process.env.NEXT_PUBLIC_DOCS_URL || 'https://docs.better-form.eu'} external>
             Docs
           </NavLink>
           <NavLink href="https://github.com/GrandeVx/better-form" external>
@@ -134,7 +134,7 @@ export function Header({ className }: HeaderProps) {
               <div className="my-2 border-t border-border" />
 
               <MobileNavLink
-                href={process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'}
+                href={process.env.NEXT_PUBLIC_DOCS_URL || 'https://docs.better-form.eu'}
                 onClick={closeMenu}
                 external
               >

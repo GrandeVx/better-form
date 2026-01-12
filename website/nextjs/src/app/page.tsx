@@ -265,7 +265,7 @@ export default function HomePage() {
             {/* CTA Buttons */}
             <div className="flex flex-wrap items-center justify-center gap-4">
               <a
-                href={process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'}
+                href={process.env.NEXT_PUBLIC_DOCS_URL || 'https://docs.better-form.eu'}
                 className="btn btn-primary"
               >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -371,7 +371,7 @@ export default function HomePage() {
             {frameworks.map((framework) => (
               <a
                 key={framework.name}
-                href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'}${framework.href}`}
+                href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'https://docs.better-form.eu'}${framework.href}`}
                 className="group relative flex flex-col items-center rounded-xl border border-border bg-card p-6 text-center transition-all hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
               >
                 {framework.badge && (
@@ -476,7 +476,7 @@ export default function HomePage() {
               </div>
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <a
-                  href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'}/getting-started/installation`}
+                  href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'https://docs.better-form.eu'}/getting-started/installation`}
                   className="btn btn-primary"
                 >
                   Read the Docs
@@ -524,7 +524,7 @@ export default function HomePage() {
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>
                     <a
-                      href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'}/getting-started/installation`}
+                      href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'https://docs.better-form.eu'}/getting-started/installation`}
                       className="hover:text-foreground"
                     >
                       Getting Started
@@ -532,7 +532,7 @@ export default function HomePage() {
                   </li>
                   <li>
                     <a
-                      href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'}/core-concepts/wizard-config`}
+                      href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'https://docs.better-form.eu'}/core-concepts/wizard-config`}
                       className="hover:text-foreground"
                     >
                       Core Concepts
@@ -540,7 +540,7 @@ export default function HomePage() {
                   </li>
                   <li>
                     <a
-                      href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'}/plugins/google-places`}
+                      href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'https://docs.better-form.eu'}/plugins/google-places`}
                       className="hover:text-foreground"
                     >
                       Plugins
@@ -548,7 +548,7 @@ export default function HomePage() {
                   </li>
                   <li>
                     <a
-                      href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'}/api-reference/types`}
+                      href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'https://docs.better-form.eu'}/api-reference/types`}
                       className="hover:text-foreground"
                     >
                       API Reference
