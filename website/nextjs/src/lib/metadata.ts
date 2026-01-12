@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 const siteConfig = {
   name: 'better-form',
   description: 'The most powerful form wizard library for React. Build complex multi-step forms with JSON configuration, conditional logic, validation, and theming.',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://better-form.dev',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://better-form.eu',
   ogImage: '/og.png',
   twitter: '@vittoIam',
 };

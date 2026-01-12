@@ -75,10 +75,10 @@ const config: DocsThemeConfig = {
       {/* Open Graph */}
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="better-form" />
-      <meta property="og:url" content="https://better-form.dev" />
+      <meta property="og:url" content="https://docs.better-form.eu" />
       <meta property="og:title" content="better-form" />
       <meta property="og:description" content="The most powerful form wizard library for React. Build complex multi-step forms with JSON configuration, conditional logic, validation, and theming." />
-      <meta property="og:image" content="https://better-form.dev/og.png" />
+      <meta property="og:image" content="https://docs.better-form.eu/og.png" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
 
@@ -88,7 +88,7 @@ const config: DocsThemeConfig = {
       <meta name="twitter:creator" content="@vittoIam" />
       <meta name="twitter:title" content="better-form" />
       <meta name="twitter:description" content="The most powerful form wizard library for React." />
-      <meta name="twitter:image" content="https://better-form.dev/og.png" />
+      <meta name="twitter:image" content="https://docs.better-form.eu/og.png" />
     </>
   ),
   primaryHue: 210,

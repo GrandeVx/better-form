@@ -11,10 +11,10 @@
   <p align="center">
     The most powerful form wizard library for React
     <br />
-    <a href="https://better-form.dev"><strong>Learn more »</strong></a>
+    <a href="https://better-form.eu"><strong>Learn more »</strong></a>
     <br />
     <br />
-    <a href="https://better-form.dev">Website</a>
+    <a href="https://better-form.eu">Website</a>
     ·
     <a href="https://github.com/GrandeVx/better-form/issues">Issues</a>
   </p>
@@ -77,7 +77,7 @@ function MyForm() {
 
 ## Documentation
 
-Visit [better-form.dev](https://better-form.dev) for full documentation, guides, and API reference.
+Visit [docs.better-form.eu](https://docs.better-form.eu) for full documentation, guides, and API reference.
 
 ## Contribution
 
