@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@better_form/demo-nextjs", "@better_form/docs"]
+  "ignore": ["@better_form/website", "@better_form/docs"]
 }
