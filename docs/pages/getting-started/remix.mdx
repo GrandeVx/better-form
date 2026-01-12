@@ -1,0 +1,373 @@
+---
+title: Remix
+description: How to use better-form with Remix
+---
+
+import { Callout } from 'nextra/components';
+
+# Remix
+
+better-form integrates smoothly with Remix, allowing you to build multi-step forms while leveraging Remix's data loading and actions.
+
+<Callout type="info">
+  better-form is a client-side library. Use it within client components and combine it with Remix actions for server-side form handling.
+</Callout>
+
+## Installation
+
+```bash npm2yarn
+npm install better-form
+```
+
+## Setup
+
+### 1. Import Styles
+
+Add styles to your root route:
+
+```tsx filename="app/root.tsx"
+import type { LinksFunction } from '@remix-run/node';
+import styles from 'better-form/styles?url';
+
+export const links: LinksFunction = () => [
+  { rel: 'stylesheet', href: styles },
+];
+
+export default function App() {
+  return (
+    <html lang="en">
+      <head>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <Outlet />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+```
+
+<Callout type="warning">
+  Note the `?url` suffix for CSS imports in Remix. This tells Vite to handle it as a URL import.
+</Callout>
+
+### 2. Create Your Form Component
+
+```tsx filename="app/components/ContactForm.tsx"
+import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+import type { WizardConfig } from 'better-form';
+
+const config: WizardConfig = {
+  id: 'contact-form',
+  steps: [
+    {
+      id: 'info',
+      title: 'Your Information',
+      fieldGroups: [
+        {
+          id: 'personal',
+          fields: [
+            {
+              id: 'name',
+              name: 'name',
+              label: 'Full Name',
+              type: 'text',
+              validation: { required: true },
+            },
+            {
+              id: 'email',
+              name: 'email',
+              label: 'Email Address',
+              type: 'email',
+              validation: { required: true },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'message',
+      title: 'Your Message',
+      fieldGroups: [
+        {
+          id: 'content',
+          fields: [
+            {
+              id: 'subject',
+              name: 'subject',
+              label: 'Subject',
+              type: 'text',
+              validation: { required: true },
+            },
+            {
+              id: 'message',
+              name: 'message',
+              label: 'Message',
+              type: 'textarea',
+              validation: { required: true },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+interface ContactFormProps {
+  onSubmit: (data: Record<string, unknown>) => Promise<void>;
+}
+
+export function ContactForm({ onSubmit }: ContactFormProps) {
+  return (
+    <WizardProvider
+      config={config}
+      fieldComponents={defaultFieldComponents}
+      onSubmit={onSubmit}
+    >
+      <WizardContainer />
+    </WizardProvider>
+  );
+}
+```
+
+### 3. Use with Remix Actions
+
+```tsx filename="app/routes/contact.tsx"
+import type { ActionFunctionArgs } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
+import { useActionData, useSubmit } from '@remix-run/react';
+import { ContactForm } from '~/components/ContactForm';
+
+// Server-side action
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.json();
+
+  // Validate and process on server
+  // e.g., send email, save to database
+
+  // Return success or redirect
+  return redirect('/contact/success');
+}
+
+export default function ContactPage() {
+  const submit = useSubmit();
+  const actionData = useActionData<typeof action>();
+
+  const handleSubmit = async (data: Record<string, unknown>) => {
+    submit(data, {
+      method: 'POST',
+      encType: 'application/json',
+    });
+  };
+
+  return (
+    <main className="container">
+      <h1>Contact Us</h1>
+      <ContactForm onSubmit={handleSubmit} />
+    </main>
+  );
+}
+```
+
+## Complete Multi-Step Example
+
+Here's a full registration flow with Remix:
+
+```tsx filename="app/routes/register.tsx"
+import type { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
+import { useActionData, useLoaderData, useSubmit, useNavigation } from '@remix-run/react';
+import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+import type { WizardConfig } from 'better-form';
+
+// Load any necessary data (e.g., country list)
+export async function loader({ request }: LoaderFunctionArgs) {
+  return json({
+    countries: [
+      { value: 'us', label: 'United States' },
+      { value: 'uk', label: 'United Kingdom' },
+      { value: 'it', label: 'Italy' },
+    ],
+  });
+}
+
+// Handle form submission
+export async function action({ request }: ActionFunctionArgs) {
+  const data = await request.json();
+
+  // Server-side validation
+  if (!data.email || !data.password) {
+    return json({ error: 'Email and password are required' }, { status: 400 });
+  }
+
+  // Create user account
+  // const user = await createUser(data);
+
+  return redirect('/dashboard');
+}
+
+export default function RegisterPage() {
+  const { countries } = useLoaderData<typeof loader>();
+  const actionData = useActionData<typeof action>();
+  const submit = useSubmit();
+  const navigation = useNavigation();
+
+  const isSubmitting = navigation.state === 'submitting';
+
+  const config: WizardConfig = {
+    id: 'registration',
+    steps: [
+      {
+        id: 'account',
+        title: 'Account',
+        fieldGroups: [
+          {
+            id: 'credentials',
+            fields: [
+              {
+                id: 'email',
+                name: 'email',
+                label: 'Email',
+                type: 'email',
+                validation: { required: true },
+              },
+              {
+                id: 'password',
+                name: 'password',
+                label: 'Password',
+                type: 'password',
+                validation: { required: true, minLength: 8 },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'profile',
+        title: 'Profile',
+        fieldGroups: [
+          {
+            id: 'personal',
+            fields: [
+              {
+                id: 'name',
+                name: 'name',
+                label: 'Full Name',
+                type: 'text',
+                validation: { required: true },
+              },
+              {
+                id: 'country',
+                name: 'country',
+                label: 'Country',
+                type: 'select',
+                options: countries,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+
+  const handleSubmit = async (data: Record<string, unknown>) => {
+    submit(data, {
+      method: 'POST',
+      encType: 'application/json',
+    });
+  };
+
+  return (
+    <main>
+      <h1>Create Account</h1>
+      {actionData?.error && (
+        <div className="error">{actionData.error}</div>
+      )}
+      <WizardProvider
+        config={config}
+        fieldComponents={defaultFieldComponents}
+        onSubmit={handleSubmit}
+      >
+        <WizardContainer />
+      </WizardProvider>
+      {isSubmitting && <p>Creating your account...</p>}
+    </main>
+  );
+}
+```
+
+## Error Handling
+
+Handle server-side validation errors and display them in your form:
+
+```tsx filename="app/routes/contact.tsx"
+import { useActionData } from '@remix-run/react';
+
+export async function action({ request }: ActionFunctionArgs) {
+  const data = await request.json();
+
+  const errors: Record<string, string> = {};
+
+  if (!data.email?.includes('@')) {
+    errors.email = 'Please enter a valid email';
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return json({ errors }, { status: 400 });
+  }
+
+  // Process valid submission
+  return redirect('/success');
+}
+
+export default function ContactPage() {
+  const actionData = useActionData<typeof action>();
+  const submit = useSubmit();
+
+  // Display errors from server
+  return (
+    <div>
+      {actionData?.errors && (
+        <div className="error-banner">
+          {Object.entries(actionData.errors).map(([field, message]) => (
+            <p key={field}>{message}</p>
+          ))}
+        </div>
+      )}
+      <ContactForm onSubmit={(data) => submit(data, { method: 'POST', encType: 'application/json' })} />
+    </div>
+  );
+}
+```
+
+## Troubleshooting
+
+### CSS Import Issues
+
+If styles aren't loading, try using a CSS side effect import:
+
+```tsx filename="app/root.tsx"
+import 'better-form/styles';
+```
+
+Or use the links function with the correct path resolution.
+
+### Hydration Mismatches
+
+better-form is client-side only. If you experience hydration issues, ensure you're not trying to render the form on the server without proper client boundaries.
+
+### TypeScript Configuration
+
+Ensure your `tsconfig.json` is properly configured:
+
+```json filename="tsconfig.json"
+{
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "jsx": "react-jsx"
+  }
+}
+```

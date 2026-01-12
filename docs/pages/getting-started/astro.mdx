@@ -1,0 +1,420 @@
+---
+title: Astro
+description: How to use better-form with Astro using React islands
+---
+
+import { Callout } from 'nextra/components';
+
+# Astro
+
+better-form can be used in Astro projects through React islands. Since Astro supports multiple UI frameworks, you'll use better-form within React components that are hydrated on the client.
+
+<Callout type="warning">
+  better-form is a React library. In Astro, you need to use it within React islands (components with `client:*` directives).
+</Callout>
+
+## Installation
+
+First, ensure you have the React integration installed:
+
+```bash
+npx astro add react
+```
+
+Then install better-form:
+
+```bash npm2yarn
+npm install better-form
+```
+
+## Setup
+
+### 1. Configure Astro for React
+
+Ensure your `astro.config.mjs` includes the React integration:
+
+```js filename="astro.config.mjs"
+import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
+
+export default defineConfig({
+  integrations: [react()],
+});
+```
+
+### 2. Import Styles
+
+Import styles in your layout or page:
+
+```astro filename="src/layouts/Layout.astro"
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  @import 'better-form/styles';
+</style>
+```
+
+Or import in your React component:
+
+```tsx filename="src/components/ContactForm.tsx"
+import 'better-form/styles';
+// ... rest of component
+```
+
+### 3. Create Your React Form Component
+
+```tsx filename="src/components/ContactForm.tsx"
+import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+import type { WizardConfig } from 'better-form';
+
+const config: WizardConfig = {
+  id: 'contact-form',
+  steps: [
+    {
+      id: 'info',
+      title: 'Contact Information',
+      fieldGroups: [
+        {
+          id: 'personal',
+          fields: [
+            {
+              id: 'name',
+              name: 'name',
+              label: 'Your Name',
+              type: 'text',
+              validation: { required: true },
+            },
+            {
+              id: 'email',
+              name: 'email',
+              label: 'Email Address',
+              type: 'email',
+              validation: { required: true },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'message',
+      title: 'Your Message',
+      fieldGroups: [
+        {
+          id: 'content',
+          fields: [
+            {
+              id: 'subject',
+              name: 'subject',
+              label: 'Subject',
+              type: 'text',
+            },
+            {
+              id: 'message',
+              name: 'message',
+              label: 'Message',
+              type: 'textarea',
+              validation: { required: true },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export function ContactForm() {
+  const handleSubmit = async (data: Record<string, unknown>) => {
+    // Send to your API
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      alert('Message sent!');
+    }
+  };
+
+  return (
+    <WizardProvider
+      config={config}
+      fieldComponents={defaultFieldComponents}
+      onSubmit={handleSubmit}
+    >
+      <WizardContainer />
+    </WizardProvider>
+  );
+}
+```
+
+### 4. Use in Astro Page with Client Directive
+
+```astro filename="src/pages/contact.astro"
+---
+import Layout from '../layouts/Layout.astro';
+import { ContactForm } from '../components/ContactForm';
+---
+
+<Layout title="Contact Us">
+  <main>
+    <h1>Contact Us</h1>
+    <ContactForm client:load />
+  </main>
+</Layout>
+```
+
+<Callout type="info">
+  The `client:load` directive hydrates the component immediately when the page loads. You can also use `client:visible` to hydrate only when visible, or `client:idle` to hydrate during browser idle time.
+</Callout>
+
+## Client Directives Explained
+
+| Directive | When to Use |
+|-----------|-------------|
+| `client:load` | Form is immediately visible and interactive |
+| `client:visible` | Form is below the fold, load when scrolled into view |
+| `client:idle` | Less critical, can wait for browser idle time |
+
+Example with delayed loading:
+
+```astro
+<!-- Form loads when user scrolls to it -->
+<ContactForm client:visible />
+
+<!-- Form loads during browser idle time -->
+<ContactForm client:idle />
+```
+
+## With Astro API Routes
+
+Create an API endpoint to handle form submissions:
+
+```ts filename="src/pages/api/contact.ts"
+import type { APIRoute } from 'astro';
+
+export const POST: APIRoute = async ({ request }) => {
+  const data = await request.json();
+
+  // Validate
+  if (!data.email || !data.message) {
+    return new Response(
+      JSON.stringify({ error: 'Missing required fields' }),
+      { status: 400 }
+    );
+  }
+
+  // Process (e.g., send email, save to database)
+  // await sendEmail(data);
+
+  return new Response(
+    JSON.stringify({ success: true }),
+    { status: 200 }
+  );
+};
+```
+
+## Complete Example
+
+Here's a complete contact page with form and API:
+
+```astro filename="src/pages/contact.astro"
+---
+import Layout from '../layouts/Layout.astro';
+import { ContactForm } from '../components/ContactForm';
+---
+
+<Layout title="Contact Us">
+  <main class="container">
+    <h1>Get in Touch</h1>
+    <p>Fill out the form below and we'll get back to you shortly.</p>
+
+    <div class="form-container">
+      <ContactForm client:load />
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  h1 {
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: #666;
+    margin-bottom: 2rem;
+  }
+
+  .form-container {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+</style>
+```
+
+```tsx filename="src/components/ContactForm.tsx"
+import 'better-form/styles';
+import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+import type { WizardConfig } from 'better-form';
+import { useState } from 'react';
+
+const config: WizardConfig = {
+  id: 'contact',
+  steps: [
+    {
+      id: 'contact',
+      title: 'Contact Details',
+      fieldGroups: [
+        {
+          id: 'info',
+          fields: [
+            {
+              id: 'name',
+              name: 'name',
+              label: 'Name',
+              type: 'text',
+              validation: { required: true },
+            },
+            {
+              id: 'email',
+              name: 'email',
+              label: 'Email',
+              type: 'email',
+              validation: { required: true },
+            },
+            {
+              id: 'message',
+              name: 'message',
+              label: 'Message',
+              type: 'textarea',
+              validation: { required: true },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export function ContactForm() {
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+
+  const handleSubmit = async (data: Record<string, unknown>) => {
+    setStatus('sending');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setStatus('sent');
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+  };
+
+  if (status === 'sent') {
+    return (
+      <div style={{ textAlign: 'center', padding: '2rem' }}>
+        <h2>Thank you!</h2>
+        <p>We've received your message and will respond soon.</p>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {status === 'error' && (
+        <div style={{ color: 'red', marginBottom: '1rem' }}>
+          Something went wrong. Please try again.
+        </div>
+      )}
+      <WizardProvider
+        config={config}
+        fieldComponents={defaultFieldComponents}
+        onSubmit={handleSubmit}
+      >
+        <WizardContainer />
+      </WizardProvider>
+      {status === 'sending' && <p>Sending...</p>}
+    </>
+  );
+}
+```
+
+## Troubleshooting
+
+### Component Not Rendering
+
+Ensure you have a `client:*` directive on your component. Without it, React components won't hydrate:
+
+```astro
+<!-- Won't work - no hydration -->
+<ContactForm />
+
+<!-- Works - hydrates on load -->
+<ContactForm client:load />
+```
+
+### Styles Not Loading
+
+Try importing styles directly in your React component:
+
+```tsx
+import 'better-form/styles';
+```
+
+Or add them to your global CSS in the layout.
+
+### TypeScript Errors
+
+Ensure your `tsconfig.json` extends Astro's config:
+
+```json filename="tsconfig.json"
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  }
+}
+```
+
+### React Version Mismatch
+
+Ensure you're using React 18+ which is required by both Astro's React integration and better-form:
+
+```bash npm2yarn
+npm install react@18 react-dom@18
+```

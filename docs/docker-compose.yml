@@ -1,12 +1,13 @@
-version: '3.8'
-
 services:
   docs:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        # URL of the demo site (optional, enables demo link in header)
+        NEXT_PUBLIC_DEMO_URL: ${NEXT_PUBLIC_DEMO_URL:-}
     ports:
-      - "3001:3000"
+      - "${DOCS_PORT:-3001}:3000"
     restart: unless-stopped
     environment:
       - NODE_ENV=production

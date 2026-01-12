@@ -1,0 +1,299 @@
+---
+title: Next.js
+description: How to use better-form with Next.js (App Router and Pages Router)
+---
+
+import { Callout, Tabs, Tab } from 'nextra/components';
+
+# Next.js
+
+better-form works seamlessly with Next.js, supporting both the App Router and Pages Router.
+
+<Callout type="info">
+  better-form is a client-side library. In Next.js App Router, you'll need to use the `"use client"` directive.
+</Callout>
+
+## Installation
+
+```bash npm2yarn
+npm install better-form
+```
+
+## Setup
+
+<Tabs items={['App Router', 'Pages Router']}>
+  <Tab>
+    ### App Router
+
+    **1. Import styles in your root layout:**
+
+    ```tsx filename="app/layout.tsx"
+    import 'better-form/styles';
+    import type { Metadata } from 'next';
+
+    export const metadata: Metadata = {
+      title: 'My App',
+    };
+
+    export default function RootLayout({
+      children,
+    }: {
+      children: React.ReactNode;
+    }) {
+      return (
+        <html lang="en">
+          <body>{children}</body>
+        </html>
+      );
+    }
+    ```
+
+    **2. Create a client component for your form:**
+
+    ```tsx filename="app/components/MyForm.tsx"
+    'use client';
+
+    import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+    import type { WizardConfig } from 'better-form';
+
+    const config: WizardConfig = {
+      id: 'contact-form',
+      steps: [
+        {
+          id: 'contact',
+          title: 'Contact Information',
+          fieldGroups: [
+            {
+              id: 'personal',
+              fields: [
+                {
+                  id: 'name',
+                  name: 'name',
+                  label: 'Full Name',
+                  type: 'text',
+                  validation: { required: true },
+                },
+                {
+                  id: 'email',
+                  name: 'email',
+                  label: 'Email Address',
+                  type: 'email',
+                  validation: { required: true },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    export function MyForm() {
+      const handleSubmit = async (data: Record<string, unknown>) => {
+        // Handle form submission
+        console.log('Form submitted:', data);
+      };
+
+      return (
+        <WizardProvider
+          config={config}
+          fieldComponents={defaultFieldComponents}
+          onSubmit={handleSubmit}
+        >
+          <WizardContainer />
+        </WizardProvider>
+      );
+    }
+    ```
+
+    **3. Use the component in your page:**
+
+    ```tsx filename="app/contact/page.tsx"
+    import { MyForm } from '../components/MyForm';
+
+    export default function ContactPage() {
+      return (
+        <main>
+          <h1>Contact Us</h1>
+          <MyForm />
+        </main>
+      );
+    }
+    ```
+  </Tab>
+  <Tab>
+    ### Pages Router
+
+    **1. Import styles in your `_app.tsx`:**
+
+    ```tsx filename="pages/_app.tsx"
+    import 'better-form/styles';
+    import type { AppProps } from 'next/app';
+
+    export default function App({ Component, pageProps }: AppProps) {
+      return <Component {...pageProps} />;
+    }
+    ```
+
+    **2. Create your form component:**
+
+    ```tsx filename="components/MyForm.tsx"
+    import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+    import type { WizardConfig } from 'better-form';
+
+    const config: WizardConfig = {
+      id: 'contact-form',
+      steps: [
+        {
+          id: 'contact',
+          title: 'Contact Information',
+          fieldGroups: [
+            {
+              id: 'personal',
+              fields: [
+                {
+                  id: 'name',
+                  name: 'name',
+                  label: 'Full Name',
+                  type: 'text',
+                  validation: { required: true },
+                },
+                {
+                  id: 'email',
+                  name: 'email',
+                  label: 'Email Address',
+                  type: 'email',
+                  validation: { required: true },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    export function MyForm() {
+      const handleSubmit = async (data: Record<string, unknown>) => {
+        console.log('Form submitted:', data);
+      };
+
+      return (
+        <WizardProvider
+          config={config}
+          fieldComponents={defaultFieldComponents}
+          onSubmit={handleSubmit}
+        >
+          <WizardContainer />
+        </WizardProvider>
+      );
+    }
+    ```
+
+    **3. Use in your page:**
+
+    ```tsx filename="pages/contact.tsx"
+    import { MyForm } from '../components/MyForm';
+
+    export default function ContactPage() {
+      return (
+        <main>
+          <h1>Contact Us</h1>
+          <MyForm />
+        </main>
+      );
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Server Actions Integration
+
+You can combine better-form with Next.js Server Actions for form handling:
+
+```tsx filename="app/actions.ts"
+'use server';
+
+export async function submitForm(data: Record<string, unknown>) {
+  // Server-side form processing
+  // e.g., save to database, send email, etc.
+
+  return { success: true };
+}
+```
+
+```tsx filename="app/components/MyForm.tsx" {5,13-16}
+'use client';
+
+import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+import type { WizardConfig } from 'better-form';
+import { submitForm } from '../actions';
+
+// ... config ...
+
+export function MyForm() {
+  const handleSubmit = async (data: Record<string, unknown>) => {
+    const result = await submitForm(data);
+    if (result.success) {
+      // Redirect or show success message
+    }
+  };
+
+  return (
+    <WizardProvider
+      config={config}
+      fieldComponents={defaultFieldComponents}
+      onSubmit={handleSubmit}
+    >
+      <WizardContainer />
+    </WizardProvider>
+  );
+}
+```
+
+## With Plugins
+
+If using plugins like Google Places, import their styles too:
+
+```tsx filename="app/layout.tsx"
+import 'better-form/styles';
+import 'better-form-plugin-google-places/styles';
+```
+
+And configure the plugin in your form:
+
+```tsx filename="app/components/AddressForm.tsx"
+'use client';
+
+import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+import { googlePlacesPlugin } from 'better-form-plugin-google-places';
+
+// Enable the plugin
+const fieldComponents = {
+  ...defaultFieldComponents,
+  ...googlePlacesPlugin.components,
+};
+```
+
+## Troubleshooting
+
+### Hydration Errors
+
+If you encounter hydration errors, ensure your form component is marked with `"use client"` directive.
+
+### Styles Not Loading
+
+Make sure you're importing styles in the correct file:
+- **App Router**: `app/layout.tsx`
+- **Pages Router**: `pages/_app.tsx`
+
+### TypeScript Errors
+
+Ensure your `tsconfig.json` includes the necessary compiler options:
+
+```json filename="tsconfig.json"
+{
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "esModuleInterop": true
+  }
+}
+```

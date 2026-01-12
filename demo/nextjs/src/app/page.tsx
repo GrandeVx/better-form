@@ -103,6 +103,97 @@ const plugins = [
   },
 ];
 
+const frameworks = [
+  {
+    name: 'Next.js',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 180 180" fill="none">
+        <mask
+          id="mask0"
+          style={{ maskType: 'alpha' }}
+          maskUnits="userSpaceOnUse"
+          x="0"
+          y="0"
+          width="180"
+          height="180"
+        >
+          <circle cx="90" cy="90" r="90" fill="black" />
+        </mask>
+        <g mask="url(#mask0)">
+          <circle cx="90" cy="90" r="87" fill="black" stroke="currentColor" strokeWidth="6" />
+          <path
+            d="M149.508 157.52L69.142 54H54V125.97H66.1136V69.3836L139.999 164.845C143.333 162.614 146.509 160.165 149.508 157.52Z"
+            fill="url(#nextGradient1)"
+          />
+          <rect x="115" y="54" width="12" height="72" fill="url(#nextGradient2)" />
+        </g>
+        <defs>
+          <linearGradient id="nextGradient1" x1="109" y1="116.5" x2="144.5" y2="160.5" gradientUnits="userSpaceOnUse">
+            <stop stopColor="currentColor" />
+            <stop offset="1" stopColor="currentColor" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="nextGradient2" x1="121" y1="54" x2="120.799" y2="106.875" gradientUnits="userSpaceOnUse">
+            <stop stopColor="currentColor" />
+            <stop offset="1" stopColor="currentColor" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+      </svg>
+    ),
+    description: 'App Router & Pages Router',
+    href: '/getting-started/nextjs',
+  },
+  {
+    name: 'React',
+    icon: (
+      <svg width="32" height="32" viewBox="-11.5 -10.232 23 20.463">
+        <circle r="2.05" fill="currentColor" />
+        <g stroke="currentColor" fill="none" strokeWidth="1">
+          <ellipse rx="11" ry="4.2" />
+          <ellipse rx="11" ry="4.2" transform="rotate(60)" />
+          <ellipse rx="11" ry="4.2" transform="rotate(120)" />
+        </g>
+      </svg>
+    ),
+    description: 'Vite, CRA & custom setups',
+    href: '/getting-started/react',
+  },
+  {
+    name: 'Remix',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 800 800" fill="none">
+        <rect width="800" height="800" rx="100" fill="currentColor" fillOpacity="0.1" />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M587.947 527.768C592.201 582.418 592.201 608.036 592.201 636H465.756C465.756 633.035 465.879 630.232 466.003 627.416C466.414 618.041 466.834 608.455 464.717 590.911C461.443 562.298 448.281 554.328 420.004 554.328H331V636H211V289.4C211 262.6 232.6 241 259.4 241H422.947C514.753 241 562.013 286.298 562.013 354.82C562.013 406.103 530.347 437.768 491.34 448.983C525.627 459.653 555.173 488.235 587.947 527.768ZM331 459.328H408.443C444.623 459.328 464.717 441.503 464.717 408.793C464.717 373.835 444.623 358.258 408.443 358.258H331V459.328Z"
+          fill="currentColor"
+        />
+      </svg>
+    ),
+    description: 'Actions & Loaders',
+    href: '/getting-started/remix',
+  },
+  {
+    name: 'Astro',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 128 128">
+        <path
+          fill="currentColor"
+          d="M81.504 9.465c.973 1.207 1.469 2.836 2.457 6.09l21.656 71.136a90.079 90.079 0 00-25.89-8.765L65.629 30.28a1.833 1.833 0 00-3.52.004L48.18 77.902a90.104 90.104 0 00-26.003 8.778l21.758-71.14c.996-3.25 1.492-4.876 2.464-6.083a8.023 8.023 0 013.243-2.398c1.433-.575 3.136-.575 6.535-.575H71.72c3.402 0 5.105 0 6.543.579a7.988 7.988 0 013.242 2.402h-.001z"
+        />
+        <path
+          fill="currentColor"
+          fillOpacity="0.6"
+          d="M84.094 90.074c-3.57 3.054-10.696 5.137-18.903 5.137-10.07 0-18.515-3.137-20.754-7.356-.8 2.418-.98 5.184-.98 6.954 0 0-.527 8.675 5.508 14.71a5.671 5.671 0 015.672-5.671c5.37 0 5.367 4.683 5.363 8.488v.336c0 5.773 3.527 10.719 8.543 12.805a11.62 11.62 0 01-1.172-5.098c0-5.508 3.23-7.555 6.988-9.938 2.989-1.894 6.309-4 8.594-8.222a15.513 15.513 0 001.875-7.41 15.55 15.55 0 00-.734-4.735z"
+        />
+      </svg>
+    ),
+    description: 'React Islands',
+    href: '/getting-started/astro',
+    badge: 'Partial',
+  },
+];
+
 const features = [
   {
     icon: '{}',
@@ -261,6 +352,37 @@ export default function HomePage() {
                 <h3 className="mb-2 text-lg font-semibold">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground">{feature.description}</p>
               </SpotlightCard>
+            ))}
+          </div>
+        </section>
+
+        {/* Framework Support Section */}
+        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold sm:text-4xl">Works with your favorite framework</h2>
+            <p className="mx-auto max-w-2xl text-muted-foreground">
+              better-form integrates seamlessly with React-based frameworks. Choose your stack and get started in minutes.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {frameworks.map((framework) => (
+              <a
+                key={framework.name}
+                href={`${process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3001'}${framework.href}`}
+                className="group relative flex flex-col items-center rounded-xl border border-border bg-card p-6 text-center transition-all hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
+              >
+                {framework.badge && (
+                  <div className="absolute right-3 top-3 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+                    {framework.badge}
+                  </div>
+                )}
+                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-muted text-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
+                  {framework.icon}
+                </div>
+                <h3 className="mb-1 text-lg font-semibold">{framework.name}</h3>
+                <p className="text-sm text-muted-foreground">{framework.description}</p>
+              </a>
             ))}
           </div>
         </section>

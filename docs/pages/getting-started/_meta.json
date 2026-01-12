@@ -1,5 +1,13 @@
 {
   "installation": "Installation",
   "quick-start": "Quick Start",
-  "typescript": "TypeScript"
+  "typescript": "TypeScript",
+  "---": {
+    "type": "separator",
+    "title": "Frameworks"
+  },
+  "nextjs": "Next.js",
+  "react": "React",
+  "remix": "Remix",
+  "astro": "Astro"
 }

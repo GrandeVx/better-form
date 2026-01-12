@@ -3,6 +3,7 @@ title: better-form
 ---
 
 import { Callout, Cards, Card } from 'nextra/components'
+import { FrameworkCard, FrameworkGrid } from '../components/FrameworkCard'
 
 # better-form
 
@@ -62,6 +63,17 @@ export default function MyForm() {
   );
 }
 ```
+
+## Works With
+
+better-form integrates seamlessly with popular React frameworks:
+
+<FrameworkGrid>
+  <FrameworkCard icon="nextjs" name="Next.js" href="/getting-started/nextjs" />
+  <FrameworkCard icon="react" name="React" href="/getting-started/react" />
+  <FrameworkCard icon="remix" name="Remix" href="/getting-started/remix" />
+  <FrameworkCard icon="astro" name="Astro" href="/getting-started/astro" badge="React islands" />
+</FrameworkGrid>
 
 <Cards>
   <Card title="Getting Started" href="/getting-started/installation" />

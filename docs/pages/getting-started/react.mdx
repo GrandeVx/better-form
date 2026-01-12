@@ -1,0 +1,414 @@
+---
+title: React
+description: How to use better-form with React (Vite, Create React App, and other setups)
+---
+
+import { Callout, Tabs, Tab } from 'nextra/components';
+
+# React
+
+better-form works with any React setup including Vite, Create React App, and custom configurations.
+
+## Installation
+
+```bash npm2yarn
+npm install better-form
+```
+
+## Setup
+
+<Tabs items={['Vite', 'Create React App']}>
+  <Tab>
+    ### Vite
+
+    **1. Import styles in your main entry file:**
+
+    ```tsx filename="src/main.tsx"
+    import React from 'react';
+    import ReactDOM from 'react-dom/client';
+    import 'better-form/styles';
+    import App from './App';
+    import './index.css';
+
+    ReactDOM.createRoot(document.getElementById('root')!).render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
+    ```
+
+    **2. Create your form component:**
+
+    ```tsx filename="src/components/ContactForm.tsx"
+    import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+    import type { WizardConfig } from 'better-form';
+
+    const config: WizardConfig = {
+      id: 'contact-form',
+      steps: [
+        {
+          id: 'step-1',
+          title: 'Your Details',
+          fieldGroups: [
+            {
+              id: 'personal',
+              fields: [
+                {
+                  id: 'name',
+                  name: 'name',
+                  label: 'Full Name',
+                  type: 'text',
+                  validation: { required: true },
+                },
+                {
+                  id: 'email',
+                  name: 'email',
+                  label: 'Email',
+                  type: 'email',
+                  validation: { required: true },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: 'step-2',
+          title: 'Message',
+          fieldGroups: [
+            {
+              id: 'message',
+              fields: [
+                {
+                  id: 'subject',
+                  name: 'subject',
+                  label: 'Subject',
+                  type: 'text',
+                },
+                {
+                  id: 'message',
+                  name: 'message',
+                  label: 'Your Message',
+                  type: 'textarea',
+                  validation: { required: true },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    export function ContactForm() {
+      const handleSubmit = async (data: Record<string, unknown>) => {
+        console.log('Form data:', data);
+        // Send to your API
+      };
+
+      return (
+        <WizardProvider
+          config={config}
+          fieldComponents={defaultFieldComponents}
+          onSubmit={handleSubmit}
+        >
+          <WizardContainer />
+        </WizardProvider>
+      );
+    }
+    ```
+
+    **3. Use in your App:**
+
+    ```tsx filename="src/App.tsx"
+    import { ContactForm } from './components/ContactForm';
+
+    function App() {
+      return (
+        <div className="container">
+          <h1>Contact Us</h1>
+          <ContactForm />
+        </div>
+      );
+    }
+
+    export default App;
+    ```
+  </Tab>
+  <Tab>
+    ### Create React App
+
+    **1. Import styles in your index file:**
+
+    ```tsx filename="src/index.tsx"
+    import React from 'react';
+    import ReactDOM from 'react-dom/client';
+    import 'better-form/styles';
+    import App from './App';
+    import './index.css';
+
+    const root = ReactDOM.createRoot(
+      document.getElementById('root') as HTMLElement
+    );
+    root.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
+    ```
+
+    **2. Create your form component:**
+
+    ```tsx filename="src/components/ContactForm.tsx"
+    import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+    import type { WizardConfig } from 'better-form';
+
+    const config: WizardConfig = {
+      id: 'contact-form',
+      steps: [
+        {
+          id: 'step-1',
+          title: 'Contact',
+          fieldGroups: [
+            {
+              id: 'info',
+              fields: [
+                {
+                  id: 'name',
+                  name: 'name',
+                  label: 'Name',
+                  type: 'text',
+                  validation: { required: true },
+                },
+                {
+                  id: 'email',
+                  name: 'email',
+                  label: 'Email',
+                  type: 'email',
+                  validation: { required: true },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    export function ContactForm() {
+      const handleSubmit = async (data: Record<string, unknown>) => {
+        console.log('Submitted:', data);
+      };
+
+      return (
+        <WizardProvider
+          config={config}
+          fieldComponents={defaultFieldComponents}
+          onSubmit={handleSubmit}
+        >
+          <WizardContainer />
+        </WizardProvider>
+      );
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Multi-Step Form Example
+
+Here's a complete multi-step form example:
+
+```tsx filename="src/components/RegistrationForm.tsx"
+import { WizardProvider, WizardContainer, defaultFieldComponents } from 'better-form';
+import type { WizardConfig } from 'better-form';
+
+const registrationConfig: WizardConfig = {
+  id: 'registration',
+  steps: [
+    {
+      id: 'account',
+      title: 'Account',
+      description: 'Create your account credentials',
+      fieldGroups: [
+        {
+          id: 'credentials',
+          fields: [
+            {
+              id: 'email',
+              name: 'email',
+              label: 'Email Address',
+              type: 'email',
+              placeholder: 'you@example.com',
+              validation: { required: true },
+            },
+            {
+              id: 'password',
+              name: 'password',
+              label: 'Password',
+              type: 'password',
+              validation: {
+                required: true,
+                minLength: 8,
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'profile',
+      title: 'Profile',
+      description: 'Tell us about yourself',
+      fieldGroups: [
+        {
+          id: 'personal',
+          fields: [
+            {
+              id: 'firstName',
+              name: 'firstName',
+              label: 'First Name',
+              type: 'text',
+              validation: { required: true },
+            },
+            {
+              id: 'lastName',
+              name: 'lastName',
+              label: 'Last Name',
+              type: 'text',
+              validation: { required: true },
+            },
+            {
+              id: 'bio',
+              name: 'bio',
+              label: 'Bio',
+              type: 'textarea',
+              placeholder: 'Tell us about yourself...',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'preferences',
+      title: 'Preferences',
+      description: 'Customize your experience',
+      fieldGroups: [
+        {
+          id: 'settings',
+          fields: [
+            {
+              id: 'newsletter',
+              name: 'newsletter',
+              label: 'Subscribe to newsletter',
+              type: 'checkbox',
+            },
+            {
+              id: 'theme',
+              name: 'theme',
+              label: 'Preferred Theme',
+              type: 'select',
+              options: [
+                { value: 'light', label: 'Light' },
+                { value: 'dark', label: 'Dark' },
+                { value: 'system', label: 'System' },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export function RegistrationForm() {
+  const handleSubmit = async (data: Record<string, unknown>) => {
+    // Send registration data to your API
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      // Handle success
+      window.location.href = '/dashboard';
+    }
+  };
+
+  return (
+    <WizardProvider
+      config={registrationConfig}
+      fieldComponents={defaultFieldComponents}
+      onSubmit={handleSubmit}
+    >
+      <WizardContainer />
+    </WizardProvider>
+  );
+}
+```
+
+## Custom Styling
+
+You can customize the look and feel using CSS variables:
+
+```css filename="src/index.css"
+:root {
+  --bf-primary: #3b82f6;
+  --bf-primary-hover: #2563eb;
+  --bf-border-radius: 8px;
+  --bf-font-family: 'Inter', sans-serif;
+}
+```
+
+See the [Styling Guide](/core-concepts/styling) for more customization options.
+
+## With React Router
+
+```tsx filename="src/App.tsx"
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ContactForm } from './components/ContactForm';
+import { RegistrationForm } from './components/RegistrationForm';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/contact" element={<ContactForm />} />
+        <Route path="/register" element={<RegistrationForm />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+## Troubleshooting
+
+### Module Not Found
+
+Ensure you have the correct import paths:
+
+```tsx
+// Correct
+import { WizardProvider } from 'better-form';
+
+// Incorrect
+import { WizardProvider } from 'better-form/dist';
+```
+
+### Styles Not Appearing
+
+1. Make sure you import styles before your component CSS
+2. Check that the import path is correct: `'better-form/styles'`
+
+### TypeScript Configuration
+
+For best TypeScript support, ensure your `tsconfig.json` has:
+
+```json filename="tsconfig.json"
+{
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "strict": true
+  }
+}
+```

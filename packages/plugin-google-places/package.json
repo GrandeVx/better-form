@@ -1,6 +1,6 @@
 {
   "name": "@better-form/plugin-google-places",
-  "version": "0.1.0",
+  "version": "1.0.0-beta.0",
   "description": "Google Places address autocomplete plugin for better-form",
   "author": "GrandeVx",
   "license": "MIT",
@@ -14,13 +14,22 @@
     "./styles": "./src/styles/plugin.css",
     "./styles/plugin.css": "./src/styles/plugin.css"
   },
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "typesVersions": {
     "*": {
-      "*": ["./dist/index.d.mts"]
+      "*": [
+        "./dist/index.d.mts"
+      ]
     }
   },
-  "files": ["dist", "src/styles", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "src/styles",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",

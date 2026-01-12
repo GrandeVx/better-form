@@ -3,15 +3,17 @@ FROM node:20-alpine AS base
 # Install pnpm
 RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
 
+# Install dependencies only when needed
 FROM base AS deps
 WORKDIR /app
 
 # Copy package files
-COPY package.json pnpm-lock.yaml* ./
+COPY package.json ./
 
-# Install dependencies
-RUN pnpm install --frozen-lockfile || pnpm install
+# Generate lock file and install dependencies
+RUN pnpm install
 
+# Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
 
@@ -19,28 +21,33 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Build the application
+# Environment variables for build
+ARG NEXT_PUBLIC_DEMO_URL
+ENV NEXT_PUBLIC_DEMO_URL=$NEXT_PUBLIC_DEMO_URL
 ENV NEXT_TELEMETRY_DISABLED=1
+
+# Build the application
 RUN pnpm build
 
+# Production image
 FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Create non-root user
+# Create non-root user for security
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 # Copy public folder
 COPY --from=builder /app/public ./public
 
-# Set the correct permission for prerender cache
+# Set correct permissions for prerender cache
 RUN mkdir .next
 RUN chown nextjs:nodejs .next
 
-# Copy standalone build
+# Copy standalone build output
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
