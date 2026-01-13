@@ -1,31 +1,31 @@
 # Custom UI Integration
 
-Guida per integrare better-form con la tua UI library (shadcn/ui, Chakra, Mantine, etc.)
+Guide to integrate better-form with your UI library (shadcn/ui, Chakra, Mantine, etc.)
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  better-form e progettato per funzionare sia out-of-the-box che con UI library custom. Puoi sostituire qualsiasi componente mantenendo tutta la logica di validazione e navigazione.
+  better-form is designed to work both out-of-the-box and with custom UI libraries. You can replace any component while keeping all validation and navigation logic.
 </Callout>
 
-## Livelli di Customizzazione
+## Customization Levels
 
-| Approccio | Use Case | Complessita |
-|-----------|----------|-------------|
-| **Default Components** | Vuoi usare better-form out-of-the-box | Bassa |
-| **Custom Field Components** | Vuoi cambiare solo i campi | Media |
-| **Custom Structural Components** | Vuoi cambiare navigation/step indicator | Media |
-| **Full Headless** | Vuoi controllo totale su tutta la UI | Alta |
+| Approach | Use Case | Complexity |
+|----------|----------|------------|
+| **Default Components** | Use better-form out-of-the-box | Low |
+| **Custom Field Components** | Replace only field inputs | Medium |
+| **Custom Structural Components** | Replace navigation/step indicator | Medium |
+| **Full Headless** | Complete control over all UI | High |
 
 ---
 
 ## 1. Custom Field Components (shadcn/ui)
 
-Il modo piu comune per integrare la tua UI library e sostituire i field components.
+The most common way to integrate your UI library is to replace field components.
 
-### Pattern "Full Field Component"
+### "Full Field Component" Pattern
 
-Ogni field component include label, input, error e helper text:
+Each field component includes label, input, error, and helper text:
 
 ```tsx
 // components/fields/TextField.tsx
@@ -72,13 +72,13 @@ export function TextField({
 }
 ```
 
-### Registrazione Field Components
+### Registering Field Components
 
 ```tsx
 import { WizardProvider } from '@better_form/core';
 import { TextField } from '@/components/fields/TextField';
 import { SelectField } from '@/components/fields/SelectField';
-// ... altri field
+// ... other fields
 
 const myFieldComponents = {
   text: TextField,
@@ -86,19 +86,19 @@ const myFieldComponents = {
   tel: TextField,
   select: SelectField,
   boolean: BooleanField,
-  // ... tutti i tipi che usi
+  // ... all types you use
 };
 
 function MyForm({ config }) {
   return (
     <WizardProvider config={config} fieldComponents={myFieldComponents}>
-      {/* Il tuo custom container */}
+      {/* Your custom container */}
     </WizardProvider>
   );
 }
 ```
 
-### Esempio SelectField con shadcn/ui
+### SelectField Example with shadcn/ui
 
 ```tsx
 // components/fields/SelectField.tsx
@@ -134,7 +134,7 @@ export function SelectField({
         disabled={disabled}
       >
         <SelectTrigger className={error ? 'border-destructive' : ''}>
-          <SelectValue placeholder={field.placeholder || 'Seleziona...'} />
+          <SelectValue placeholder={field.placeholder || 'Select...'} />
         </SelectTrigger>
         <SelectContent>
           {field.options?.map((option) => (
@@ -159,9 +159,9 @@ export function SelectField({
 
 ## 2. Full Headless Mode
 
-Per controllo totale, usa solo `WizardProvider` + `useWizard` e costruisci la tua UI.
+For complete control, use only `WizardProvider` + `useWizard` and build your own UI.
 
-### Struttura Base
+### Basic Structure
 
 ```tsx
 import { WizardProvider, useWizard } from '@better_form/core';
@@ -175,10 +175,10 @@ function MyForm({ config, fieldComponents }) {
   );
 }
 
-// Il tuo container custom
+// Your custom container
 function MyWizardContainer() {
   const {
-    // Stato
+    // State
     currentStep,
     visibleSteps,
     visibleCurrentStepIndex,
@@ -187,7 +187,7 @@ function MyWizardContainer() {
     isSubmitting,
     canProceed,
 
-    // Navigazione
+    // Navigation
     nextStep,
     previousStep,
     goToStep,
@@ -207,7 +207,7 @@ function MyWizardContainer() {
 
   return (
     <div className="my-custom-wizard">
-      {/* Step Indicator Custom */}
+      {/* Custom Step Indicator */}
       <MyStepIndicator
         steps={visibleSteps}
         currentIndex={visibleCurrentStepIndex}
@@ -239,22 +239,22 @@ function MyWizardContainer() {
         })}
       </div>
 
-      {/* Navigation Custom */}
+      {/* Custom Navigation */}
       <div className="navigation flex justify-between mt-8">
         {!isFirstStep && (
           <Button variant="outline" onClick={previousStep}>
-            Indietro
+            Back
           </Button>
         )}
 
         <div className="ml-auto">
           {isLastStep ? (
             <Button onClick={submit} disabled={!canProceed || isSubmitting}>
-              {isSubmitting ? 'Invio...' : 'Invia'}
+              {isSubmitting ? 'Submitting...' : 'Submit'}
             </Button>
           ) : (
             <Button onClick={nextStep} disabled={!canProceed}>
-              Avanti
+              Next
             </Button>
           )}
         </div>
@@ -266,19 +266,19 @@ function MyWizardContainer() {
 
 ---
 
-## 3. Esempio Completo: shadcn/ui Integration
+## 3. Complete Example: shadcn/ui Integration
 
 ### File Structure
 
 ```
 components/
 ├── wizard/
-│   ├── WizardContainer.tsx      # Container principale
-│   ├── WizardStep.tsx           # Renderer step
-│   ├── WizardNavigation.tsx     # Bottoni navigazione
-│   ├── WizardStepIndicator.tsx  # Indicatore step
+│   ├── WizardContainer.tsx      # Main container
+│   ├── WizardStep.tsx           # Step renderer
+│   ├── WizardNavigation.tsx     # Navigation buttons
+│   ├── WizardStepIndicator.tsx  # Step indicator
 │   └── fields/
-│       ├── index.ts             # Export tutti i fields
+│       ├── index.ts             # Export all fields
 │       ├── TextField.tsx
 │       ├── SelectField.tsx
 │       ├── BooleanField.tsx
@@ -345,37 +345,37 @@ function MyPage() {
 
 ## 4. useWizard Hook Reference
 
-L'hook `useWizard` espone tutto lo stato e le azioni del wizard:
+The `useWizard` hook exposes all wizard state and actions:
 
 ```tsx
 const {
-  // === Configurazione ===
-  config,              // WizardConfig originale
-  theme,               // Tema corrente
-  fieldComponents,     // Registry field components
+  // === Configuration ===
+  config,              // Original WizardConfig
+  theme,               // Current theme
+  fieldComponents,     // Field components registry
 
-  // === Stato ===
-  state,               // Stato completo (WizardState)
-  formData,            // Dati form (alias di state.formData)
-  errors,              // Errori validazione
-  touched,             // Campi toccati
-  isLoading,           // Caricamento in corso
-  isSubmitting,        // Submit in corso
-  isDirty,             // Form modificato
+  // === State ===
+  state,               // Complete state (WizardState)
+  formData,            // Form data (alias of state.formData)
+  errors,              // Validation errors
+  touched,             // Touched fields
+  isLoading,           // Loading in progress
+  isSubmitting,        // Submit in progress
+  isDirty,             // Form has been modified
 
   // === Step ===
-  currentStep,         // Step corrente (WizardStep)
-  visibleSteps,        // Array step visibili (con originalIndex)
-  visibleCurrentStepIndex,  // Indice step corrente tra i visibili
+  currentStep,         // Current step (WizardStep)
+  visibleSteps,        // Array of visible steps (with originalIndex)
+  visibleCurrentStepIndex,  // Current step index among visible steps
 
-  // === Navigazione ===
-  nextStep,            // () => Promise<boolean> - Vai avanti
-  previousStep,        // () => void - Vai indietro
-  goToStep,            // (index: number) => void - Vai a step specifico
-  submit,              // () => Promise<void> - Invia form
+  // === Navigation ===
+  nextStep,            // () => Promise<boolean> - Go forward
+  previousStep,        // () => void - Go back
+  goToStep,            // (index: number) => void - Go to specific step
+  submit,              // () => Promise<void> - Submit form
 
-  // === Validazione ===
-  canProceed,          // boolean - Puo procedere al passo successivo
+  // === Validation ===
+  canProceed,          // boolean - Can proceed to next step
   validateField,       // (fieldId: string) => boolean
   validateStep,        // (stepIndex?: number) => boolean
 
@@ -398,28 +398,28 @@ const {
 
 ## 5. FieldComponentProps Reference
 
-Ogni field component riceve queste props:
+Each field component receives these props:
 
 ```typescript
 interface FieldComponentProps {
-  // Configurazione campo
+  // Field configuration
   field: WizardField;
 
-  // Valore e handlers
+  // Value and handlers
   value: unknown;
   onChange: (value: unknown) => void;
   onBlur?: () => void;
 
-  // Stato
+  // State
   error?: string;
   disabled?: boolean;
   required?: boolean;
 
-  // Contesto
+  // Context
   formData: Record<string, unknown>;
 }
 
-// WizardField contiene:
+// WizardField contains:
 interface WizardField {
   id: string;
   name: string;
@@ -441,7 +441,7 @@ interface WizardField {
   transform?: TextTransform;
   suffix?: string;
   prefix?: string;
-  // ... e altro
+  // ... and more
 }
 ```
 
@@ -449,57 +449,57 @@ interface WizardField {
 
 ## Tips
 
-### Non importare gli stili default
+### Skip Default Styles
 
-Se usi UI custom al 100%, non importare `@better_form/core/styles`:
+If using 100% custom UI, don't import `@better_form/core/styles`:
 
 ```tsx
-// Non necessario se usi full custom
+// Not needed if using full custom
 // import '@better_form/core/styles';
 
-// Solo quello che serve
+// Only what you need
 import { WizardProvider, useWizard } from '@better_form/core';
 ```
 
-### Gestire la visibilita dei campi
+### Handling Field Visibility
 
-I field nascosti (via `showIf`/`hideIf`) non sono inclusi in `getVisibleFields()`. La validazione li salta automaticamente.
+Hidden fields (via `showIf`/`hideIf`) are not included in `getVisibleFields()`. Validation skips them automatically.
 
 ```tsx
-// getVisibleFields() ritorna solo campi visibili
+// getVisibleFields() returns only visible fields
 const visibleFields = getVisibleFields();
 
-// Per controllare un campo specifico
+// To check a specific field
 const isVisible = isFieldVisible(field);
 const isDisabled = isFieldDisabled(field);
 ```
 
-### Callbacks onChange
+### onChange Callbacks
 
-Se il tuo field ha logica `onChange` nel config, better-form la gestisce automaticamente quando chiami `setFieldValue`.
+If your field has `onChange` logic in the config, better-form handles it automatically when you call `setFieldValue`.
 
 ```tsx
-// Nel config
+// In config
 {
   name: 'country',
   type: 'select',
   onChange: async (value, formData) => {
-    // Questo viene chiamato automaticamente
+    // This is called automatically
     const provinces = await fetchProvinces(value);
     return { provinces: provinces };
   }
 }
 
-// Nel tuo component - basta chiamare setFieldValue
+// In your component - just call setFieldValue
 <SelectField
   onChange={(val) => setFieldValue('country', val)}
 />
-// better-form esegue automaticamente la callback del config
+// better-form automatically executes the config callback
 ```
 
-### Rendering condizionale dei FieldGroup
+### Conditional FieldGroup Rendering
 
-Puoi anche renderizzare i fieldGroups manualmente:
+You can also render fieldGroups manually:
 
 ```tsx
 function MyWizardStep() {

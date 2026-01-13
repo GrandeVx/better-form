@@ -8,8 +8,5 @@
     "@better_form/plugin-google-places": "0.1.0",
     "@better_form/website": "0.1.0"
   },
-  "changesets": [
-    "auto-generate-field-id",
-    "initial-beta-release"
-  ]
+  "changesets": ["auto-generate-field-id", "initial-beta-release"]
 }

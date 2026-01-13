@@ -14,22 +14,13 @@
     "./styles": "./src/styles/plugin.css",
     "./styles/plugin.css": "./src/styles/plugin.css"
   },
-  "sideEffects": [
-    "**/*.css"
-  ],
+  "sideEffects": ["**/*.css"],
   "typesVersions": {
     "*": {
-      "*": [
-        "./dist/index.d.mts"
-      ]
+      "*": ["./dist/index.d.mts"]
     }
   },
-  "files": [
-    "dist",
-    "src/styles",
-    "README.md",
-    "LICENSE"
-  ],
+  "files": ["dist", "src/styles", "README.md", "LICENSE"],
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
