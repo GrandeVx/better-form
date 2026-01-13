@@ -1,5 +1,12 @@
 # @better_form/plugin-google-places
 
+## 1.0.0-beta.1
+
+### Patch Changes
+
+- Updated dependencies
+  - @better_form/core@0.2.0-beta.1
+
 ## 1.0.0-beta.0
 
 ### Minor Changes

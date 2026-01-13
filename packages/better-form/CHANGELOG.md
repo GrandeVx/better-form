@@ -1,5 +1,15 @@
 # @better_form/core
 
+## 0.2.0-beta.1
+
+### Minor Changes
+
+- Auto-generate field ID from name
+
+  - Fields now automatically get their `id` set from `name` if not explicitly provided
+  - Improves DX by allowing users to only specify `name` in field configuration
+  - Fix: Handle title object in metadata to prevent [object Object] display
+
 ## 0.2.0-beta.0
 
 ### Minor Changes
