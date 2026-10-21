@@ -1,4 +1,12 @@
-FROM node:20-alpine AS base
+FROM node:24.22.0-alpine AS base
+RUN test "$(apk --print-arch)" = "x86_64" \
+ && apk add --no-cache --virtual .node-patch curl xz \
+ && curl -fsSLo /tmp/node.tar.xz https://nodejs.org/dist/v24.22.1/node-v24.22.1-linux-x64-musl.tar.xz \
+ && echo "b83b6d679e4bf1128c8e9e982f3e64cd8badaddf1e38613aa36f93186395f9fa  /tmp/node.tar.xz" | sha256sum -c - \
+ && tar -xJf /tmp/node.tar.xz -C /usr/local --strip-components=1 \
+ && rm /tmp/node.tar.xz \
+ && apk del .node-patch \
+ && test "$(node --version)" = "v24.22.1"
 
 RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
 
